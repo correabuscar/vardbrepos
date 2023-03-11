@@ -1,0 +1,15 @@
+BDEPEND=|| ( dev-lang/vala:0.56 ) >=dev-util/intltool-0.21 virtual/pkgconfig >=app-portage/elt-patches-20170815 app-arch/xz-utils
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare
+DEPEND=dev-libs/gdl:3 dev-libs/glib:2 dev-libs/libxml2:2 >=media-libs/clutter-gtk-1.4.0:1.0 >=media-libs/libchamplain-0.12.3:0.12[gtk] x11-libs/gtk+:3 dev-util/desktop-file-utils x11-misc/shared-mime-info
+DESCRIPTION=Simple program to visualize a gpx file
+EAPI=7
+HOMEPAGE=https://github.com/DaveDavenport/gpx-viewer
+INHERIT=gnome2 vala
+IUSE=nls
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=dev-libs/gdl:3 dev-libs/glib:2 dev-libs/libxml2:2 >=media-libs/clutter-gtk-1.4.0:1.0 >=media-libs/libchamplain-0.12.3:0.12[gtk] x11-libs/gtk+:3
+SLOT=0
+SRC_URI=https://edge.launchpad.net/gpx-viewer/trunk/0.4.0/+download/gpx-viewer-0.4.0.tar.gz
+_eclasses_=gnome.org	429073e99d7067d3462e875bf5c6e14a	gnome2	8dcac7a0c320f92299160b297d4fec6f	gnome2-utils	3eaa1386ddbbbbb3951256d4b170fba3	libtool	241a8f577b9781a42a7421e53448a44e	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	vala	2633382950a3a9ce912c9258150d5db8	xdg	6024fbc93167fad782e2032933654857	xdg-utils	ac0e315a3688929e34ac75b139e7349a
+_md5_=8cb400c6308ec05045b4e3cb675d2baf

@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=Polish speech synthesizer based on rsynth
+EAPI=7
+HOMEPAGE=http://kadu.net/index.php?page=download&lang=en
+INHERIT=desktop toolchain-funcs
+KEYWORDS=amd64 ppc ~sparc x86
+LICENSE=GPL-1
+SLOT=0
+SRC_URI=http://kadu.net/download/additions/powiedz-1.0.tgz
+_eclasses_=desktop	021728fdc1b03b36357dbc89489e0f0d	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b
+_md5_=e128ed95576b3a0071fc40d37a1789e5

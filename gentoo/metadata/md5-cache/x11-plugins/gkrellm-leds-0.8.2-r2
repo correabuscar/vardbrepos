@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) >=sys-devel/autoconf-2.71-r5 >=sys-devel/libtool-2.4.7 virtual/pkgconfig
+DEFINED_PHASES=install prepare
+DEPEND=app-admin/gkrellm:2[X] x11-libs/libXtst x11-base/xorg-proto
+DESCRIPTION=GKrellM2 plugin for monitoring keyboard LEDs
+EAPI=8
+HOMEPAGE=http://heim.ifi.uio.no/~oyvinha/gkleds/
+INHERIT=autotools gkrellm-plugin multilib
+KEYWORDS=~alpha amd64 ~ppc ~sparc x86
+LICENSE=GPL-2
+RDEPEND=app-admin/gkrellm:2[X] x11-libs/libXtst
+SLOT=2
+SRC_URI=http://heim.ifi.uio.no/~oyvinha/e107_files/downloads/gkleds-0.8.2.tar.gz
+_eclasses_=autotools	6dcd6b6a486e79928e1243ff9ba41fcc	gkrellm-plugin	4bb5351093aa148dc0326e9f9bcd1cf7	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	241a8f577b9781a42a7421e53448a44e	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b
+_md5_=cd1b1ba9680abbed15e85ef5a62a887a

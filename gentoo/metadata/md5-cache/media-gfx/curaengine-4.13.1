@@ -1,0 +1,16 @@
+BDEPEND=doc? ( app-doc/doxygen ) >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=arcus? ( ~dev-libs/libarcus-4.13.1:* dev-libs/protobuf:= ) dev-libs/clipper dev-libs/rapidjson dev-libs/stb test? ( dev-cpp/gtest )
+DESCRIPTION=A 3D model slicing engine for 3D printing
+EAPI=8
+HOMEPAGE=https://github.com/Ultimaker/CuraEngine
+INHERIT=cmake
+IUSE=+arcus doc openmp test
+KEYWORDS=amd64 ~arm64 ~x86
+LICENSE=AGPL-3
+RDEPEND=arcus? ( ~dev-libs/libarcus-4.13.1:* dev-libs/protobuf:= ) dev-libs/clipper dev-libs/rapidjson dev-libs/stb
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/Ultimaker/CuraEngine/archive/4.13.1.tar.gz -> curaengine-4.13.1.tar.gz
+_eclasses_=cmake	449b4785acace35308fe747fc939bde1	flag-o-matic	69394e25812406faa1f90edaf4969395	multilib	5ca4e49abed8e3a2f7b56920eadee157	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	38c85b725d0467e51954ea921b6c104b	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	xdg-utils	ac0e315a3688929e34ac75b139e7349a
+_md5_=b1166f4a64ff2adf2afed5bb2a659858
