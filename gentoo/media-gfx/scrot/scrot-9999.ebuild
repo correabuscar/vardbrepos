@@ -11,7 +11,7 @@ if [[ ${PV} == *9999* ]] ; then
 	EGIT_REPO_URI="https://github.com/resurrecting-open-source-projects/${PN}"
 	inherit autotools git-r3
 else
-	SRC_URI="https://github.com/resurrecting-open-source-projects/${PN}/releases/download/${PV}/${P}.tar.gz"
+	SRC_URI="https://github.com/resurrecting-open-source-projects/${PN}/releases/download/${PV}/${P}.tar.bz2"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86"
 fi
 
@@ -21,7 +21,7 @@ SLOT="0"
 # imlib2[X] needed for imlib_create_image_from_drawable, bug #835582
 RDEPEND="
 	dev-libs/libbsd
-	media-libs/imlib2[X]
+	media-libs/imlib2[X,filters(+),text(+)]
 	x11-libs/libXext
 	x11-libs/libX11
 	x11-libs/libXcomposite

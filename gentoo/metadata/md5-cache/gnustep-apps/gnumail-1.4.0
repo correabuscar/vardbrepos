@@ -1,0 +1,15 @@
+BDEPEND=>=gnustep-base/gnustep-make-2.0
+DEFINED_PHASES=compile configure install postinst prepare setup
+DEPEND=>=gnustep-base/gnustep-gui-0.11.0 =gnustep-libs/pantomime-1.4* gnustep-apps/addresses virtual/gnustep-back
+DESCRIPTION=A fully featured mail application for GNUstep
+EAPI=8
+HOMEPAGE=http://www.nongnu.org/gnustep-nonfsf/gnumail/
+INHERIT=gnustep-2
+IUSE=crypt debug doc
+KEYWORDS=~amd64 ~ppc ~x86
+LICENSE=GPL-2
+RDEPEND=crypt? ( app-crypt/gnupg ) virtual/gnustep-back
+SLOT=0
+SRC_URI=mirror://nongnu/gnustep-nonfsf/GNUMail-1.4.0.tar.gz
+_eclasses_=flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	gnustep-2	191cacca9e01ae0fe9b898b09e4555b8	gnustep-base	0f0e8f7274aa8dcc1733e190ad12cd81	multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
+_md5_=71fecd3c9b4957fe7168c2152e9b6b03

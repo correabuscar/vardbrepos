@@ -4,7 +4,8 @@
 EAPI=8
 
 LUA_COMPAT=( lua5-{1..2} )
-PYTHON_COMPAT=( python3_{9..10} )
+# TODO: check cmake/modules/UseAsn2Wrs.cmake for 3.12
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit fcaps flag-o-matic lua-single python-any-r1 qmake-utils xdg cmake
 
@@ -35,6 +36,8 @@ REQUIRED_USE="
 	lua? ( ${LUA_REQUIRED_USE} )
 "
 
+# Tests restricted for now because rely on pytest internals w/ >=3.11
+# See bug #897078 and https://gitlab.com/wireshark/wireshark/-/issues/18740.
 RESTRICT="!test? ( test )"
 
 # bug #753062 for speexdsp
@@ -79,7 +82,7 @@ RDEPEND="
 	sbc? ( media-libs/sbc )
 	sdjournal? ( sys-apps/systemd:= )
 	smi? ( net-libs/libsmi )
-	snappy? ( app-arch/snappy )
+	snappy? ( app-arch/snappy:= )
 	spandsp? ( media-libs/spandsp:= )
 	sshdump? ( >=net-libs/libssh-0.6:= )
 	ssl? ( >=net-libs/gnutls-3.5.8:= )

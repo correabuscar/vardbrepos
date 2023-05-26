@@ -39,7 +39,7 @@ REQUIRED_USE="
 "
 
 RDEPEND="
-	>=dev-libs/libinput-0.8.0
+	>=dev-libs/libinput-1.2.0
 	>=dev-libs/wayland-1.20.0
 	media-libs/libpng:0=
 	sys-auth/seatd:=
@@ -66,8 +66,8 @@ RDEPEND="
 	)
 	systemd? ( sys-apps/systemd )
 	vnc? (
-		=dev-libs/aml-0.2*
-		=gui-libs/neatvnc-0.5*
+		=dev-libs/aml-0.3*
+		=gui-libs/neatvnc-0.6*
 		sys-libs/pam
 	)
 	webp? ( media-libs/libwebp:0= )
@@ -80,6 +80,7 @@ RDEPEND="
 		x11-libs/cairo[X,xcb(+)]
 		>=x11-libs/libxcb-1.9
 		x11-libs/libXcursor
+		>=x11-libs/xcb-util-cursor-0.1.4
 	)
 "
 DEPEND="${RDEPEND}
@@ -96,6 +97,7 @@ src_configure() {
 		$(meson_use drm backend-drm)
 		-Dbackend-drm-screencast-vaapi=false
 		$(meson_use headless backend-headless)
+		$(meson_use pipewire backend-pipewire)
 		$(meson_use rdp backend-rdp)
 		$(meson_use screen-sharing screenshare)
 		$(meson_use vnc backend-vnc)

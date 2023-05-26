@@ -24,7 +24,7 @@ S=${WORKDIR}/${P/_/}
 
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~amd64 ~arm arm64 ~hppa ~ia64 ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
 IUSE="doc full-support minimal test X"
 RESTRICT="!test? ( test )"
 
@@ -68,12 +68,15 @@ OPTIONAL_DEPEND="
 		)
 	)
 "
-COMMON_DEPEND="
+DEPEND="
 	>=dev-python/numpy-1.21.0[${PYTHON_USEDEP}]
+"
+COMMON_DEPEND="
+	${DEPEND}
 	>=dev-python/python-dateutil-2.8.1-r3[${PYTHON_USEDEP}]
 	>=dev-python/pytz-2020.1[${PYTHON_USEDEP}]
 "
-DEPEND="
+BDEPEND="
 	${COMMON_DEPEND}
 	>=dev-python/cython-0.29.32[${PYTHON_USEDEP}]
 	doc? (

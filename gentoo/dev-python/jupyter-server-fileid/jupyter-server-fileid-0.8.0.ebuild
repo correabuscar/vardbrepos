@@ -17,16 +17,16 @@ HOMEPAGE="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	dev-python/jupyter_server[${PYTHON_USEDEP}]
-	~dev-python/jupyter_events-0.5.0[${PYTHON_USEDEP}]
+	dev-python/jupyter-server[${PYTHON_USEDEP}]
+	~dev-python/jupyter-events-0.5.0[${PYTHON_USEDEP}]
 "
 
 BDEPEND="
 	test? (
-		dev-python/pytest_jupyter[${PYTHON_USEDEP}]
+		dev-python/pytest-jupyter[${PYTHON_USEDEP}]
 	)
 "
 

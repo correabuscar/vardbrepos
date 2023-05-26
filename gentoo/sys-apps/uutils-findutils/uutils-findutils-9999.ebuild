@@ -9,6 +9,7 @@ CRATES="
 	aho-corasick-0.7.18
 	android_system_properties-0.1.5
 	ansi_term-0.12.1
+	anstyle-0.3.5
 	assert_cmd-2.0.8
 	atty-0.2.14
 	autocfg-1.1.0
@@ -78,6 +79,7 @@ CRATES="
 	pin-utils-0.1.0
 	pkg-config-0.3.24
 	predicates-2.1.5
+	predicates-3.0.2
 	predicates-core-1.0.1
 	predicates-tree-1.0.1
 	proc-macro2-1.0.36

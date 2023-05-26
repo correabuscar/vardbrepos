@@ -45,9 +45,8 @@ case ${EAPI} in
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
 
-EXPORT_FUNCTIONS src_unpack
-
-if [[ ! ${_VERIFY_SIG_ECLASS} ]]; then
+if [[ -z ${_VERIFY_SIG_ECLASS} ]]; then
+_VERIFY_SIG_ECLASS=1
 
 IUSE="verify-sig"
 
@@ -58,7 +57,7 @@ IUSE="verify-sig"
 #
 # - openpgp -- verify PGP signatures using app-crypt/gnupg (the default)
 # - signify -- verify signatures with Ed25519 public key using app-crypt/signify
-: ${VERIFY_SIG_METHOD:=openpgp}
+: "${VERIFY_SIG_METHOD:=openpgp}"
 
 case ${VERIFY_SIG_METHOD} in
 	openpgp)
@@ -103,7 +102,7 @@ esac
 # connection.
 #
 # Supported for OpenPGP only.
-: ${VERIFY_SIG_OPENPGP_KEY_REFRESH:=no}
+: "${VERIFY_SIG_OPENPGP_KEY_REFRESH:=no}"
 
 # @FUNCTION: verify-sig_verify_detached
 # @USAGE: <file> <sig-file> [<key-file>]
@@ -390,5 +389,6 @@ verify-sig_src_unpack() {
 	default_src_unpack
 }
 
-_VERIFY_SIG_ECLASS=1
 fi
+
+EXPORT_FUNCTIONS src_unpack

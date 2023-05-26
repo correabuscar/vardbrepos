@@ -1,13 +1,13 @@
-BDEPEND=app-emacs/geiser dev-scheme/mit-scheme >=app-editors/emacs-24.4:*
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=app-emacs/geiser dev-scheme/mit-scheme >=app-editors/emacs-25.3:*
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=MIT/GNU Scheme's implementation of the Geiser protocols
 EAPI=8
 HOMEPAGE=https://gitlab.com/emacs-geiser/mit/
 INHERIT=elisp
 KEYWORDS=amd64
 LICENSE=BSD
-RDEPEND=app-emacs/geiser dev-scheme/mit-scheme >=app-editors/emacs-24.4:*
+RDEPEND=app-emacs/geiser dev-scheme/mit-scheme >=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://gitlab.com/emacs-geiser/mit/-/archive/0.15/mit-0.15.tar.gz -> geiser-mit-0.15.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=65d082a4a85c7fde49dcbf311223d314
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=10ed71b5eefedf93e32855c13974dcd8

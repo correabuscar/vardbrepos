@@ -1,5 +1,5 @@
-BDEPEND=app-emacs/flycheck >=app-editors/emacs-24.3:*
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=app-emacs/flycheck >=app-editors/emacs-25.3:*
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Emacs Flycheck backend for Nim language using nimsuggest
 EAPI=8
 HOMEPAGE=https://github.com/yuutayamada/flycheck-nimsuggest/
@@ -7,8 +7,8 @@ INHERIT=elisp
 KEYWORDS=~amd64
 LICENSE=GPL-3+
 PDEPEND=app-emacs/nim-mode
-RDEPEND=app-emacs/flycheck dev-lang/nim >=app-editors/emacs-24.3:*
+RDEPEND=app-emacs/flycheck dev-lang/nim >=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://github.com/yuutayamada/flycheck-nimsuggest/archive/dc9a5de1cb3ee05db5794d824610959a1f603bc9.tar.gz -> flycheck-nimsuggest-0.8.1_p20171027.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=bbdc6149653723e1de9e943b920890a8
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=9e49e3a619437b3d159a8d50e9279831

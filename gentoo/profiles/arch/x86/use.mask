@@ -48,10 +48,6 @@ webengine
 -python_targets_pypy3
 -python_single_target_pypy3
 
-# Michał Górny <mgorny@gentoo.org> (2013-05-04)
-# Unmask systemd since it is keyworded here.
--systemd
-
 # Andrey Grozin <grozin@gentoo.org> (2014-06-25)
 # keyworded on x86
 -clisp
@@ -125,9 +121,6 @@ webengine
 -cpu_flags_x86_ssse3
 -cpu_flags_x86_xop
 
-# Unmask nvidia XvMC support
--nvidia
-
 # Modular X: unmask for architectures on which they are available
 -input_devices_synaptics
 -input_devices_vmmouse
@@ -139,7 +132,6 @@ webengine
 -video_cards_i965
 -video_cards_intel
 -video_cards_iris
--video_cards_nvidia
 -video_cards_siliconmotion
 -video_cards_vmware
 -video_cards_geode

@@ -6,8 +6,8 @@ EAPI=8
 MULTILIB_COMPAT=( abi_x86_{32,64} )
 inherit autotools flag-o-matic multilib multilib-build toolchain-funcs wrapper
 
-WINE_GECKO=2.47.3
-WINE_MONO=7.4.0
+WINE_GECKO=2.47.4
+WINE_MONO=8.0.0
 
 if [[ ${PV} == *9999 ]]; then
 	inherit git-r3
@@ -30,8 +30,9 @@ IUSE="
 	+X +abi_x86_32 +abi_x86_64 +alsa capi crossdev-mingw cups dos
 	llvm-libunwind debug custom-cflags +fontconfig +gecko gphoto2
 	+gstreamer kerberos +mingw +mono netapi nls odbc opencl +opengl
-	osmesa pcap perl pulseaudio samba scanner +sdl selinux smartcard +ssl
-	+truetype udev udisks +unwind usb v4l +vulkan +xcomposite xinerama"
+	osmesa pcap perl pulseaudio samba scanner +sdl selinux smartcard
+	+ssl +truetype udev udisks +unwind usb v4l +vulkan wayland
+	+xcomposite xinerama"
 REQUIRED_USE="
 	X? ( truetype )
 	crossdev-mingw? ( mingw )" # bug #551124 for truetype
@@ -91,11 +92,17 @@ WINE_COMMON_DEPEND="
 		llvm-libunwind? ( sys-libs/llvm-libunwind[${MULTILIB_USEDEP}] )
 		!llvm-libunwind? ( sys-libs/libunwind:=[${MULTILIB_USEDEP}] )
 	)
-	usb? ( dev-libs/libusb:1[${MULTILIB_USEDEP}] )"
+	usb? ( dev-libs/libusb:1[${MULTILIB_USEDEP}] )
+	wayland? ( dev-libs/wayland[${MULTILIB_USEDEP}] )"
 RDEPEND="
 	${WINE_COMMON_DEPEND}
 	app-emulation/wine-desktop-common
-	dos? ( games-emulation/dosbox )
+	dos? (
+		|| (
+			games-emulation/dosbox
+			games-emulation/dosbox-staging
+		)
+	)
 	gecko? ( app-emulation/wine-gecko:${WINE_GECKO}[${MULTILIB_USEDEP}] )
 	gstreamer? ( media-plugins/gst-plugins-meta:1.0[${MULTILIB_USEDEP}] )
 	mono? ( app-emulation/wine-mono:${WINE_MONO} )
@@ -119,7 +126,8 @@ BDEPEND="
 	mingw? ( !crossdev-mingw? (
 		>=dev-util/mingw64-toolchain-10.0.0_p1-r2[${MULTILIB_USEDEP}]
 	) )
-	nls? ( sys-devel/gettext )"
+	nls? ( sys-devel/gettext )
+	wayland? ( dev-util/wayland-scanner )"
 IDEPEND=">=app-eselect/eselect-wine-2"
 
 QA_CONFIG_IMPL_DECL_SKIP=(
@@ -214,6 +222,7 @@ src_configure() {
 		$(use_with usb)
 		$(use_with v4l v4l2)
 		$(use_with vulkan)
+		$(use_with wayland)
 		$(use_with xcomposite)
 		$(use_with xinerama)
 		$(usev !odbc ac_cv_lib_soname_odbc=)
@@ -264,7 +273,6 @@ src_configure() {
 			: "${CROSSCFLAGS:=$(
 				# >=wine-7.21 configure.ac no longer adds -fno-strict by mistake
 				append-cflags '-fno-strict-aliasing'
-				filter-flags '-fstack-clash-protection' #758914
 				filter-flags '-fstack-protector*' #870136
 				filter-flags '-mfunction-return=thunk*' #878849
 				CC=${CROSSCC} test-flags-CC ${CFLAGS:--O2})}"

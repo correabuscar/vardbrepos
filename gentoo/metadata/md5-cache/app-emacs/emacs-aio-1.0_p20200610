@@ -4,10 +4,10 @@ DESCRIPTION=Async and await functions for Emacs Lisp
 EAPI=8
 HOMEPAGE=https://github.com/skeeto/emacs-aio/
 INHERIT=elisp
-KEYWORDS=~amd64 ~x86
+KEYWORDS=amd64 ~x86
 LICENSE=Unlicense
 RDEPEND=>=app-editors/emacs-26.1:*
 SLOT=0
 SRC_URI=https://github.com/skeeto/emacs-aio/archive/da93523e235529fa97d6f251319d9e1d6fc24a41.tar.gz -> emacs-aio-1.0_p20200610.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=c2f934206547825a6dfa15320a59de98
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=4f87f871a2aa518ebc91c7f6da7c97f1

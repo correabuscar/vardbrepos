@@ -15,8 +15,8 @@ if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/qtile/qtile.git"
 else
-	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64 ~riscv ~x86"
+	inherit pypi
+	KEYWORDS="amd64 ~riscv ~x86"
 fi
 
 LICENSE="MIT"
@@ -90,6 +90,11 @@ python_test() {
 
 	# TODO: remove "-p no:xdist" for next release when https://github.com/qtile/qtile/issues/1634 will be resolved.
 	epytest -p no:xdist --backend=x11 $(usev wayland '--backend=wayland') || die "Tests failed with ${EPYTHON}"
+}
+
+python_compile() {
+	export CFFI_TMPDIR=${T}
+	distutils-r1_python_compile
 }
 
 python_install_all() {

@@ -5,7 +5,7 @@ EAPI=8
 
 inherit autotools flag-o-matic prefix
 
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~ppc-macos ~x64-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris"
 
 SRC_URI="https://www.zsh.org/pub/${P}.tar.xz
 	https://www.zsh.org/pub/old/${P}.tar.xz
@@ -20,7 +20,7 @@ HOMEPAGE="https://www.zsh.org/"
 
 LICENSE="ZSH gdbm? ( GPL-2 )"
 SLOT="0"
-IUSE="caps debug doc examples gdbm maildir pcre static"
+IUSE="caps debug doc examples gdbm maildir pcre static valgrind"
 
 RDEPEND="
 	>=sys-libs/ncurses-5.1:0=
@@ -36,6 +36,7 @@ RDEPEND="
 	)
 "
 DEPEND="sys-apps/groff
+	valgrind? ( dev-util/valgrind )
 	${RDEPEND}"
 PDEPEND="
 	examples? ( app-doc/zsh-lovers )
@@ -92,6 +93,7 @@ src_configure() {
 		$(use_enable pcre)
 		$(use_enable caps cap)
 		$(use_enable gdbm)
+		$(use_enable valgrind zsh-valgrind)
 	)
 
 	if use static ; then

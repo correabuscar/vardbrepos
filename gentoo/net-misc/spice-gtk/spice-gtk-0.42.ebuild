@@ -17,14 +17,14 @@ if [[ ${PV} == *9999* ]] ; then
 	SPICE_PROTOCOL_VER=9999
 else
 	SRC_URI="https://www.spice-space.org/download/gtk/${P}.tar.xz"
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~riscv ~sparc ~x86"
+	KEYWORDS="~alpha amd64 ~arm arm64 ~ia64 ~ppc ~ppc64 ~riscv ~sparc x86"
 
 	SPICE_PROTOCOL_VER=0.14.3
 fi
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-IUSE="+gtk3 +introspection lz4 mjpeg policykit sasl smartcard usbredir vala wayland webdav"
+IUSE="+gtk3 +introspection lz4 mjpeg policykit sasl smartcard usbredir vala valgrind wayland webdav"
 
 # TODO:
 # * check if sys-freebsd/freebsd-lib (from virtual/acl) provides acl/libacl.h
@@ -71,7 +71,8 @@ RDEPEND="${RDEPEND}
 	x86? ( media-libs/libva:= )
 "
 DEPEND="${RDEPEND}
-	>=app-emulation/spice-protocol-${SPICE_PROTOCOL_VER}"
+	>=app-emulation/spice-protocol-${SPICE_PROTOCOL_VER}
+	valgrind? ( dev-util/valgrind )"
 BDEPEND="
 	dev-perl/Text-CSV
 	dev-util/glib-utils
@@ -106,6 +107,7 @@ src_configure() {
 		$(meson_feature smartcard)
 		$(meson_feature usbredir)
 		$(meson_feature vala vapi)
+		$(meson_use valgrind)
 		$(meson_feature webdav)
 		$(meson_feature wayland wayland-protocols)
 	)

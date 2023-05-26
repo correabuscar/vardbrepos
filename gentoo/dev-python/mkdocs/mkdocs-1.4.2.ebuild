@@ -13,7 +13,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~ppc ~riscv x86"
+KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv x86"
 
 # https://bugs.gentoo.org/873349
 # Building documentation requires packaging: callouts and mkdocs-autorefs
@@ -38,7 +38,7 @@ RDEPEND="
 	>=dev-python/watchdog-2.0[${PYTHON_USEDEP}]
 	>=dev-python/ghp-import-1.0[${PYTHON_USEDEP}]
 	>=dev-python/pyyaml_env_tag-0.1[${PYTHON_USEDEP}]
-	>=dev-python/importlib_metadata-4.3[${PYTHON_USEDEP}]
+	>=dev-python/importlib-metadata-4.3[${PYTHON_USEDEP}]
 	>=dev-python/packaging-20.5[${PYTHON_USEDEP}]
 	>=dev-python/mergedeep-1.3.4[${PYTHON_USEDEP}]
 "

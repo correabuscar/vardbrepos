@@ -1,4 +1,4 @@
-BDEPEND=app-emacs/lv >=app-editors/emacs-23.1:*
+BDEPEND=app-emacs/lv >=app-editors/emacs-25.3:*
 DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Make Emacs bindings that stick around
 EAPI=8
@@ -6,8 +6,8 @@ HOMEPAGE=https://github.com/abo-abo/hydra/
 INHERIT=elisp
 KEYWORDS=~amd64
 LICENSE=GPL-3+
-RDEPEND=app-emacs/lv >=app-editors/emacs-23.1:*
+RDEPEND=app-emacs/lv >=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://github.com/abo-abo/hydra/archive/0.15.0.tar.gz -> hydra-0.15.0.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
 _md5_=1a3f2ff2de660c55c177b284b31588ff

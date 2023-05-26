@@ -2,10 +2,10 @@ BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install unpack
 DESCRIPTION=PALO: PArisc Linux Loader
 EAPI=8
-HOMEPAGE=https://parisc.wiki.kernel.org/
+HOMEPAGE=https://parisc.wiki.kernel.org/ https://git.kernel.org/pub/scm/linux/kernel/git/deller/palo.git/
 INHERIT=toolchain-funcs git-r3
 LICENSE=GPL-2
 PROPERTIES=live
 SLOT=0
-_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b
-_md5_=e1afc6ececc58bd3922bcf6168ef5f80
+_eclasses_=git-r3	27e13c09a4c7e4c78ac812f74727e676	multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
+_md5_=2f8a46866081151cb14272845d407b36

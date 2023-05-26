@@ -2,7 +2,7 @@ BDEPEND=virtual/pkgconfig >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=configure install postinst unpack
 DEPEND=udev? ( virtual/udev )
 DESCRIPTION=A fully featured, yet light weight RFC2131 compliant DHCP client
-EAPI=7
+EAPI=8
 HOMEPAGE=https://github.com/NetworkConfiguration/dhcpcd/ https://roy.marples.name/projects/dhcpcd/
 INHERIT=systemd toolchain-funcs git-r3
 IUSE=debug +embedded ipv6 privsep +udev
@@ -10,5 +10,5 @@ LICENSE=BSD-2
 PROPERTIES=live
 RDEPEND=udev? ( virtual/udev ) privsep? ( acct-group/dhcpcd acct-user/dhcpcd )
 SLOT=0
-_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f	multilib	5ca4e49abed8e3a2f7b56920eadee157	systemd	5f4bb0758df2e483babf68cd517078ca	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b
-_md5_=727aea39f08cfb87563ea9a0302f64db
+_eclasses_=git-r3	27e13c09a4c7e4c78ac812f74727e676	multilib	104e1332efb829e2f7cbf89307a474f1	systemd	5f4bb0758df2e483babf68cd517078ca	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
+_md5_=7b0b21f3f782c24a9ee9174b492d410f

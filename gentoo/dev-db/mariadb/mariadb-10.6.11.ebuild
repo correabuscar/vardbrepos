@@ -34,7 +34,7 @@ REQUIRED_USE="
 	test? ( extraengine perl server xml )
 "
 
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv ~s390 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv ~s390 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 
 # Shorten the path because the socket path length must be shorter than 107 chars
 # and we will run a mysql server during test phase
@@ -63,7 +63,7 @@ COMMON_DEPEND="
 		app-arch/xz-utils
 		backup? ( app-arch/libarchive:0= )
 		columnstore? (
-			app-arch/snappy
+			app-arch/snappy:=
 			dev-libs/boost:=
 			dev-libs/libxml2:2=
 		)
@@ -74,7 +74,7 @@ COMMON_DEPEND="
 		)
 		innodb-lz4? ( app-arch/lz4 )
 		innodb-lzo? ( dev-libs/lzo )
-		innodb-snappy? ( app-arch/snappy )
+		innodb-snappy? ( app-arch/snappy:= )
 		mroonga? ( app-text/groonga-normalizer-mysql >=app-text/groonga-7.0.4 )
 		numa? ( sys-process/numactl )
 		oqgraph? (

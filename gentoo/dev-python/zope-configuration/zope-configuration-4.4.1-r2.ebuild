@@ -4,12 +4,11 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
+PYPI_NO_NORMALIZE=1
+PYPI_PN=${PN/-/.}
 PYTHON_COMPAT=( python3_{9..11} )
 
-inherit distutils-r1
-
-MY_PN=${PN/-/.}
-MY_P=${MY_PN}-${PV}
+inherit distutils-r1 pypi
 
 DESCRIPTION="Zope Configuration Architecture"
 HOMEPAGE="
@@ -17,8 +16,6 @@ HOMEPAGE="
 	https://github.com/zopefoundation/zope.configuration/
 	https://zopeconfiguration.readthedocs.io/en/latest/
 "
-SRC_URI="mirror://pypi/${PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
-S=${WORKDIR}/${MY_P}
 
 LICENSE="ZPL"
 SLOT="0"

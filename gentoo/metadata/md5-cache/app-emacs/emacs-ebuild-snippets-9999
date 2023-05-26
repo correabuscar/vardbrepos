@@ -1,0 +1,12 @@
+BDEPEND=app-emacs/ebuild-mode app-emacs/yasnippet >=app-editors/emacs-25.3:* >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
+DESCRIPTION=Yasnippets for editing ebuilds and eclasses
+EAPI=8
+HOMEPAGE=https://gitweb.gentoo.org/proj/emacs-ebuild-snippets.git
+INHERIT=elisp git-r3
+LICENSE=GPL-2+
+PROPERTIES=live
+RDEPEND=app-emacs/ebuild-mode app-emacs/yasnippet >=app-editors/emacs-25.3:*
+SLOT=0
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e	git-r3	27e13c09a4c7e4c78ac812f74727e676
+_md5_=358937662032b193bc5f900110f4d2e3

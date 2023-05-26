@@ -1,13 +1,13 @@
-BDEPEND=app-emacs/company-math app-emacs/company-mode app-emacs/dash app-emacs/yasnippet >=app-editors/emacs-23.1:*
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=app-emacs/company-math app-emacs/company-mode app-emacs/dash app-emacs/yasnippet >=app-editors/emacs-25.3:*
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Collection of extensions for Proof General's Coq mode
 EAPI=8
 HOMEPAGE=https://github.com/cpitclaudel/company-coq/
 INHERIT=elisp
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3+
-RDEPEND=app-emacs/company-math app-emacs/company-mode app-emacs/dash app-emacs/yasnippet app-emacs/proofgeneral >=app-editors/emacs-23.1:*
+RDEPEND=app-emacs/company-math app-emacs/company-mode app-emacs/dash app-emacs/yasnippet app-emacs/proofgeneral >=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://github.com/cpitclaudel/company-coq/archive/a6e349e0131f676a885bd14c908fd26054b2df42.tar.gz -> company-coq-1.0.1_p20220314.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=1063153f47155a1710e340f6de8ab3fe
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=30c428c6b11ad3b697fe5672f92deedf

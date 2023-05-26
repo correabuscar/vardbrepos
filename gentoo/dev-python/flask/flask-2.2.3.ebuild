@@ -4,6 +4,8 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
+PYPI_NO_NORMALIZE=1
+PYPI_PN=${PN^}
 PYTHON_COMPAT=( python3_{9..11} pypy3 )
 
 inherit distutils-r1
@@ -14,15 +16,12 @@ HOMEPAGE="
 	https://github.com/pallets/flask/
 	https://pypi.org/project/Flask/
 "
-MY_PN="Flask"
-MY_P="${MY_PN}-${PV}"
 if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="https://github.com/mitsuhiko/flask.git"
 	inherit git-r3
 else
-	SRC_URI="mirror://pypi/${MY_P:0:1}/${MY_PN}/${MY_P}.tar.gz"
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
-	S="${WORKDIR}/${MY_P}"
+	inherit pypi
+	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 fi
 
 LICENSE="BSD"
@@ -36,7 +35,7 @@ RDEPEND="
 	>=dev-python/jinja-3.0[${PYTHON_USEDEP}]
 	>=dev-python/werkzeug-2.2[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '
-		>=dev-python/importlib_metadata-3.6.0[${PYTHON_USEDEP}]
+		>=dev-python/importlib-metadata-3.6.0[${PYTHON_USEDEP}]
 	' 3.8 3.9)
 "
 BDEPEND="
@@ -50,7 +49,7 @@ distutils_enable_sphinx docs \
 	dev-python/pallets-sphinx-themes \
 	dev-python/sphinx-issues \
 	dev-python/sphinx-tabs \
-	dev-python/sphinxcontrib-log_cabinet
+	dev-python/sphinxcontrib-log-cabinet
 distutils_enable_tests pytest
 
 python_test() {

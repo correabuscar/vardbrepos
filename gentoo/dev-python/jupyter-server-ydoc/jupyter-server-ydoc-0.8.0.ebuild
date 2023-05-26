@@ -17,17 +17,17 @@ HOMEPAGE="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	dev-python/jupyter_ydoc[${PYTHON_USEDEP}]
+	dev-python/jupyter-ydoc[${PYTHON_USEDEP}]
 	dev-python/ypy-websocket[${PYTHON_USEDEP}]
 	dev-python/jupyter-server-fileid[${PYTHON_USEDEP}]
 
 "
 BDEPEND="
 	test? (
-		dev-python/pytest_jupyter[${PYTHON_USEDEP}]
+		dev-python/pytest-jupyter[${PYTHON_USEDEP}]
 		dev-python/pytest-tornasync[${PYTHON_USEDEP}]
 		dev-python/pytest-timeout[${PYTHON_USEDEP}]
 	)

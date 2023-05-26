@@ -1,7 +1,7 @@
 DEFINED_PHASES=compile install prepare
 DEPEND=app-arch/bzip2 sys-libs/zlib dev-libs/openssl:0=
 DESCRIPTION=Converts Apple DMG files to standard HFS+ images
-EAPI=6
+EAPI=8
 HOMEPAGE=http://vu1tur.eu.org/tools
 INHERIT=toolchain-funcs
 KEYWORDS=~amd64 ~ppc ~ppc64 ~x86
@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=app-arch/bzip2 sys-libs/zlib dev-libs/openssl:0=
 SLOT=0
 SRC_URI=http://vu1tur.eu.org/tools/dmg2img-1.6.7.tar.gz
-_eclasses_=multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b
-_md5_=3fbe4ab8f5609f05304a6136db23a241
+_eclasses_=multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
+_md5_=a9557413751c2cda37430012a80f23c2

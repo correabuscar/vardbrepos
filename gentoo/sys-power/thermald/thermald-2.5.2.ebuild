@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit autotools out-of-source systemd
+inherit autotools linux-info out-of-source systemd
 
 DESCRIPTION="Thermal daemon for Intel architectures"
 HOMEPAGE="https://github.com/intel/thermal_daemon"
@@ -11,7 +11,7 @@ SRC_URI="https://github.com/intel/thermal_daemon/archive/v${PV}.tar.gz -> ${P}.t
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="
@@ -27,6 +27,8 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/thermal_daemon-${PV}
 DOCS=( thermal_daemon_usage.txt README.txt )
+
+CONFIG_CHECK="~PERF_EVENTS_INTEL_RAPL ~X86_INTEL_PSTATE ~INTEL_POWERCLAMP ~INT340X_THERMAL ~ACPI_THERMAL_REL ~INT3406_THERMAL"
 
 src_prepare() {
 	sed -i -e "/group=/s/power/wheel/g" \

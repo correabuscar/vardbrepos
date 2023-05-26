@@ -14,7 +14,7 @@ SRC_URI="https://github.com/hrydgard/${PN}/releases/download/v${PV}/${P}.tar.xz"
 
 LICENSE="Apache-2.0 BSD BSD-2 GPL-2 JSON MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="discord qt5"
 RESTRICT="test"
 
@@ -43,6 +43,7 @@ BDEPEND="${PYTHON_DEPS}"
 PATCHES=(
 	"${FILESDIR}"/${PN}-CMakeLists-flags.patch
 	"${FILESDIR}"/${PN}-disable-ccache-autodetection.patch
+	"${FILESDIR}"/${P}-gcc13.patch
 )
 
 pkg_setup() {

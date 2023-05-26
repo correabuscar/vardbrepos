@@ -1,13 +1,13 @@
-BDEPEND=>=app-editors/emacs-24.3:*
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=>=app-editors/emacs-25.3:*
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Manage your installed packages with Emacs
 EAPI=8
 HOMEPAGE=https://gitlab.com/jabranham/system-packages/
 INHERIT=elisp
-KEYWORDS=amd64 x86
+KEYWORDS=amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86
 LICENSE=GPL-3+
-RDEPEND=>=app-editors/emacs-24.3:*
+RDEPEND=>=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://gitlab.com/jabranham/system-packages/-/archive/1.1.0/system-packages-1.1.0.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=452c65fc673eea2ebdd1ad37dd69511a
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=240105548bb6ac5cd01cf8512bcb1266

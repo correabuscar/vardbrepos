@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/urlget/${P}-1.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~ppc ~x86"
+KEYWORDS="amd64 ~arm ~ppc x86"
 IUSE="aria2 appindicator control-socket +gnutls gstreamer libnotify nls openssl rss"
 REQUIRED_USE="^^ ( gnutls openssl )"
 
@@ -41,6 +41,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-2.2.1-fno-common.patch
 	# https://github.com/ugetdm/uget/issues/49
 	"${FILESDIR}"/${PN}-2.2.1-ayatana.patch
+	"${FILESDIR}"/${PN}-2.2.3-broken-curl-check.patch
 )
 
 src_prepare() {

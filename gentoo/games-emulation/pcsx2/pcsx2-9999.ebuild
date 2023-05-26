@@ -10,6 +10,7 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/PCSX2/pcsx2.git"
 else
 	HASH_FASTFLOAT=32d21dcecb404514f94fb58660b8029a4673c2c1
+	HASH_FMT=b6f4ceaed0a0a24ccf575fab6c56dd50ccf6f1a9
 	HASH_RCHEEVOS=31f8788fe0e694e99db7ce138d45a655c556fa96
 	HASH_GLSLANG=c9706bdda0ac22b9856f1aa8261e5b9e15cd20c5
 	HASH_VULKAN=9f4c61a31435a7a90a314fc68aeb386c92a09c0f
@@ -17,6 +18,8 @@ else
 		https://github.com/PCSX2/pcsx2/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 		https://github.com/fastfloat/fast_float/archive/${HASH_FASTFLOAT}.tar.gz
 			-> ${PN}-fast_float-${HASH_FASTFLOAT::10}.tar.gz
+		https://github.com/fmtlib/fmt/archive/${HASH_FMT}.tar.gz
+			-> ${PN}-fmt-${HASH_FMT::10}.tar.gz
 		https://github.com/RetroAchievements/rcheevos/archive/${HASH_RCHEEVOS}.tar.gz
 			-> ${PN}-rcheevos-${HASH_RCHEEVOS::10}.tar.gz
 		vulkan? (
@@ -35,7 +38,7 @@ LICENSE="
 	GPL-3+ Apache-2.0 BSD BSD-2 BSD-4 Boost-1.0 CC0-1.0 GPL-2+
 	ISC LGPL-2.1+ LGPL-3+ MIT OFL-1.1 ZLIB public-domain"
 SLOT="0"
-IUSE="alsa cpu_flags_x86_sse4_1 jack pulseaudio sndio test vulkan wayland"
+IUSE="alsa backtrace cpu_flags_x86_sse4_1 dbus jack pulseaudio sndio test vulkan wayland"
 REQUIRED_USE="cpu_flags_x86_sse4_1" # dies at runtime if no support
 RESTRICT="!test? ( test )"
 
@@ -43,10 +46,9 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	app-arch/xz-utils
 	app-arch/zstd:=
-	>=dev-cpp/rapidyaml-0.5:=
+	dev-cpp/rapidyaml:=
 	dev-libs/libaio
 	dev-libs/libchdr
-	dev-libs/libfmt:=
 	dev-libs/libzip:=[zstd]
 	dev-qt/qtbase:6[gui,network,widgets]
 	dev-qt/qtsvg:6
@@ -61,6 +63,8 @@ RDEPEND="
 	virtual/libudev:=
 	x11-libs/libXrandr
 	alsa? ( media-libs/alsa-lib )
+	backtrace? ( sys-libs/libbacktrace )
+	dbus? ( sys-apps/dbus )
 	jack? ( virtual/jack )
 	pulseaudio? ( media-libs/libpulse )
 	sndio? ( media-sound/sndio:= )
@@ -70,7 +74,7 @@ DEPEND="
 	${RDEPEND}
 	x11-base/xorg-proto
 	test? ( dev-cpp/gtest )"
-BDEPEND="dev-qt/qttools[linguist]"
+BDEPEND="dev-qt/qttools:6[linguist]"
 
 FILECAPS=(
 	-m 0755 "CAP_NET_RAW+eip CAP_NET_ADMIN+eip" usr/bin/pcsx2
@@ -80,12 +84,15 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.7.3351-unbundle.patch
 	"${FILESDIR}"/${PN}-1.7.3468-cubeb-automagic.patch
 	"${FILESDIR}"/${PN}-1.7.3773-lto.patch
-	"${FILESDIR}"/${PN}-1.7.3803-rapidyaml-0.5.0.patch
 )
 
 src_unpack() {
 	if [[ ${PV} == 9999 ]]; then
 		local EGIT_SUBMODULES=(
+			# libfmt is volatile and upstream is unlikely to make fixes for
+			# latest system copy punctually (may revisit this eventually)
+			3rdparty/fmt/fmt
+
 			# has no build system and is not really setup for unbundling
 			3rdparty/rcheevos/rcheevos
 
@@ -111,6 +118,9 @@ src_unpack() {
 		mv fast_float-${HASH_FASTFLOAT} \
 			"${S}"/3rdparty/rapidyaml/rapidyaml/ext/c4core/src/c4/ext/fast_float || die
 
+		rmdir "${S}"/3rdparty/fmt/fmt || die
+		mv fmt-${HASH_FMT} "${S}"/3rdparty/fmt/fmt || die
+
 		rmdir "${S}"/3rdparty/rcheevos/rcheevos || die
 		mv rcheevos-${HASH_RCHEEVOS} "${S}"/3rdparty/rcheevos/rcheevos || die
 
@@ -125,19 +135,19 @@ src_unpack() {
 src_prepare() {
 	cmake_src_prepare
 
-	sed -e "/EmuFolders::AppRoot =/s|=.*|= \"${EPREFIX}/usr/share/${PN}\";|" \
-		-i pcsx2/Frontend/CommonHost.cpp || die
+	sed -e "/AppRoot =/s|=.*|= \"${EPREFIX}/usr/share/${PN}\";|" \
+		-i pcsx2/Pcsx2Config.cpp || die
 
 	if [[ ${PV} != 9999 ]]; then
-		sed -e '/set(PCSX2_GIT_TAG "")/s/""/"v'${PV}'"/' \
+		sed -e '/set(PCSX2_GIT_TAG "")/s/""/"v'${PV}-gentoo'"/' \
 			-i cmake/Pcsx2Utils.cmake || die
 
 		# delete all 3rdparty/* except known-used ones in non-live
 		local keep=(
 			# TODO?: rapidjson and xbyak are packaged and could be unbundlable
 			# w/ patch, and discord-rpc be optional w/ dependency on rapidjson
-			cpuinfo cubeb demangler discord-rpc glad imgui include jpgd lzma
-			rapidjson rapidyaml rcheevos simpleini xbyak zydis
+			cpuinfo cubeb demangler discord-rpc fmt glad imgui include jpgd
+			lzma rapidjson rapidyaml rcheevos simpleini xbyak zydis
 			$(usev vulkan 'glslang vulkan-headers')
 		)
 		find 3rdparty -mindepth 1 -maxdepth 1 -type d \
@@ -150,7 +160,9 @@ src_configure() {
 	use vulkan && append-flags -fno-strict-aliasing
 
 	local mycmakeargs=(
+		$(cmake_use_find_package backtrace Libbacktrace)
 		-DBUILD_SHARED_LIBS=no
+		-DDBUS_API=$(usex dbus)
 		-DDISABLE_BUILD_DATE=yes
 		-DENABLE_TESTS=$(usex test)
 		-DUSE_VTUNE=no
@@ -162,6 +174,7 @@ src_configure() {
 		# libs, system installs, or any modifications and may disregard any
 		# bugs that is not reproducible with the appimage using bundled libs
 		-DUSE_SYSTEM_LIBS=yes
+		-DUSE_SYSTEM_FMT=no # volatile, keep bundled at least "for now"
 
 		# sse4.1 is the bare minimum required, -m is required at build time
 		# (see PCSX2Base.h) and it dies if no support at runtime (AppInit.cpp)
@@ -189,8 +202,7 @@ src_install() {
 	insinto /usr/share/${PN}
 	doins -r "${BUILD_DIR}"/bin/resources
 
-	dodoc README.md bin/docs/{Debugger.pdf,GameIndex.pdf,PCSX2_FAQ.pdf,debugger.txt}
-	newman bin/docs/PCSX2.1 ${PN}.1
+	dodoc README.md bin/docs/{Debugger.pdf,GameIndex.pdf,debugger.txt}
 
 	newicon bin/resources/icons/AppIconLarge.png ${PN}.png
 	make_desktop_entry ${PN} ${PN^^}

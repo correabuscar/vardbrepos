@@ -17,7 +17,7 @@ HOMEPAGE="
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm arm64 ~hppa ~ia64 ~mips ~ppc64 ~riscv ~s390 sparc x86"
 
 RDEPEND="
 	>=dev-python/autopage-0.4.0[${PYTHON_USEDEP}]
@@ -27,7 +27,7 @@ RDEPEND="
 	>=dev-python/stevedore-2.0.1[${PYTHON_USEDEP}]
 	>=dev-python/pyyaml-3.12.0[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '
-		>=dev-python/importlib_metadata-4.11.1[${PYTHON_USEDEP}]
+		>=dev-python/importlib-metadata-4.11.1[${PYTHON_USEDEP}]
 	' 3.8 3.9)
 "
 BDEPEND="

@@ -1,15 +1,15 @@
-BDEPEND=test? ( app-emacs/buttercup ) >=app-editors/emacs-25.1:*
+BDEPEND=test? ( app-emacs/buttercup ) >=app-editors/emacs-25.3:*
 DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=A project interaction library for Emacs
 EAPI=8
-HOMEPAGE=https://docs.projectile.mx
+HOMEPAGE=https://docs.projectile.mx https://github.com/bbatsov/projectile/
 INHERIT=elisp
 IUSE=test
 KEYWORDS=~amd64
 LICENSE=GPL-3+
-RDEPEND=>=app-editors/emacs-25.1:*
+RDEPEND=>=app-editors/emacs-25.3:*
 RESTRICT=!test? ( test )
 SLOT=0
-SRC_URI=https://github.com/bbatsov/projectile/archive/refs/tags/v2.6.0.tar.gz -> projectile-2.6.0.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=6180b27d7622cc98d7e80fe059d0e259
+SRC_URI=https://github.com/bbatsov/projectile/archive/v2.6.0.tar.gz -> projectile-2.6.0.tar.gz
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=4ad66eae66bf2c07ddeb71c1ebe7dbc6

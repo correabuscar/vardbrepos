@@ -31,7 +31,7 @@ LICENSE="GPL-2+
 	audiocom? ( ZLIB )
 "
 SLOT="0"
-KEYWORDS="~amd64 ~riscv"
+KEYWORDS="amd64 ~riscv"
 IUSE="alsa audiocom doc ffmpeg +flac id3tag +ladspa +lv2 mad mpg123 ogg
 	opus +portmixer sbsms twolame vamp +vorbis wavpack"
 
@@ -122,6 +122,9 @@ PATCHES=(
 	# For has_networking
 	"${FILESDIR}/${PN}-3.2.3-remove-conan-threadpool.patch"
 	"${FILESDIR}/${PN}-3.2.3-allow-finding-rapidjson-pkgconfig.patch"
+
+	# GCC 13
+	"${FILESDIR}/${PN}-3.2.5-gcc13.patch"
 )
 
 src_prepare() {

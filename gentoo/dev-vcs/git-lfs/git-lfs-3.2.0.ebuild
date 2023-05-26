@@ -6,14 +6,14 @@ EGO_PN=github.com/git-lfs/git-lfs
 inherit go-module
 
 DESCRIPTION="Command line extension and specification for managing large files with git"
-HOMEPAGE="https://git-lfs.github.com/"
+HOMEPAGE="https://git-lfs.com/"
 
 if [[ "${PV}" = 9999* ]]; then
 	EGIT_REPO_URI="https://${EGO_PN}"
 	inherit git-r3
 else
 	SRC_URI="https://${EGO_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="amd64 ~ppc64 ~riscv ~x86 ~amd64-linux ~x86-linux"
+	KEYWORDS="amd64 ~arm64 ~ppc64 ~riscv ~x86 ~amd64-linux ~x86-linux"
 fi
 
 LICENSE="Apache-2.0 BSD BSD-2 BSD-4 ISC MIT"

@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: texlive-module.eclass
@@ -56,7 +56,7 @@
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # A space separated list of links to add for BINSCRIPTS.
-# The systax is: foo:bar to create a symlink bar -> foo.
+# The syntax is: foo:bar to create a symlink bar -> foo.
 
 # @ECLASS_VARIABLE: TL_PV
 # @INTERNAL
@@ -71,14 +71,15 @@
 # Information to display about the package.
 # e.g. for enabling/disabling a feature
 
+case ${EAPI} in
+	7) ;;
+	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
+esac
+
 if [[ -z ${_TEXLIVE_MODULE_ECLASS} ]]; then
 _TEXLIVE_MODULE_ECLASS=1
 
-case ${EAPI:-0} in
-	[0-6])	die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}" ;;
-	7)	inherit texlive-common ;;
-	*)	die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}" ;;
-esac
+inherit texlive-common
 
 HOMEPAGE="http://www.tug.org/texlive/"
 
@@ -90,7 +91,7 @@ IUSE="source"
 PKGEXT=tar.xz
 
 # Now where should we get these files?
-TEXLIVE_DEVS=${TEXLIVE_DEVS:- zlogene dilfridge }
+TEXLIVE_DEVS=${TEXLIVE_DEVS:- zlogene dilfridge sam }
 
 # We do not need anything from SYSROOT:
 #   Everything is built from the texlive install in /
@@ -320,7 +321,7 @@ texlive-module_src_compile() {
 			BuildLanguageDat)
 				einfo "Language file $parameter already generated.";;
 			*)
-				die "No rule to proccess ${command}. Please file a bug."
+				die "No rule to process ${command}. Please file a bug."
 		esac
 	done
 
@@ -447,6 +448,6 @@ texlive-module_pkg_postrm() {
 	etexmf-update
 }
 
-EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_postinst pkg_postrm
-
 fi
+
+EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_postinst pkg_postrm

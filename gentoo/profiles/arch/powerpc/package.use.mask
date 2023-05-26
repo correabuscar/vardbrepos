@@ -6,6 +6,10 @@
 dev-python/nbval doc
 dev-python/nbclassic doc
 
+# Bernd Waibel <waebbl-gentoo@posteo.net> (2023-02-23)
+# Mask openvdb, as it pulls in masked media-libs/openexr
+sci-libs/vtk openvdb
+
 # Sam James <sam@gentoo.org> (2022-11-19)
 # Drags in Rails (propshaft->rails)
 dev-ruby/actiontext test
@@ -253,10 +257,6 @@ x11-base/xorg-drivers video_cards_amdgpu
 # Pacho Ramos <pacho@gentoo.org> (2015-05-15)
 # Missing keywords
 net-dns/unbound dnstap
-
-# Andreas K. Huettel <dilfridge@gentoo.org> (2015-02-15)
-# There's no keyworded office implementation anymore.
-gnome-extra/sushi office
 
 # Mark Wright <gienah@gentoo.org> (2014-12-14/2014-12-24, 2015-04-01)
 # test dependencies need keywording

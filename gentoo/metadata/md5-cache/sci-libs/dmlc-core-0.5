@@ -1,0 +1,16 @@
+BDEPEND=doc? ( app-doc/doxygen[dot] ) test? ( dev-cpp/gtest ) >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
+DEFINED_PHASES=compile configure install prepare pretend setup test
+DEPEND=s3? ( net-misc/curl[ssl] )
+DESCRIPTION=Common bricks library for building distributed machine learning
+EAPI=8
+HOMEPAGE=https://github.com/dmlc/dmlc-core
+INHERIT=cmake toolchain-funcs
+IUSE=cpu_flags_x86_sse2 doc openmp s3 test
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=Apache-2.0
+RDEPEND=s3? ( net-misc/curl[ssl] )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/dmlc/dmlc-core/archive/refs/tags/v0.5.tar.gz -> dmlc-core-0.5.tar.gz
+_eclasses_=cmake	7fb5980de96325cbab639f5b2187357c	flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	multilib	104e1332efb829e2f7cbf89307a474f1	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	76050953ad5b70d7e09a6ca55558db92	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	xdg-utils	baea6080dd821f5562d715887954c9d3
+_md5_=a49754856500fb848636d23b4daf8b81

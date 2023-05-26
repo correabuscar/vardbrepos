@@ -43,7 +43,7 @@ SRC_URI="https://github.com/festvox/flite/archive/v${PV}.tar.gz -> ${P}.tar.gz
 
 LICENSE="BSD freetts public-domain regexp-UofT BSD-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm arm64 ~ia64 ~loong ppc ppc64 ~riscv sparc x86"
+KEYWORDS="~alpha amd64 arm arm64 ~ia64 ~loong ~mips ppc ppc64 ~riscv sparc x86"
 IUSE="alsa oss pulseaudio test voices"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="test? ( alsa )"
@@ -69,6 +69,14 @@ get_audio() {
 	else
 		echo none
 	fi
+}
+
+pkg_pretend() {
+	[[ ${MERGE_TYPE} != binary ]] && use test && tc-check-openmp
+}
+
+pkg_setup() {
+	[[ ${MERGE_TYPE} != binary ]] && use test && tc-check-openmp
 }
 
 src_unpack() {

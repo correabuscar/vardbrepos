@@ -1,13 +1,13 @@
-BDEPEND=app-emacs/geiser app-emacs/macrostep >=app-editors/emacs-24.4:*
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=app-emacs/geiser app-emacs/macrostep >=app-editors/emacs-25.3:*
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Emacs macrostep back-end powered by geiser
 EAPI=8
 HOMEPAGE=https://github.com/nbfalcon/macrostep-geiser/
 INHERIT=elisp
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3+
-RDEPEND=app-emacs/geiser app-emacs/macrostep >=app-editors/emacs-24.4:*
+RDEPEND=app-emacs/geiser app-emacs/macrostep >=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://github.com/nbfalcon/macrostep-geiser/archive/f6a2d5bb96ade4f23df557649af87ebd0cc45125.tar.gz -> macrostep-geiser-0.2.0_p20210717.tar.gz
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b
-_md5_=0500133987655acc1d93ea6907cd9ffb
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
+_md5_=713eb83cf75d1122089ec4cd8de751aa

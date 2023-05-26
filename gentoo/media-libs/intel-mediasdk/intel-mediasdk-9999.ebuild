@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake optfeature
+inherit cmake-multilib optfeature
 
 if [[ ${PV} == *9999 ]] ; then
 	: ${EGIT_REPO_URI:="https://github.com/Intel-Media-SDK/MediaSDK"}
@@ -26,30 +26,27 @@ fi
 LICENSE="MIT"
 SLOT="0"
 
-IUSE="dri test +tools wayland X"
+IUSE="dri test tools wayland X"
 # Test not working at the moment
 #RESTRICT="!test? ( test )"
 RESTRICT="test"
-# # Most of these flags only have an effect on the tools
 REQUIRED_USE="
 	dri? ( X )
-	wayland? ( tools )
-	X? ( tools )
 "
 
 # x11-libs/libdrm[video_cards_intel] for intel_bufmgr.h in samples
 # bug #805224
 RDEPEND="
-	x11-libs/libpciaccess
-	>=media-libs/libva-intel-media-driver-${PV}
-	media-libs/libva[X?,wayland?]
-	x11-libs/libdrm[video_cards_intel]
+	x11-libs/libpciaccess[${MULTILIB_USEDEP}]
+	>=media-libs/libva-intel-media-driver-${PV}[${MULTILIB_USEDEP}]
+	media-libs/libva[X?,wayland?,${MULTILIB_USEDEP}]
+	x11-libs/libdrm[video_cards_intel,${MULTILIB_USEDEP}]
 	wayland? (
-		dev-libs/wayland
+		dev-libs/wayland[${MULTILIB_USEDEP}]
 	)
 	X? (
-		x11-libs/libX11
-		x11-libs/libxcb
+		x11-libs/libX11[${MULTILIB_USEDEP}]
+		x11-libs/libxcb[${MULTILIB_USEDEP}]
 	)
 "
 DEPEND="${RDEPEND}
@@ -63,7 +60,7 @@ BDEPEND="
 	)
 "
 
-src_configure() {
+multilib_src_configure() {
 	local mycmakeargs=(
 		# OpenCL only has an effect if we build kernels
 		-DENABLE_OPENCL=OFF

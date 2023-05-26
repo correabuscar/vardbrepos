@@ -46,7 +46,7 @@ DEPEND="
 	sys-apps/dbus
 	>=x11-misc/colord-1.4.5:=
 	>=media-libs/lcms-2.6:2
-	>=media-libs/harfbuzz-2.6.0
+	>=media-libs/harfbuzz-2.6.0:=
 
 	gnome? ( gnome-base/gnome-desktop:4= )
 
@@ -150,9 +150,21 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
+		# Mutter X11 renderer only supports gles2 and GLX, thus do NOT pass
+		#
+		#   -Dopengl_libname=libOpenGL.so.0
+		#
+		# while we build the x11 renderer, as we currently enable gles2 only
+		# with USE=wayland and x11 renderer wouldn't find the needed GLX symbols
+		# in a configuration where wayland is disabled, as libOpenGL doesn't
+		# include them.
+		#
+		# See
+		# - https://bugs.gentoo.org/835786
+		# - https://forums.gentoo.org/viewtopic-p-8695669.html
+
 		--buildtype $(usex debug debug plain)
 		-Dopengl=true
-		-Dopengl_libname=libOpenGL
 		$(meson_use wayland gles2)
 		#gles2_libname
 		-Degl=true
@@ -162,7 +174,7 @@ src_configure() {
 		$(meson_use systemd)
 		$(meson_use wayland native_backend)
 		$(meson_use screencast remote_desktop)
-		-Dlibgnome_desktop=true
+		$(meson_use gnome libgnome_desktop)
 		$(meson_use udev)
 		-Dudev_dir=$(get_udevdir)
 		$(meson_use input_devices_wacom libwacom)

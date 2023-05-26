@@ -13,7 +13,7 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/WayfireWM/${PN}.git"
 else
 	SRC_URI="https://github.com/WayfireWM/${PN}/releases/download/v${PV}/${P}.tar.xz"
-	KEYWORDS="~amd64 ~arm64 ~riscv ~x86"
+	KEYWORDS="amd64 ~arm64 ~riscv ~x86"
 fi
 
 LICENSE="MIT"
@@ -72,6 +72,10 @@ BDEPEND="
 	dev-libs/wayland-protocols
 	virtual/pkgconfig
 "
+
+PATCHES=(
+	"${FILESDIR}"/${PN}-0.7.5-gcc13.patch
+)
 
 src_configure() {
 	sed -e "s:@EPREFIX@:${EPREFIX}:" \

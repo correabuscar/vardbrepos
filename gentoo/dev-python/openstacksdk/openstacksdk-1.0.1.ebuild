@@ -33,7 +33,7 @@ RDEPEND="
 	>=dev-python/netifaces-0.10.4[${PYTHON_USEDEP}]
 	>=dev-python/dogpile-cache-0.6.5[${PYTHON_USEDEP}]
 	>=dev-python/cryptography-2.7.0[${PYTHON_USEDEP}]
-	dev-python/importlib_metadata[${PYTHON_USEDEP}]
+	dev-python/importlib-metadata[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	>=dev-python/pbr-2.1.0[${PYTHON_USEDEP}]
@@ -41,7 +41,7 @@ BDEPEND="
 		>=dev-python/ddt-1.0.1[${PYTHON_USEDEP}]
 		>=dev-python/fixtures-3.0.0[${PYTHON_USEDEP}]
 		>=dev-python/jsonschema-3.2.0[${PYTHON_USEDEP}]
-		>=dev-python/prometheus_client-0.4.2[${PYTHON_USEDEP}]
+		>=dev-python/prometheus-client-0.4.2[${PYTHON_USEDEP}]
 		>=dev-python/oslo-config-6.1.0[${PYTHON_USEDEP}]
 		>=dev-python/oslotest-3.2.0[${PYTHON_USEDEP}]
 		>=dev-python/requests-mock-1.2.0[${PYTHON_USEDEP}]

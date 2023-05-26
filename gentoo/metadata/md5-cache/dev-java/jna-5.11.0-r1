@@ -12,5 +12,5 @@ RDEPEND=>=virtual/jre-1.8:* >=dev-libs/libffi-3.4:= >=dev-java/java-config-2.2.0
 RESTRICT=!test? ( test )
 SLOT=4
 SRC_URI=https://github.com/java-native-access/jna/archive/refs/tags/5.11.0.tar.gz -> jna-5.11.0.tar.gz
-_eclasses_=java-ant-2	3745cb8c0fe6525dafe8e2422a8fd501	java-pkg-2	a6b42ffd8b6827abbd8cf09329c2c8fb	java-utils-2	eefed04ac580a259ecda1fbd966640b7	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b
-_md5_=753fa2a957ad9d55233e56499e65a9a4
+_eclasses_=java-ant-2	5a1b508f2544b7cac8ec27c170676de0	java-pkg-2	1794573de2f5124d88b64ee5dc9aabb4	java-utils-2	8c72ea36a4935f626b13a30141d0d39c	multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
+_md5_=937df36543e859989c77640d68138aeb

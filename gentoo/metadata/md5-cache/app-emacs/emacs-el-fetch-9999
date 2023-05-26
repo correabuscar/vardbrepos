@@ -1,5 +1,5 @@
-BDEPEND=test? ( app-emacs/buttercup ) >=app-editors/emacs-25.1:* >=dev-vcs/git-1.8.2.1[curl]
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=test? ( app-emacs/buttercup ) >=app-editors/emacs-25.3:* >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Show system information in Neofetch-like style inside Emacs
 EAPI=8
 HOMEPAGE=https://gitlab.com/xgqt/emacs-el-fetch/
@@ -7,8 +7,8 @@ INHERIT=elisp git-r3
 IUSE=test
 LICENSE=GPL-3+
 PROPERTIES=live
-RDEPEND=>=app-editors/emacs-25.1:*
+RDEPEND=>=app-editors/emacs-25.3:*
 RESTRICT=!test? ( test )
 SLOT=0
-_eclasses_=elisp	8aab2c847b5894dc40503ae1d203abcf	elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b	git-r3	2347f8fe2d392b2a091191f94be37e6f
-_md5_=cb5c522f16dc07d2722181681a87afaa
+_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e	git-r3	27e13c09a4c7e4c78ac812f74727e676
+_md5_=90069e92e5b0d32d71a62d4088095cdf

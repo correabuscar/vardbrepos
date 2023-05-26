@@ -126,7 +126,7 @@ RDEPEND="
 "
 BDEPEND="
 	${PYTHON_DEPS}
-	app-arch/tar
+	>=app-arch/tar-1.34-r2
 	>=dev-lang/yasm-0.6.2
 	dev-libs/libIDL
 	dev-util/glslang
@@ -205,6 +205,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-7.0.0-fix-compilation-clang.patch
 	"${FILESDIR}"/${PN}-7.0.0-python3_11.patch
 	"${FILESDIR}"/${PN}-7.0.6-gcc-13.patch
+	"${FILESDIR}"/${PN}-7.0.6-fix-libxml2.patch
 
 	# Downloaded patchset
 	"${WORKDIR}"/virtualbox-patches-6.1.36/patches

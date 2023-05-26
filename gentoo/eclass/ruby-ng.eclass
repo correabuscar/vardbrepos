@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: ruby-ng.eclass
@@ -67,25 +67,18 @@
 # passed to "grep -E" to remove reporting of these shared objects.
 
 case ${EAPI} in
-	6)
-		inherit eqawarn estack toolchain-funcs
-		;;
-	*)
-		inherit estack
-		;;
-esac
-
-inherit multilib ruby-utils
-
-EXPORT_FUNCTIONS src_unpack src_prepare src_configure src_compile src_test src_install pkg_setup
-
-# S is no longer automatically assigned when it doesn't exist.
-S="${WORKDIR}"
-
-case ${EAPI} in
 	6|7|8) ;;
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
+
+if [[ -z ${_RUBY_NG_ECLASS} ]]; then
+_RUBY_NG_ECLASS=1
+
+[[ ${EAPI} == 6 ]] && inherit eqawarn toolchain-funcs
+inherit estack multilib ruby-utils
+
+# S is no longer automatically assigned when it doesn't exist.
+S="${WORKDIR}"
 
 # @FUNCTION: ruby_implementation_depend
 # @USAGE: target [comparator [version]]
@@ -110,16 +103,21 @@ ruby_implementation_depend() {
 # Return a list of valid implementations in USE_RUBY, skipping the old
 # implementations that are no longer supported.
 _ruby_get_all_impls() {
-	local i
+	local i found_valid_impl
 	for i in ${USE_RUBY}; do
 		case ${i} in
 			# removed implementations
-			ruby19|ruby20|ruby21|ruby22|ruby23|ruby24|ruby25|ruby26|jruby)
+			ruby19|ruby20|ruby21|ruby22|ruby23|ruby24|ruby25|ruby26|ruby27|jruby)
 				;;
 			*)
+				found_valid_impl=1
 				echo ${i};;
 		esac
 	done
+
+	if [[ -z ${found_valid_impl} ]] ; then
+		die "No supported implementation in USE_RUBY."
+	fi
 }
 
 # @FUNCTION: ruby_samelib
@@ -421,6 +419,13 @@ _ruby_each_implementation() {
 		use ruby_targets_${_ruby_implementation} || continue
 
 		RUBY=$(ruby_implementation_command ${_ruby_implementation})
+
+		if [[ -z ${RUBY} ]]; then
+			eerror "Failed to determine a path for \${RUBY} for USE=ruby_targets_${_ruby_implementation}:"
+			eerror " ruby_implementation_command returned an empty RUBY for ${_ruby_implementation}"
+			die "Could not find RUBY for ${_ruby_implementation}. Is $(_ruby_implementation_depend ${_ruby_implementation}) installed?"
+		fi
+
 		invoked=yes
 
 		if [[ -n "$1" ]]; then
@@ -706,7 +711,7 @@ ruby-ng_rspec() {
 	fi
 
 	if [[ "${DEPEND}${BDEPEND}" != *"dev-ruby/rspec"* ]]; then
-		ewarn "Missing test dependency dev-ruby/rspec"
+		eqawarn "Missing test dependency dev-ruby/rspec"
 	fi
 
 	local rspec_params=
@@ -728,7 +733,7 @@ ruby-ng_rspec() {
 			;;
 	esac
 
-	${RUBY} -S rspec-${version} ${rspec_params} ${files} || die "rspec failed"
+	${RUBY} -S rspec-${version} ${rspec_params} ${files} || die -n "rspec failed"
 }
 
 # @FUNCTION: ruby-ng_cucumber
@@ -761,7 +766,32 @@ ruby-ng_cucumber() {
 			;;
 	esac
 
-	CUCUMBER_PUBLISH_QUIET=true ${RUBY} -S cucumber ${cucumber_params} "$@" || die "cucumber failed"
+	CUCUMBER_PUBLISH_QUIET=true ${RUBY} -S cucumber ${cucumber_params} "$@" || die -n "cucumber failed"
+}
+
+# @FUNCTION: ruby-ng_sus
+# @DESCRIPTION:
+# This is simply a wrapper around the sus-parallel command (executed by $RUBY})
+# which also respects TEST_VERBOSE and NOCOLOR environment variables.
+ruby-ng_sus() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	if [[ "${DEPEND}${BDEPEND}" != *"dev-ruby/sus"* ]]; then
+		ewarn "Missing test dependency dev-ruby/sus"
+	fi
+
+	local sus_params=
+
+	# sus has a --verbose argument but it does not seem to impact the output (yet?)
+	case ${TEST_VERBOSE} in
+		1|yes|true)
+			sus_params+=" --verbose"
+			;;
+		*)
+			;;
+	esac
+
+	${RUBY} -S sus-parallel ${sus_params} "$@" || die -n "sus failed"
 }
 
 # @FUNCTION: ruby-ng_testrb-2
@@ -799,3 +829,7 @@ ruby-ng_testrb-2() {
 
 	${RUBY} -S testrb-2 ${testrb_params} "$@" || die "testrb-2 failed"
 }
+
+fi
+
+EXPORT_FUNCTIONS src_unpack src_prepare src_configure src_compile src_test src_install pkg_setup
