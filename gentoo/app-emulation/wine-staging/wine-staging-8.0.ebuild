@@ -4,7 +4,8 @@
 EAPI=8
 
 MULTILIB_COMPAT=( abi_x86_{32,64} )
-inherit autotools flag-o-matic multilib multilib-build toolchain-funcs wrapper
+inherit autotools flag-o-matic multilib multilib-build
+inherit prefix toolchain-funcs wrapper
 
 WINE_GECKO=2.47.3
 WINE_MONO=7.4.0
@@ -200,8 +201,23 @@ src_prepare() {
 
 	default
 
+	if tc-is-clang; then
+		if use mingw; then
+			# -mabi=ms was ignored by <clang:16 then turned error in :17
+			# if used without --target *-windows, then gets used in install
+			# phase despite USE=mingw, drop as a quick fix for now
+			sed -i '/MSVCRTFLAGS=/s/-mabi=ms//' configure.ac || die
+		else
+			# ./configure will fail, abort early
+			die "building ${PN} with clang is only supported with USE=mingw"
+		fi
+	fi
+
 	# ensure .desktop calls this variant + slot
 	sed -i "/^Exec=/s/wine /${P} /" loader/wine.desktop || die
+
+	# datadir is not where wine-mono is installed, so prefixy alternate paths
+	hprefixify -w /get_mono_path/ dlls/mscoree/metahost.c
 
 	# always update for patches (including user's wrt #432348)
 	eautoreconf
@@ -298,9 +314,17 @@ src_configure() {
 			# use *FLAGS for mingw, but strip unsupported
 			: "${CROSSCFLAGS:=$(
 				# >=wine-7.21 configure.ac no longer adds -fno-strict by mistake
-				append-cflags '-fno-strict-aliasing'
+				append-cflags -fno-strict-aliasing
+
 				filter-flags '-fstack-protector*' #870136
 				filter-flags '-mfunction-return=thunk*' #878849
+
+				# -mavx with mingw-gcc has a history of obscure issues and
+				# disabling is seen as safer, e.g. `WINEARCH=win32 winecfg`
+				# crashes with -march=skylake >=wine-8.10, similar issues with
+				# znver4: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=110273
+				append-cflags -mno-avx #912268
+
 				CC=${CROSSCC} test-flags-CC ${CFLAGS:--O2})}"
 			: "${CROSSLDFLAGS:=$(
 				filter-flags '-fuse-ld=*'
@@ -357,6 +381,14 @@ src_install() {
 }
 
 pkg_postinst() {
+	if use abi_x86_32 && { use opengl || use vulkan; } &&
+		has_version 'x11-drivers/nvidia-drivers[-abi_x86_32]'
+	then
+		ewarn "x11-drivers/nvidia-drivers is installed but is built without"
+		ewarn "USE=abi_x86_32 (ABI_X86=32), hardware acceleration with 32bit"
+		ewarn "applications under ${PN} will likely not be usable."
+	fi
+
 	eselect wine update --if-unset || die
 }
 

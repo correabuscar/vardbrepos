@@ -1,7 +1,6 @@
 move dev-python/jupyter_core dev-python/jupyter-core
 move dev-python/mkdocs_pymdownx_material_extras dev-python/mkdocs-pymdownx-material-extras
 move dev-python/jupyter_client dev-python/jupyter-client
-move dev-python/importlib_resources dev-python/importlib-resources
 move dev-python/importlib_metadata dev-python/importlib-metadata
 move dev-python/python-keyutils dev-python/keyutils
 move dev-python/notebook_shim dev-python/notebook-shim
@@ -23,3 +22,11 @@ move app-misc/pdfpc app-text/pdfpc
 move dev-python/python-email-validator dev-python/email-validator
 move dev-python/semantic_version dev-python/semantic-version
 move dev-python/prometheus_client dev-python/prometheus-client
+move dev-python/docker-py dev-python/docker
+move dev-python/python-ctags dev-python/python-ctags3
+move dev-python/python-miniupnpc dev-python/miniupnpc
+move dev-python/service_identity dev-python/service-identity
+move dev-python/readme_renderer dev-python/readme-renderer
+move dev-libs/sexp dev-libs/sexpp
+move net-proxy/obfs4proxy net-proxy/lyrebird
+move dev-java/rat dev-java/apache-rat

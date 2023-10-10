@@ -24,9 +24,10 @@ KEYWORDS="~amd64"
 IUSE=""
 
 ruby_add_rdepend "
-	|| ( dev-ruby/activesupport:6.1 dev-ruby/activesupport:6.0 )
-	|| ( dev-ruby/actionpack:6.1 dev-ruby/actionpack:6.0 )
-	|| ( dev-ruby/railties:6.1 dev-ruby/railties:6.0 )
+	|| ( dev-ruby/activerecord:6.1[sqlite] )
+	|| ( dev-ruby/activesupport:6.1 )
+	|| ( dev-ruby/actionpack:6.1 )
+	|| ( dev-ruby/railties:6.1 )
 	>=dev-ruby/rspec-3.10:3"
 
 # Depend on the package being already installed for tests, because
@@ -36,6 +37,7 @@ ruby_add_bdepend "test? (
 	>=dev-ruby/capybara-2.2.0
 	>=dev-ruby/ammeter-1.1.5
 	~dev-ruby/rspec-rails-${PV}
+	dev-ruby/rails:6.1
 )"
 
 all_ruby_prepare() {

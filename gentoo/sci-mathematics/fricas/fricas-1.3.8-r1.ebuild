@@ -14,11 +14,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 # Supported lisps, number 0 is the default
-LISPS=( sbcl cmucl gcl ecls clisp clozurecl )
+LISPS=( sbcl cmucl gcl ecl clisp clozurecl )
 # Version restrictions, . means no restrictions
-REST=(  .    .     .   .    .     . )
+REST=(  .    .     .   .   .     . )
 # command name: . means just ${LISP}
-COMS=(  .    lisp  .   ecl  .     ccl )
+COMS=(  .    lisp  .   .   .     ccl )
 
 IUSE="${LISPS[*]} X emacs gmp"
 RDEPEND="X? ( x11-libs/libXpm x11-libs/libICE )
@@ -96,7 +96,7 @@ src_install() {
 			-i "${D}"/usr/bin/efricas \
 			|| die "sed efricas failed"
 		elisp-install ${PN} "${D}"/usr/$(get_libdir)/${PN}/emacs/*.el
-		elisp-site-file-install "${FILESDIR}"/64${PN}-gentoo.el
+		elisp-make-site-file 64${PN}-gentoo.el
 	else
 		rm "${D}"/usr/bin/efricas || die "rm efricas failed"
 	fi

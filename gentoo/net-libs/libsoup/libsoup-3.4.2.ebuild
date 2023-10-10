@@ -15,7 +15,7 @@ IUSE="+brotli gssapi gtk-doc +introspection samba ssl sysprof test +vala"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="vala? ( introspection )"
 
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 
 DEPEND="
 	>=dev-libs/glib-2.69.1:2[${MULTILIB_USEDEP}]
@@ -75,6 +75,9 @@ src_configure() {
 
 multilib_src_configure() {
 	local emesonargs=(
+		# Avoid auto-magic, built-in feature of meson
+		-Dauto_features=enabled
+
 		$(meson_feature gssapi)
 		-Dkrb5_config="${CHOST}-krb5-config"
 		$(meson_feature samba ntlm)
@@ -86,6 +89,7 @@ multilib_src_configure() {
 		$(meson_native_use_feature gtk-doc docs)
 		-Ddoc_tests=false
 		$(meson_use test tests)
+		-Dautobahn=disabled
 		-Dinstalled_tests=false
 		$(meson_feature sysprof)
 		$(meson_feature test pkcs11_tests)

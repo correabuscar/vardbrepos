@@ -25,7 +25,7 @@ S="${WORKDIR}"/${PN}-OPENLDAP_REL_ENG_${MY_PV}
 LICENSE="OPENLDAP GPL-2"
 # Subslot added for bug #835654
 SLOT="0/$(ver_cut 1-2)"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~mips ~ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ~ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
 
 IUSE_DAEMON="argon2 +cleartext crypt experimental minimal samba tcpd"
 IUSE_OVERLAY="overlays perl autoca"
@@ -33,15 +33,13 @@ IUSE_OPTIONAL="debug gnutls iodbc ipv6 odbc sasl ssl selinux static-libs +syslog
 IUSE_CONTRIB="kerberos kinit pbkdf2 sha2 smbkrb5passwd"
 IUSE_CONTRIB="${IUSE_CONTRIB} cxx"
 IUSE="systemd ${IUSE_DAEMON} ${IUSE_BACKEND} ${IUSE_OVERLAY} ${IUSE_OPTIONAL} ${IUSE_CONTRIB}"
-RESTRICT="!test? ( test )"
-
-RESTRICT="!test? ( test )"
 REQUIRED_USE="cxx? ( sasl )
 	pbkdf2? ( ssl )
 	test? ( cleartext sasl )
 	autoca? ( !gnutls )
 	?? ( test minimal )
 	kerberos? ( ?? ( kinit smbkrb5passwd ) )"
+RESTRICT="!test? ( test )"
 
 # openssl is needed to generate lanman-passwords required by samba
 COMMON_DEPEND="
@@ -238,7 +236,7 @@ openldap_find_versiontags() {
 		# This will not cover detection of cn=Config based configuration, but
 		# it's hopefully good enough.
 		if grep -sq '^backend.*shell' "${EROOT}"/etc/openldap/slapd.conf; then
-			eerror "    OpenLDAP >= 2.6.x has dropped support for Shell backend."
+			eerror "    OpenLDAP >= 2.5.x has dropped support for Shell backend."
 			eerror "	You will need to migrate per upstream's migration notes"
 			eerror "	at https://www.openldap.org/doc/admin25/appendix-upgrading.html."
 			eerror "	Your existing database will not be accessible until it is"
@@ -247,7 +245,7 @@ openldap_find_versiontags() {
 			fail=1
 		fi
 		if has_version "${CATEGORY}/${PN}[berkdb]" || grep -sq '^backend.*(bdb|hdb)' /etc/openldap/slapd.conf; then
-			eerror "	OpenLDAP >= 2.6.x has dropped support for Berkeley DB."
+			eerror "	OpenLDAP >= 2.5.x has dropped support for Berkeley DB."
 			eerror "	You will need to migrate per upstream's migration notes"
 			eerror "	at https://www.openldap.org/doc/admin25/appendix-upgrading.html."
 			eerror "	Your existing database will not be accessible until it is"

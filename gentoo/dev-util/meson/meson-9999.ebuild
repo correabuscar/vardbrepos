@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} pypy3 )
 DISTUTILS_USE_PEP517=setuptools
 
 if [[ ${PV} = *9999* ]]; then
@@ -43,10 +43,6 @@ DEPEND="
 RDEPEND="
 	virtual/pkgconfig
 "
-
-PATCHES=(
-	"${FILESDIR}"/${PN}-0.63-xtools-support.patch
-)
 
 python_prepare_all() {
 	local disable_unittests=(

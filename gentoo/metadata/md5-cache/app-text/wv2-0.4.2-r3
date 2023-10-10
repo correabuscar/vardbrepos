@@ -3,7 +3,7 @@ DEFINED_PHASES=compile configure install prepare test
 DEPEND=dev-libs/glib >=gnome-extra/libgsf-1.8:= virtual/libiconv zlib? ( sys-libs/zlib )
 DESCRIPTION=Excellent MS Word filter lib, used in most Office suites
 EAPI=8
-HOMEPAGE=http://wvware.sourceforge.net
+HOMEPAGE=https://wvware.sourceforge.net
 INHERIT=cmake flag-o-matic
 IUSE=zlib
 KEYWORDS=~alpha amd64 ~hppa ~ia64 ppc ppc64 sparc x86
@@ -11,5 +11,5 @@ LICENSE=LGPL-2
 RDEPEND=dev-libs/glib >=gnome-extra/libgsf-1.8:= virtual/libiconv zlib? ( sys-libs/zlib )
 SLOT=0
 SRC_URI=mirror://sourceforge/wvware/wv2-0.4.2.tar.bz2
-_eclasses_=cmake	7fb5980de96325cbab639f5b2187357c	flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	multilib	104e1332efb829e2f7cbf89307a474f1	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	76050953ad5b70d7e09a6ca55558db92	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	xdg-utils	baea6080dd821f5562d715887954c9d3
-_md5_=a2092adaa2276d13842529e9e9410cd1
+_eclasses_=cmake	fc2f89084f590ac95c004ea95b0d2f80	flag-o-matic	e5cc383ea8420f92fe3737be790021dc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	f3010c780f65d1bb5aea15a9af1adc9c	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc	xdg-utils	baea6080dd821f5562d715887954c9d3
+_md5_=4ae4ac5e56594a3c8ef708ce7a0970b3

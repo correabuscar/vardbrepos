@@ -3,13 +3,13 @@
 
 EAPI=8
 
-DESCRIPTION="A single file library for audio playback and capture"
-HOMEPAGE="https://miniaudio.io"
+DESCRIPTION="Single file library for audio playback and capture"
+HOMEPAGE="https://miniaud.io"
 SRC_URI="https://github.com/mackron/miniaudio/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="|| ( public-domain MIT-0 )"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
 
 src_install() {
 	insinto /usr/include/${PN}/

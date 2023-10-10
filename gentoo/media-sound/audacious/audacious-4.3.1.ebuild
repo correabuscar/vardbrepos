@@ -12,7 +12,7 @@ HOMEPAGE="https://audacious-media-player.org/"
 SRC_URI="https://distfiles.audacious-media-player.org/${MY_P}.tar.bz2"
 SRC_URI+=" mirror://gentoo/gentoo_ice-xmms-0.2.tar.bz2"
 
-KEYWORDS="~amd64 ~riscv ~x86"
+KEYWORDS="amd64 ~riscv x86"
 LICENSE="BSD-2"
 SLOT="0"
 IUSE="nls"
@@ -32,6 +32,10 @@ RDEPEND="${DEPEND}"
 PDEPEND="~media-plugins/audacious-plugins-${PV}"
 
 S="${WORKDIR}/${MY_P}"
+
+PATCHES=(
+	"${FILESDIR}"/${PN}-enum-backporting.patch
+)
 
 src_prepare() {
 	default

@@ -1,15 +1,15 @@
-BDEPEND=app-emacs/ansi app-emacs/commander app-emacs/dash app-emacs/espuds app-emacs/f app-emacs/s test? ( app-emacs/el-mock app-emacs/ert-runner ) >=app-editors/emacs-25.3:*
+BDEPEND=app-emacs/ansi app-emacs/commander app-emacs/dash app-emacs/espuds app-emacs/f app-emacs/s test? ( app-emacs/el-mock app-emacs/ert-runner ) test? ( app-emacs/ert-runner ) >=app-editors/emacs-25.3:*
 DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Cucumber for Emacs
 EAPI=8
 HOMEPAGE=https://github.com/ecukes/ecukes/
 INHERIT=elisp
-IUSE=test
+IUSE=test test
 KEYWORDS=amd64 ~x86
 LICENSE=GPL-3+
 RDEPEND=app-emacs/ansi app-emacs/commander app-emacs/dash app-emacs/espuds app-emacs/f app-emacs/s >=app-editors/emacs-25.3:*
-RESTRICT=!test? ( test )
+RESTRICT=!test? ( test ) !test? ( test )
 SLOT=0
 SRC_URI=https://github.com/ecukes/ecukes/archive/v0.6.18.tar.gz -> ecukes-0.6.18.tar.gz
-_eclasses_=elisp	7190c722d9e06fabcae26ef1e1dc9183	elisp-common	01bc6dc778b74a9deebe4e419a3b790e
-_md5_=43b406857d40b9465eeab32513233c49
+_eclasses_=elisp	fbefa95f5e9ab880a34bc69832b7c0d7	elisp-common	dc179f98b2b4d9a4473fd3bdc154bbb6
+_md5_=98b6b0e39e49c1318a40baaa440666a9

@@ -61,7 +61,7 @@ SRC_URI="${MOZ_SRC_BASE_URI}/source/${MOZ_P}.source.tar.xz -> ${MOZ_P_DISTFILES}
 DESCRIPTION="SpiderMonkey is Mozilla's JavaScript engine written in C and C++"
 HOMEPAGE="https://spidermonkey.dev https://firefox-source-docs.mozilla.org/js/index.html "
 
-KEYWORDS="amd64 ~arm arm64 ~mips ~ppc ppc64 ~riscv ~sparc x86"
+KEYWORDS="amd64 arm arm64 ~mips ppc ppc64 ~riscv ~sparc x86"
 
 SLOT="$(ver_cut 1)"
 LICENSE="MPL-2.0"
@@ -331,7 +331,7 @@ src_configure() {
 	fi
 
 	# LTO flag was handled via configure
-	filter-flags '-flto*'
+	filter-lto
 
 	# Use system's Python environment
 	export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="none"

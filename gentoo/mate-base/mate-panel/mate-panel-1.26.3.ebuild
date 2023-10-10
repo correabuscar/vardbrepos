@@ -8,7 +8,7 @@ MATE_LA_PUNT="yes"
 inherit mate
 
 if [[ "${PV}" != *9999 ]]; then
-	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86"
+	KEYWORDS="amd64 ~arm ~arm64 ~loong ~riscv x86"
 fi
 
 DESCRIPTION="The MATE panel"
@@ -61,6 +61,10 @@ BDEPEND="
 	>=sys-devel/gettext-0.19.8
 	virtual/pkgconfig
 "
+
+PATCHES=(
+	"${FILESDIR}"/${PN}-1.26.3-gettext-0.22-fix.patch
+)
 
 src_configure() {
 	mate_src_configure \

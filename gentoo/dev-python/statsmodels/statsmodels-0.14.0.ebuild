@@ -18,7 +18,7 @@ HOMEPAGE="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm arm64 ~ia64 ~ppc ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples"
 
 DEPEND="
@@ -33,6 +33,7 @@ RDEPEND="
 	>=dev-python/patsy-0.5.2[${PYTHON_USEDEP}]
 	>=dev-python/scipy-1.3[${PYTHON_USEDEP}]
 "
+# https://github.com/statsmodels/statsmodels/issues/8868 for <cython-3
 BDEPEND="
 	${DEPEND}
 	<dev-python/cython-3[${PYTHON_USEDEP}]

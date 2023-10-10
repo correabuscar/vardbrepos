@@ -51,7 +51,7 @@ S="${WORKDIR}/${PARCH}"
 
 LICENSE="BSD GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+#KEYWORDS="~amd64"
 # Probably want to drop ssl defaulting to on in a future version.
 IUSE="abi_mips_n32 audit debug hpn kerberos ldns libedit livecd pam +pie sctp security-key selinux +ssl static test X X509 xmss"
 
@@ -125,6 +125,7 @@ PATCHES=(
 	"${FILESDIR}/openssh-8.9_p1-allow-ppoll_time64.patch" #834019
 	"${FILESDIR}/openssh-8.9_p1-gss-use-HOST_NAME_MAX.patch" #834044
 	"${FILESDIR}/openssh-9.3_p1-openssl-version-compat-check.patch"
+	"${FILESDIR}/openssh-9.3_p2-zlib-1.3.patch" #912767
 )
 
 pkg_pretend() {
@@ -320,6 +321,7 @@ src_configure() {
 		--datadir="${EPREFIX}"/usr/share/openssh
 		--with-privsep-path="${EPREFIX}"/var/empty
 		--with-privsep-user=sshd
+		--with-hardening
 		$(use_with audit audit linux)
 		$(use_with kerberos kerberos5 "${EPREFIX}"/usr)
 		# We apply the sctp patch conditionally, so can't pass --without-sctp
@@ -333,7 +335,6 @@ src_configure() {
 		$(usex X509 '' "$(use_with security-key security-key-builtin)")
 		$(use_with ssl openssl)
 		$(use_with ssl ssl-engine)
-		$(use_with !elibc_Cygwin hardening) #659210
 	)
 
 	if use elibc_musl; then

@@ -1,15 +1,15 @@
-BDEPEND=dev-qt/qtdbus:5= >=dev-qt/qtquickcontrols2-5.15.2:5= >=dev-qt/qtwidgets-5.15.2:5= kde-frameworks/qqc2-desktop-style:5= wayland? ( dev-qt/qtwayland:5= ) gnome-base/gsettings-desktop-schemas sys-apps/xdg-desktop-portal x11-libs/gtk+:3 >=x11-themes/adwaita-qt-1.4.2 >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
+BDEPEND=dev-qt/qtdbus:5= >=dev-qt/qtquickcontrols2-5.15.2:5= >=dev-qt/qtwidgets-5.15.2:5= !minimal? ( kde-frameworks/qqc2-desktop-style:5= ) wayland? ( dev-qt/qtwayland:5= ) gnome-base/gsettings-desktop-schemas sys-apps/xdg-desktop-portal x11-libs/gtk+:3 >=x11-themes/adwaita-qt-1.4.2 >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=dev-qt/qtdbus:5= >=dev-qt/qtquickcontrols2-5.15.2:5= >=dev-qt/qtwidgets-5.15.2:5= kde-frameworks/qqc2-desktop-style:5= wayland? ( dev-qt/qtwayland:5= ) gnome-base/gsettings-desktop-schemas sys-apps/xdg-desktop-portal x11-libs/gtk+:3 >=x11-themes/adwaita-qt-1.4.2
+DEPEND=dev-qt/qtdbus:5= >=dev-qt/qtquickcontrols2-5.15.2:5= >=dev-qt/qtwidgets-5.15.2:5= !minimal? ( kde-frameworks/qqc2-desktop-style:5= ) wayland? ( dev-qt/qtwayland:5= ) gnome-base/gsettings-desktop-schemas sys-apps/xdg-desktop-portal x11-libs/gtk+:3 >=x11-themes/adwaita-qt-1.4.2
 DESCRIPTION=A Qt Platform Theme aimed to accommodate GNOME settings
 EAPI=8
 HOMEPAGE=https://github.com/FedoraQt/QGnomePlatform
 INHERIT=cmake
-IUSE=wayland
-KEYWORDS=~amd64 ~arm64 ~ppc64 ~x86
+IUSE=minimal wayland
+KEYWORDS=amd64 ~arm64 ~ppc64 x86
 LICENSE=LGPL-2.1
-RDEPEND=dev-qt/qtdbus:5= >=dev-qt/qtquickcontrols2-5.15.2:5= >=dev-qt/qtwidgets-5.15.2:5= kde-frameworks/qqc2-desktop-style:5= wayland? ( dev-qt/qtwayland:5= ) gnome-base/gsettings-desktop-schemas sys-apps/xdg-desktop-portal x11-libs/gtk+:3 >=x11-themes/adwaita-qt-1.4.2
+RDEPEND=dev-qt/qtdbus:5= >=dev-qt/qtquickcontrols2-5.15.2:5= >=dev-qt/qtwidgets-5.15.2:5= !minimal? ( kde-frameworks/qqc2-desktop-style:5= ) wayland? ( dev-qt/qtwayland:5= ) gnome-base/gsettings-desktop-schemas sys-apps/xdg-desktop-portal x11-libs/gtk+:3 >=x11-themes/adwaita-qt-1.4.2
 SLOT=0
 SRC_URI=https://github.com/FedoraQt/QGnomePlatform/archive/0.9.1.tar.gz -> QGnomePlatform-0.9.1.tar.gz
-_eclasses_=cmake	7fb5980de96325cbab639f5b2187357c	flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	multilib	104e1332efb829e2f7cbf89307a474f1	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	76050953ad5b70d7e09a6ca55558db92	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	xdg-utils	baea6080dd821f5562d715887954c9d3
-_md5_=e4b0c060aebc9204f6875914cbef75ea
+_eclasses_=cmake	fc2f89084f590ac95c004ea95b0d2f80	flag-o-matic	e5cc383ea8420f92fe3737be790021dc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	f3010c780f65d1bb5aea15a9af1adc9c	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc	xdg-utils	baea6080dd821f5562d715887954c9d3
+_md5_=b6b8c7d9179f1c263651441106d90aba

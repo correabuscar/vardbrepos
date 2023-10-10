@@ -17,7 +17,7 @@ HOMEPAGE="
 
 LICENSE="|| ( MIT AFL-2.1 )"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
 IUSE="+native-extensions"
 
 DOCS=( README.rst CHANGES.txt )
@@ -25,6 +25,8 @@ DOCS=( README.rst CHANGES.txt )
 distutils_enable_tests unittest
 
 src_configure() {
+	# native-extensions are always disabled on PyPy
+	# https://github.com/simplejson/simplejson/blob/master/setup.py#L121
 	export DISABLE_SPEEDUPS=$(usex native-extensions 0 1)
 	use native-extensions && export REQUIRE_SPEEDUPS=1
 }

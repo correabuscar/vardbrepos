@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{9..11} )
+
+PYTHON_COMPAT=( python3_{9..12} )
 PYTHON_REQ_USE='threads(+)'
 PLOCALES="ca cs de el en_GB es eu fr it ja ko nn pl pt pt_PT ru sv zh"
 inherit toolchain-funcs flag-o-matic plocale python-any-r1 waf-utils desktop xdg
@@ -14,13 +15,13 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="https://git.ardour.org/ardour/ardour.git"
 	inherit git-r3
 else
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64 ~loong ~x86"
 	SRC_URI="https://dev.gentoo.org/~fordfrog/distfiles/Ardour-${PV}.0.tar.bz2"
 	S="${WORKDIR}/Ardour-${PV}.0"
 fi
 
 LICENSE="GPL-2"
-SLOT="7"
+SLOT="8"
 IUSE="doc jack nls phonehome pulseaudio cpu_flags_ppc_altivec cpu_flags_x86_sse cpu_flags_x86_mmx cpu_flags_x86_3dnow"
 
 RDEPEND="
@@ -30,13 +31,10 @@ RDEPEND="
 	dev-libs/glib:2
 	dev-libs/libsigc++:2
 	dev-libs/libxml2:2
-	dev-libs/libxslt
-	>=gnome-base/libgnomecanvas-2
 	media-libs/alsa-lib
 	media-libs/aubio
 	media-libs/flac:=
 	media-libs/freetype:2
-	media-libs/libart_lgpl
 	media-libs/liblo
 	media-libs/liblrdf
 	media-libs/libsamplerate
@@ -46,6 +44,7 @@ RDEPEND="
 	media-libs/rubberband
 	media-libs/taglib
 	media-libs/vamp-plugin-sdk
+	net-libs/libwebsockets
 	net-misc/curl
 	sys-libs/readline:0=
 	sci-libs/fftw:3.0[threads]
@@ -54,7 +53,7 @@ RDEPEND="
 	x11-libs/gtk+:2
 	x11-libs/pango
 	jack? ( virtual/jack )
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 	media-libs/lilv
 	media-libs/sratom
 	dev-libs/sord
@@ -89,7 +88,10 @@ pkg_setup() {
 src_prepare() {
 	default
 
+	# delete optimization flags
 	sed 's/'full-optimization\'\ :\ \\[.*'/'full-optimization\'\ :\ \'\','/' -i "${S}"/wscript || die
+
+	# handle arch
 	MARCH=$(get-flag march)
 	OPTFLAGS=""
 	if use cpu_flags_x86_sse; then
@@ -111,9 +113,13 @@ src_prepare() {
 	sed 's/flag_line\ =\ o.*/flag_line\ =\ \": '"${OPTFLAGS}"' just some place holders\"/' \
 		-i "${S}"/wscript || die
 	sed 's/cpu\ ==\ .*/cpu\ ==\ "LeaveMarchAsIs":/' -i "${S}"/wscript || die
+
+	# boost and shebang
 	append-flags "-lboost_system"
 	python_fix_shebang "${S}"/wscript
 	python_fix_shebang "${S}"/waf
+
+	# handle locales
 	my_lcmsg() {
 		rm -f {gtk2_ardour,gtk2_ardour/appdata,libs/ardour,libs/gtkmm2ext}/po/${1}.po
 	}
@@ -129,7 +135,6 @@ src_configure() {
 	use pulseaudio && backends+=",pulseaudio"
 
 	tc-export CC CXX
-	mkdir -p "${D}"
 	local myconf=(
 		--configdir=/etc
 		--freedesktop
@@ -137,11 +142,12 @@ src_configure() {
 		--optimize
 		--with-backends=${backends}
 		$({ use cpu_flags_ppc_altivec || use cpu_flags_x86_sse; } && \
-			echo "--fpu-optimization" || echo "--no-fpu-optimization")
+			echo '' || echo "--no-fpu-optimization")
 		$(usex doc "--docs" '')
-		$(usex nls "--nls" "--no-nls")
+		$(usex nls '' "--no-nls")
 		$(usex phonehome "--phone-home" "--no-phone-home")
 		# not possible right now  --use-external-libs
+		# missing dependency: https://github.com/c4dm/qm-dsp
 	)
 
 	waf-utils_src_configure "${myconf[@]}"
@@ -175,6 +181,7 @@ src_install() {
 
 	insinto /usr/share/mime/packages
 	newins build/gtk2_ardour/ardour.xml ardour${SLOT}.xml
+	rm "${D}/usr/share/mime/packages/ardour.xml" || die
 }
 
 pkg_postinst() {

@@ -33,13 +33,14 @@ HOMEPAGE="https://www.kismetwireless.net"
 
 LICENSE="GPL-2"
 SLOT="0/${PV}"
-IUSE="libusb lm-sensors networkmanager +pcre rtlsdr selinux +suid ubertooth udev"
+IUSE="libusb lm-sensors mqtt networkmanager +pcre rtlsdr selinux +suid ubertooth udev"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 CDEPEND="
 	${PYTHON_DEPS}
 	acct-user/kismet
 	acct-group/kismet
+	mqtt? ( app-misc/mosquitto )
 	networkmanager? ( net-misc/networkmanager )
 	dev-libs/glib:2
 	dev-libs/elfutils
@@ -59,7 +60,7 @@ CDEPEND="
 		dev-python/websockets[${PYTHON_USEDEP}]
 	')
 	lm-sensors? ( sys-apps/lm-sensors:= )
-	pcre? ( dev-libs/libpcre )
+	pcre? ( dev-libs/libpcre2:= )
 	suid? ( sys-libs/libcap )
 	ubertooth? ( net-wireless/ubertooth )
 	"
@@ -75,11 +76,9 @@ RDEPEND="${CDEPEND}
 	)
 	selinux? ( sec-policy/selinux-kismet )
 "
-#switched back to bundled libfmt-8
-#https://bugs.gentoo.org/895252
-#<dev-libs/libfmt-9
 DEPEND="${CDEPEND}
 	dev-libs/boost
+	=dev-libs/libfmt-9*
 	sys-libs/libcap
 "
 BDEPEND="virtual/pkgconfig"
@@ -94,9 +93,7 @@ src_prepare() {
 	#sed -i -e 's#root#kismet#g' packaging/systemd/kismet.service.in
 
 	rm -r boost || die
-	#switched back to bundled libfmt-8
-	#https://bugs.gentoo.org/895252
-	#rm -r fmt || die
+	rm -r fmt || die
 
 	#dev-libs/jsoncpp
 	#rm -r json || die
@@ -107,7 +104,7 @@ src_prepare() {
 	#	log_tools/kismetdb_to_wiglecsv.cc trackedcomponent.h \
 	#	trackedelement.h trackedelement_workers.h
 
-	eapply_user
+	default
 
 	if [ "${PV}" = "9999" ]; then
 		eautoreconf
@@ -118,7 +115,9 @@ src_configure() {
 	econf \
 		$(use_enable libusb libusb) \
 		$(use_enable libusb wifi-coconut) \
+		$(use_enable mqtt mosquitto) \
 		$(use_enable pcre) \
+		$(use_enable pcre require-pcre2) \
 		$(use_enable lm-sensors lmsensors) \
 		$(use_enable networkmanager libnm) \
 		$(use_enable ubertooth) \

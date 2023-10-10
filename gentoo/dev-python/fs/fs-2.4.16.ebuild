@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( pypy3 python3_{9..11} )
+PYTHON_COMPAT=( pypy3 python3_{10..11} )
 inherit distutils-r1 optfeature pypi
 
 DESCRIPTION="Filesystem abstraction layer"
@@ -16,7 +16,7 @@ HOMEPAGE="
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos"
 
 RDEPEND="
 	>=dev-python/appdirs-1.4.3[${PYTHON_USEDEP}]
@@ -39,6 +39,13 @@ EPYTEST_IGNORE=(
 	# TODO: fails at teardown due to unfreed resources
 	tests/test_ftpfs.py
 )
+
+src_prepare() {
+	# fix for python 3.12
+	sed -e 's/self.assertRaisesRegexp/self.assertRaisesRegex/g' -i fs/test.py || die
+
+	distutils-r1_src_prepare
+}
 
 pkg_postinst() {
 	optfeature "S3 support" dev-python/boto

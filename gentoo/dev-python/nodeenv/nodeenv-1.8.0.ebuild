@@ -20,12 +20,13 @@ SRC_URI="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~hppa ~ppc ~ppc64 ~x86"
+KEYWORDS="amd64 ~arm64 ~hppa ~ppc ~ppc64 x86"
 
 # requires network access
 RESTRICT="test"
 PROPERTIES="test_network"
 
+# See https://github.com/ekalinin/nodeenv/issues/333 for which.
 RDEPEND="
 	sys-apps/which
 "

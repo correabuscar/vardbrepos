@@ -93,21 +93,12 @@ gnome
 # some programs with this useflag are useful, e.g #227631
 mpi
 
-# Ryan Hill <dirtyepic@gentoo.org>
-# virtual/blas virtual/cblas and virtual/lapack not keyworded
-lapack
-blas
-
 # Alexander Færøy <eroyf@gentoo.org>
 # Clamav -- untested, masking for now.
 clamav
 
 # Untested on mips, masking for now.
 cdb
-
-# Until someone actually needs fuse, we'll mask it as
-# it holds up stablizing ntfsprogs
-fuse
 
 # Donnie Berkholz <dberkholz@gentoo.org> (2006-03-07)
 # Modular X: mask for architectures lacking direct rendering

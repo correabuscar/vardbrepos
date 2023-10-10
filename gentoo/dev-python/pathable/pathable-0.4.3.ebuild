@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( pypy3 python3_{9..11} )
+PYTHON_COMPAT=( pypy3 python3_{10..12} )
 inherit distutils-r1
 
 DESCRIPTION="Object-oriented paths"
@@ -18,7 +18,7 @@ SRC_URI="
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc64 ~riscv x86"
+KEYWORDS="amd64 arm arm64 ~loong ppc64 ~riscv x86"
 
 distutils_enable_tests pytest
 

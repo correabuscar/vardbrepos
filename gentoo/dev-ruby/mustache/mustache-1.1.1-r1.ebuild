@@ -17,7 +17,7 @@ HOMEPAGE="https://mustache.github.io/"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 ~hppa ~loong ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
+KEYWORDS="amd64 arm arm64 ~hppa ~loong ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos ~x64-solaris"
 IUSE=""
 
 PATCHES=( "${FILESDIR}/${P}-test-ordering.patch" )
@@ -32,7 +32,7 @@ all_ruby_prepare() {
 }
 
 each_ruby_test() {
-	${RUBY} -Ilib:. -e "Dir['test/*.rb'].each{|f| require f}" || die
+	MT_NO_PLUGINS=1 ${RUBY} -Ilib:. -e "Dir['test/*.rb'].each{|f| require f}" || die
 }
 
 all_ruby_install() {

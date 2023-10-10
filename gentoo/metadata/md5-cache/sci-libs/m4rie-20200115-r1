@@ -3,7 +3,7 @@ DEFINED_PHASES=configure install prepare
 DEPEND=sci-libs/m4ri
 DESCRIPTION=Fast dense matrix arithmetic over GF(2^e) for 2 <= e <= 16
 EAPI=7
-HOMEPAGE=https://bitbucket.org/malb/m4rie/
+HOMEPAGE=https://github.com/malb/m4rie
 INHERIT=autotools
 IUSE=debug static-libs
 KEYWORDS=amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos
@@ -11,5 +11,5 @@ LICENSE=GPL-2+
 RDEPEND=sci-libs/m4ri
 SLOT=0
 SRC_URI=https://bitbucket.org/malb/m4rie/downloads/m4rie-20200115.tar.gz
-_eclasses_=autotools	f0d3196128225dee3220e65f3371bc7a	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
-_md5_=80a000992f29adc195777995a9eadec4
+_eclasses_=autotools	6ae9a4347149b19a112caa1182d03bde	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
+_md5_=616fe1440da1856e7d06755d5fcbc370

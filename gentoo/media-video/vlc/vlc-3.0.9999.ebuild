@@ -58,13 +58,14 @@ BDEPEND="
 	virtual/pkgconfig
 	lua? ( ${LUA_DEPS} )
 	amd64? ( dev-lang/yasm )
+	wayland? ( dev-util/wayland-scanner )
 	x86? ( dev-lang/yasm )
 "
 # <ffmpeg-5 dep for USE="ffmpeg vaapi" for bug #864721
 RDEPEND="
 	media-libs/libvorbis
 	net-dns/libidn:=
-	sys-libs/zlib[minizip]
+	sys-libs/zlib
 	virtual/libintl
 	virtual/opengl
 	a52? ( media-libs/a52dec )
@@ -167,7 +168,7 @@ RDEPEND="
 		media-fonts/dejavu
 		>=media-libs/libprojectm-3.1.12:0=
 	)
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 	rdp? ( >=net-misc/freerdp-2.0.0_rc0:=[client(+)] )
 	samba? ( >=net-fs/samba-4.0.0:0[client,-debug(-)] )
 	sdl-image? ( media-libs/sdl-image )
@@ -234,6 +235,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-2.2.8-freerdp-2.patch # bug 590164
 	"${FILESDIR}"/${PN}-3.0.6-fdk-aac-2.0.0.patch # bug 672290
 	"${FILESDIR}"/${PN}-3.0.11.1-configure_lua_version.patch
+	"${FILESDIR}"/${PN}-3.0.18-drop-minizip-dep.patch
 )
 
 DOCS=( AUTHORS THANKS NEWS README doc/fortunes.txt )

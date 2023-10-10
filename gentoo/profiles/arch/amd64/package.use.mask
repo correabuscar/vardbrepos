@@ -17,6 +17,39 @@
 
 #--- END OF EXAMPLES ---
 
+# Michał Górny <mgorny@gentoo.org> (2023-09-19)
+# dev-cpp/cpp-httplib is keyworded here.
+sys-devel/llvm -debuginfod
+
+# Ionen Wolkens <ionen@gentoo.org> (2023-09-13)
+# media-gfx/renderdoc is keyworded here
+dev-qt/qtbase -renderdoc
+
+# Sam James <sam@gentoo.org> (2023-09-07)
+# media-libs/roc-toolkit is not keyworded in most places
+media-video/pipewire -roc
+
+# Matt Jolly <matt.jolly@footclan.ninja> (2023-08-10)
+# 'ssl' USE required for curl's nghttp3/quic support
+net-libs/ngtcp2 -ssl
+
+# Matt Jolly <matt.jolly@footclan.ninja> (2023-08-10)
+# nghttp3 has been tested to work on amd64
+net-misc/curl -nghttp3
+
+# Sam James <sam@gentoo.org> (2023-07-18)
+# dev-cpp/cppdap is not keyworded in most places
+dev-util/cmake -dap
+
+# Marek Szuba <marecki@gentoo.org> (2023-06-29)
+# Now that we globally unmask USE=qt6 for amd64, the mask set
+# in profiles/base/package.use.mask no longer has any effect on this arch.
+dev-python/pyotherside qt6
+
+# Michał Górny <mgorny@gentoo.org> (2023-06-24)
+# dev-db/mongodb miraculously got keyworded here.
+dev-python/pymongo -test-full
+
 # Sam James <sam@gentoo.org> (2023-05-15)
 # net-libs/rustls-ffi is keyworded here
 www-servers/apache -apache2_modules_tls
@@ -32,7 +65,7 @@ dev-lang/ruby -jit
 
 # Sam James <sam@gentoo.org> (2023-04-03)
 # pytables is available here.
-dev-python/pytables -cpudetection
+dev-python/tables -cpudetection
 
 # Craig Andrews <candrews@gentoo.org> (2023-03-09)
 # media-libs/libplacebo is keyworded here
@@ -188,13 +221,6 @@ sci-physics/root -cudnn
 mail-client/thunderbird -eme-free
 www-client/firefox -eme-free
 
-# Andreas Sturmlechner <asturm@gentoo.org> (2020-02-26)
-# Vulkan is available on amd64.
-dev-qt/qt3d -vulkan
-dev-qt/qtdeclarative -vulkan
-dev-qt/qtgui -vulkan
-dev-qt/qtwayland -vulkan
-
 # James Le Cuirot <chewi@gentoo.org> (2019-12-10)
 # The JIT feature only works on amd64 and x86.
 app-emulation/aranym -jit
@@ -202,10 +228,6 @@ app-emulation/aranym -jit
 # Thomas Deutschmann <whissi@gentoo.org> (2019-11-11)
 # dev-python/pandas is keyworded for amd64
 sys-block/fio -python -gnuplot
-
-# Craig Andrews <candrews@gentoo.org> (2019-10-08)
-# net-misc/quiche is available on this arch
-net-misc/curl -quiche
 
 # Luke Dashjr <luke-jr+gentoobugs@utopios.org> (2019-09-21)
 # iasl is stable on amd64
@@ -253,10 +275,6 @@ net-vpn/strongswan -strongswan_plugins_aesni -strongswan_plugins_rdrand
 # Michael Palimaka <kensington@gentoo.org> (2018-10-12)
 # Unmask arch-specific USE flags available on amd64
 net-analyzer/testssl -bundled-openssl -kerberos
-
-# Thomas Deutschmann <whissi@gentoo.org> (2018-09-30)
-# Unmask libheif support where media-libs/libheif is keyworded
-media-gfx/imagemagick -heif
 
 # Thomas Deutschmann <whissi@gentoo.org> (2018-08-23)
 # Dependency sys-cluster/ceph is keyworded for amd64
@@ -338,8 +356,8 @@ sys-boot/grub:2 -grub_platforms_xen-32
 >=dev-db/mariadb-10.1.0 -mroonga -galera
 
 # Mike Gilbert <floppym@gentoo.org> (2015-09-05)
-# sys-boot/gnu-efi is not supported on all archs.
-sys-apps/systemd -gnuefi
+# sd-boot is not supported on all archs.
+sys-apps/systemd -boot -gnuefi
 sys-apps/systemd-utils -boot
 
 # Ben de Groot <yngwin@gentoo.org> (2015-03-15)
@@ -362,11 +380,6 @@ dev-vcs/git -mediawiki
 # Sergey Popov <pinkbyte@gentoo.org> (2013-12-27)
 # Boost.Context can be built on amd64
 dev-libs/boost -context
-
-# Michał Górny <mgorny@gentoo.org> (2013-12-15)
-# mupen64plus' 2.0 new dynamic recompiler is supported on x86 and arm
-# only.
-games-emulation/mupen64plus-core new-dynarec
 
 # Tim Harder <radhermit@gentoo.org> (2013-08-13)
 # dev-lang/luajit keyworded for amd64 (masked in base)

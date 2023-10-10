@@ -21,6 +21,10 @@ SLOT="0"
 IUSE="openmp +qmanifest +qtegrity static"
 
 RDEPEND="
+	openmp? ( || (
+		sys-devel/gcc:*[openmp]
+		sys-libs/libomp
+	) )
 	qmanifest? (
 		!static? (
 			app-crypt/gpgme:=
@@ -50,9 +54,8 @@ DEPEND="${RDEPEND}
 	)"
 BDEPEND="virtual/pkgconfig"
 
-pkg_pretend() {
-	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
-}
+# bug #898362, gnulib check explicitly looks for MIN in some headers
+QA_CONFIG_IMPL_DECL_SKIP="MIN"
 
 pkg_setup() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp

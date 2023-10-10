@@ -4,9 +4,9 @@
 EAPI=7
 
 PYTHON_REQ_USE="sqlite,ssl"
-LIBDVDCSS_VERSION="1.4.3-Next-Nexus-Alpha2"
-LIBDVDREAD_VERSION="6.1.3-Next-Nexus-Alpha2"
-LIBDVDNAV_VERSION="6.1.1-Next-Nexus-Alpha2"
+LIBDVDCSS_VERSION="1.4.3-Next-Nexus-Alpha2-2"
+LIBDVDREAD_VERSION="6.1.3-Next-Nexus-Alpha2-2"
+LIBDVDNAV_VERSION="6.1.1-Next-Nexus-Alpha2-2"
 FFMPEG_VERSION="5.1.2"
 CODENAME="Nexus"
 FFMPEG_KODI_VERSION="Alpha3"
@@ -123,7 +123,7 @@ COMMON_TARGET_DEPEND="${PYTHON_DEPS}
 		|| ( media-libs/raspberrypi-userland media-libs/raspberrypi-userland-bin media-libs/mesa[egl(+),gles2,video_cards_vc4] )
 	)
 	pipewire? ( media-video/pipewire )
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 	samba? ( >=net-fs/samba-3.4.6[smbclient(+)] )
 	>=sys-libs/zlib-1.2.11
 	udf? ( >=dev-libs/libudfread-1.0.0 )
@@ -145,7 +145,7 @@ COMMON_TARGET_DEPEND="${PYTHON_DEPS}
 		>=dev-libs/wayland-protocols-1.7
 		>=x11-libs/libxkbcommon-0.4.1
 	)
-	webserver? ( >=net-libs/libmicrohttpd-0.9.75[messages(+)] )
+	webserver? ( >=net-libs/libmicrohttpd-0.9.75:=[messages(+)] )
 	X? (
 		media-libs/mesa[X]
 		!gles? ( media-libs/libglvnd[X] )
@@ -298,8 +298,7 @@ src_configure() {
 		-Dlibdvdread_URL="${DISTDIR}/libdvdread-${LIBDVDREAD_VERSION}.tar.gz"
 		-Dlibdvdnav_URL="${DISTDIR}/libdvdnav-${LIBDVDNAV_VERSION}.tar.gz"
 		-Dlibdvdcss_URL="${DISTDIR}/libdvdcss-${LIBDVDCSS_VERSION}.tar.gz"
-		-DPYTHON_INCLUDE_DIR="$(python_get_includedir)"
-		-DPYTHON_LIBRARY="$(python_get_library_path)"
+		-DPYTHON_VER="${EPYTHON#python}"
 		-DAPP_RENDER_SYSTEM="$(usex gles gles gl)"
 		-DCORE_PLATFORM_NAME="${core_platform_name}"
 	)

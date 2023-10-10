@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{9..12} )
 inherit cmake python-single-r1
 
 MY_PN=dwarves
@@ -37,7 +37,7 @@ LICENSE="GPL-2" # only
 SLOT="0"
 IUSE="debug"
 if [[ ${PV} != 9999 ]] ; then
-	KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~x86"
+	KEYWORDS="amd64 arm arm64 ~loong ~ppc ppc64 ~riscv x86"
 fi
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 

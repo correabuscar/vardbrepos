@@ -3,7 +3,7 @@
 
 EAPI=8
 
-USE_RUBY="ruby27 ruby30 ruby31"
+USE_RUBY="ruby30 ruby31 ruby32"
 RUBY_FAKEGEM_EXTRADOC="README.md"
 RUBY_FAKEGEM_RECIPE_TEST="rspec3"
 RUBY_FAKEGEM_RECIPE_DOC="yard"
@@ -21,11 +21,11 @@ SLOT="$(ver_cut 1)"
 KEYWORDS="~amd64"
 
 ruby_add_rdepend "dev-ruby/roadie:5
-	|| ( dev-ruby/railties:7.0 dev-ruby/railties:6.1 dev-ruby/railties:6.0 )"
+	|| ( dev-ruby/railties:7.0 dev-ruby/railties:6.1 )"
 ruby_add_bdepend "
 	test? (
 		dev-ruby/bundler
-		|| ( dev-ruby/rails:7.0 dev-ruby/rails:6.1 dev-ruby/rails:6.0 )
+		|| ( dev-ruby/rails:7.0 dev-ruby/rails:6.1 )
 		dev-ruby/rspec-rails
 		dev-ruby/rspec-collection_matchers
 		dev-ruby/sass-rails )"

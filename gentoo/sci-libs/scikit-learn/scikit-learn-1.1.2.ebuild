@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit distutils-r1
 
@@ -15,7 +15,7 @@ SRC_URI="https://github.com/scikit-learn/scikit-learn/archive/${PV}.tar.gz -> ${
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ~arm64 ~ppc64 ~riscv x86"
+KEYWORDS="amd64 ~arm64 ~ppc64 ~riscv ~x86 ~arm64-macos ~x64-macos"
 IUSE="examples"
 
 # Fatal Python error: Segmentation fault
@@ -28,18 +28,21 @@ DEPEND="
 RDEPEND="
 	${DEPEND}
 	dev-python/wheel[${PYTHON_USEDEP}]
-	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/threadpoolctl[${PYTHON_USEDEP}]
+"
+# <cython-3: https://bugs.gentoo.org/911369
+BDEPEND="
+	<dev-python/cython-3[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest
 # For some reason this wants to use urllib to fetch things from the internet
 # distutils_enable_sphinx doc \
 # 	dev-python/matplotlib \
-# 	dev-python/memory_profiler \
+# 	dev-python/memory-profiler \
 # 	dev-python/numpydoc \
 # 	dev-python/pandas \
 # 	dev-python/pillow \

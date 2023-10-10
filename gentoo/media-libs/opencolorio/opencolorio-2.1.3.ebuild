@@ -16,7 +16,7 @@ LICENSE="BSD"
 # TODO: drop .1 on next SONAME bump (2.1 -> 2.2?) as we needed to nudge it
 # to force rebuild of consumers due to changing to openexr 3 changing API.
 SLOT="0/$(ver_cut 1-2).1"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~riscv ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~ppc64 ~riscv"
 IUSE="cpu_flags_x86_sse2 doc opengl python static-libs test"
 REQUIRED_USE="
 	doc? ( python )
@@ -30,7 +30,7 @@ RESTRICT="test"
 RDEPEND="
 	dev-cpp/pystring
 	dev-python/pybind11
-	>=dev-cpp/yaml-cpp-0.7.0:=
+	<dev-cpp/yaml-cpp-0.8.0:=
 	>=dev-libs/imath-3.1.4-r2:=
 	dev-libs/tinyxml
 	opengl? (

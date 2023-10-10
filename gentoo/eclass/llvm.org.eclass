@@ -52,12 +52,12 @@ LLVM_VERSION=$(ver_cut 1-3)
 
 # == internal control bits ==
 
-# @ECLASS_VARIABLE: _LLVM_MASTER_MAJOR
+# @ECLASS_VARIABLE: _LLVM_MAIN_MAJOR
 # @INTERNAL
 # @DESCRIPTION:
 # The major version of current LLVM trunk.  Used to determine
 # the correct branch to use.
-_LLVM_MASTER_MAJOR=17
+_LLVM_MAIN_MAJOR=18
 
 # @ECLASS_VARIABLE: _LLVM_SOURCE_TYPE
 # @INTERNAL
@@ -72,14 +72,11 @@ if [[ -z ${_LLVM_SOURCE_TYPE+1} ]]; then
 			_LLVM_SOURCE_TYPE=snapshot
 
 			case ${PV} in
-				17.0.0_pre20230520)
-					EGIT_COMMIT=abbb22cc0c9c33dedb8d53c2bd3e703f92baace7
+				18.0.0_pre20231002)
+					EGIT_COMMIT=39fec5457c0925bd39f67f63fe17391584e08258
 					;;
-				17.0.0_pre20230512)
-					EGIT_COMMIT=7d436d56b60b36508b94e39d08761f1405a9c770
-					;;
-				17.0.0_pre20230502)
-					EGIT_COMMIT=52882de0e641487329c9e093a90ea3dad01842c8
+				18.0.0_pre20230925)
+					EGIT_COMMIT=f5cb9cb59d7c9c6ac3d5c41c677f68c9b75d34a3
 					;;
 				*)
 					die "Unknown snapshot: ${PV}"
@@ -95,8 +92,8 @@ fi
 
 [[ ${_LLVM_SOURCE_TYPE} == git ]] && inherit git-r3
 
-[[ ${LLVM_MAJOR} == ${_LLVM_MASTER_MAJOR} && ${_LLVM_SOURCE_TYPE} == tar ]] &&
-	die "${ECLASS}: Release ebuild for master branch?!"
+[[ ${LLVM_MAJOR} == ${_LLVM_MAIN_MAJOR} && ${_LLVM_SOURCE_TYPE} == tar ]] &&
+	die "${ECLASS}: Release ebuild for main branch?!"
 
 inherit multiprocessing
 
@@ -211,7 +208,7 @@ ALL_LLVM_TARGET_FLAGS=(
 # as a subslot.  This is equal to LLVM_MAJOR for releases, and to PV
 # for the main branch.
 LLVM_SOABI=${LLVM_MAJOR}
-[[ ${LLVM_MAJOR} == ${_LLVM_MASTER_MAJOR} ]] && LLVM_SOABI=${PV}
+[[ ${LLVM_MAJOR} == ${_LLVM_MAIN_MAJOR} ]] && LLVM_SOABI=${PV}
 
 # == global scope logic ==
 
@@ -233,7 +230,7 @@ llvm.org_set_globals() {
 		git)
 			EGIT_REPO_URI="https://github.com/llvm/llvm-project.git"
 
-			[[ ${LLVM_MAJOR} != ${_LLVM_MASTER_MAJOR} ]] &&
+			[[ ${LLVM_MAJOR} != ${_LLVM_MAIN_MAJOR} ]] &&
 				EGIT_BRANCH="release/${LLVM_MAJOR}.x"
 			;;
 		tar)
@@ -381,7 +378,7 @@ llvm.org_src_unpack() {
 		local IFS='|'
 		grep -E -r -L "^Gentoo-Component:.*(${components[*]})" \
 			"${WORKDIR}/llvm-gentoo-patchset-${LLVM_PATCHSET}" |
-			xargs rm
+			xargs -r rm
 		local status=( "${PIPESTATUS[@]}" )
 		[[ ${status[1]} -ne 0 ]] && die "rm failed"
 		[[ ${status[0]} -ne 0 ]] &&
@@ -448,6 +445,9 @@ llvm_manpage_get_dist() {
 				;;
 			16*)
 				echo "llvm-16.0.4-manpages.tar.bz2"
+				;;
+			17*)
+				echo "llvm-17.0.1-manpages.tar.bz2"
 				;;
 		esac
 	fi

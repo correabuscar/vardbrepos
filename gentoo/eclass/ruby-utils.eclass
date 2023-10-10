@@ -22,7 +22,6 @@ esac
 
 if [[ ! ${_RUBY_UTILS} ]]; then
 
-
 # @ECLASS_VARIABLE: RUBY_TARGETS_PREFERENCE
 # @INTERNAL
 # @DESCRIPTION:
@@ -33,68 +32,19 @@ if [[ ! ${_RUBY_UTILS} ]]; then
 # provide for a better first installation experience.
 
 # All stable RUBY_TARGETS
-RUBY_TARGETS_PREFERENCE="ruby30 "
+RUBY_TARGETS_PREFERENCE="ruby31 "
 
 # All other active ruby targets
-RUBY_TARGETS_PREFERENCE+="ruby31 ruby32"
-
+RUBY_TARGETS_PREFERENCE+="ruby32"
 
 _ruby_implementation_depend() {
 	local rubypn=
 	local rubyslot=
 
 	case $1 in
-		ruby18)
+		ruby1[89]|ruby2[0-7]|ruby3[0-2])
 			rubypn="dev-lang/ruby"
-			rubyslot=":1.8"
-			;;
-		ruby19)
-			rubypn="dev-lang/ruby"
-			rubyslot=":1.9"
-			;;
-		ruby20)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.0"
-			;;
-		ruby21)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.1"
-			;;
-		ruby22)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.2"
-			;;
-		ruby23)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.3"
-			;;
-		ruby24)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.4"
-			;;
-		ruby25)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.5"
-			;;
-		ruby26)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.6"
-			;;
-		ruby27)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.7"
-			;;
-		ruby30)
-			rubypn="dev-lang/ruby"
-			rubyslot=":3.0"
-			;;
-		ruby31)
-			rubypn="dev-lang/ruby"
-			rubyslot=":3.1"
-			;;
-		ruby32)
-			rubypn="dev-lang/ruby"
-			rubyslot=":3.2"
+			rubyslot=":${1:4:1}.${1:5}"
 			;;
 		ree18)
 			rubypn="dev-lang/ruby-enterprise"
@@ -113,8 +63,6 @@ _ruby_implementation_depend() {
 
 	echo "$2${rubypn}$3${rubyslot}"
 }
-
-
 
 _RUBY_UTILS=1
 fi

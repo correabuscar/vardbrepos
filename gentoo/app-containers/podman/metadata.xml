@@ -5,6 +5,14 @@
 		<email>zmedico@gentoo.org</email>
 		<name>Zac Medico</name>
 	</maintainer>
+	<maintainer type="project" proxied="proxy">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<maintainer type="person" proxied="yes">
+		<email>rahil3108@gmail.com</email>
+		<name>Rahil Bhimjiani</name>
+	</maintainer>
 	<longdescription lang="en">
 		Podman (the POD MANager) is a tool for managing containers
 		and images, volumes mounted into those containers, and pods
@@ -20,7 +28,7 @@
 			necessary kernel flags.
 		</flag>
 		<flag name="cgroup-hybrid">
-			Default to hybrid (legacy) cgroup hierarchy instead of unified (modern).
+			Use legacy (hybrid) cgroups instead of modern (unified) cgroups
 		</flag>
 		<flag name="fuse">
 			Enables fuse dependencies (fuse-overlayfs is especially useful
@@ -32,8 +40,13 @@
 		<flag name="rootless">
 			Enables dependencies for running in rootless mode.
 		</flag>
+		<flag name="wrapper">
+			Install wrapper which lets use podman for command `docker`
+		</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">containers/podman</remote-id>
+		<bugs-to>https://github.com/containers/podman/issues</bugs-to>
+		<doc>https://podman.io/docs</doc>
 	</upstream>
 </pkgmetadata>

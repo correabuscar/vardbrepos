@@ -11,7 +11,7 @@ SRC_URI="https://github.com/mirage/alcotest/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="ISC"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+KEYWORDS="amd64 arm arm64 ~ppc ~ppc64 x86"
 IUSE="+ocamlopt"
 
 RDEPEND="
@@ -23,7 +23,7 @@ RDEPEND="
 	dev-ml/base:=
 	dev-ml/cmdliner:=
 	>=dev-ml/core-0.15.0:=
-	>=dev-ml/core_unix-0.15.0:=
+	dev-ml/core_unix:0/0.15
 	dev-ml/duration:=
 	>=dev-ml/fmt-0.8.9:=
 	dev-ml/lwt:=

@@ -7,8 +7,8 @@
 # Profile IUSE injection (applies only to ebuilds which use EAPI 5 or later)
 IUSE_IMPLICIT="prefix prefix-guest prefix-stack"
 USE_EXPAND_IMPLICIT="ELIBC KERNEL"
-USE_EXPAND_VALUES_ELIBC="bionic Cygwin Darwin glibc mingw musl SunOS Winnt"
-USE_EXPAND_VALUES_KERNEL="Darwin linux SunOS Winnt"
+USE_EXPAND_VALUES_ELIBC="bionic Darwin glibc mingw musl SunOS"
+USE_EXPAND_VALUES_KERNEL="Darwin linux SunOS"
 
 # Env vars to expand into USE vars.  Modifying this requires prior
 # discussion on gentoo-dev@lists.gentoo.org.
@@ -99,8 +99,8 @@ LCD_DEVICES="bayrad cfontz cfontz633 glk hd44780 lb216 lcdm001 mtxorb ncurses te
 
 # Manuel Rüger <mrueg@gentoo.org> (2015-09-09)
 # Default Ruby build target(s)
-# Updated to remove ruby27 on 2023-03-26
-RUBY_TARGETS="ruby30"
+# Updated to add ruby31 on 2023-05-29 and to drop ruby30 on 2023-06-17
+RUBY_TARGETS="ruby31"
 
 # Andreas K. Hüttel <dilfridge@gentoo.org> (2022-10-22)
 # These USE flags are what is common between the various sub-profiles. Stages 2
@@ -127,7 +127,7 @@ PYTHONDONTWRITEBYTECODE="1"
 # This MUST be kept in sync with the PYTHON_TARGETS below
 # Mike Gilbert <floppym@gentoo.org> (2018-05-23)
 # sys-apps/baselayout-2.5 needs split-usr enabled.
-BOOTSTRAP_USE="unicode internal-glib pkg-config split-usr xml python_targets_python3_11"
+BOOTSTRAP_USE="unicode internal-glib pkg-config split-usr xml python_targets_python3_11 python_single_target_python3_11"
 
 # Mike Gilbert <floppym@gentoo.org> (2012-05-15)
 # Default target(s) for python-r1.eclass
@@ -153,7 +153,7 @@ TWISTED_DISABLE_WRITING_OF_PLUGIN_CACHE="1"
 
 # Aaron W. Swenson <titanofold@gentoo.org> (2017-07-09)
 # Default target(s) for postgres{,-multi}.eclass
-POSTGRES_TARGETS="postgres12 postgres13"
+POSTGRES_TARGETS="postgres15"
 
 # Michael Orlitzky <mjo@gentoo.org> (2017-11-17)
 #
@@ -168,7 +168,7 @@ POSTGRES_TARGETS="postgres12 postgres13"
 # Moreover, it should only contain targets that have a stable version
 # of PHP, to avoid pulling in an unstable PHP on stable systems.
 #
-PHP_TARGETS="php7-4 php8-0"
+PHP_TARGETS="php8-1"
 
 # Alfredo Tupone <tupone@gentoo.org> (2022-11-16)
 #

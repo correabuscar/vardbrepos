@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ if [[ ${PV#9999} != ${PV} ]] ; then
 	EGIT_REPO_URI="https://code.videolan.org/videolan/libbluray.git"
 else
 	SRC_URI="https://downloads.videolan.org/pub/videolan/libbluray/${PV}/${P}.tar.bz2"
-	KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~sparc ~x86"
+	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
 fi
 
 inherit autotools java-pkg-opt-2 multilib-minimal
@@ -21,7 +21,7 @@ SLOT="0/2"
 IUSE="aacs bdplus +fontconfig java +truetype utils +xml"
 
 RDEPEND="
-	dev-libs/libudfread[${MULTILIB_USEDEP}]
+	>=dev-libs/libudfread-1.1.0[${MULTILIB_USEDEP}]
 	aacs? ( >=media-libs/libaacs-0.6.0[${MULTILIB_USEDEP}] )
 	bdplus? ( media-libs/libbdplus[${MULTILIB_USEDEP}] )
 	fontconfig? ( >=media-libs/fontconfig-2.10.92[${MULTILIB_USEDEP}] )
@@ -43,6 +43,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-jars.patch
+	"${FILESDIR}"/${PN}-1.3.4-fix-libudfread-option.patch
 )
 
 DOCS=( ChangeLog README.md )
@@ -57,13 +58,17 @@ multilib_src_configure() {
 	# bug #621992
 	use java || unset JDK_HOME
 
-	ECONF_SOURCE="${S}" econf \
-		--disable-optimizations \
-		$(multilib_native_use_enable utils examples) \
-		$(multilib_native_use_enable java bdjava-jar) \
-		$(use_with fontconfig) \
-		$(use_with truetype freetype) \
+	local myeconfargs=(
+		--disable-optimizations
+		--with-external-libudfread
+		$(multilib_native_use_enable utils examples)
+		$(multilib_native_use_enable java bdjava-jar)
+		$(use_with fontconfig)
+		$(use_with truetype freetype)
 		$(use_with xml libxml2)
+	)
+
+	ECONF_SOURCE="${S}" econf "${myeconfargs[@]}"
 }
 
 multilib_src_install() {

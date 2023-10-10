@@ -4,10 +4,11 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=standalone
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 inherit distutils-r1 optfeature
 
 if [[ ${PV} == *9999 ]] ; then
+	EGIT_BRANCH="main"
 	EGIT_REPO_URI="https://anongit.gentoo.org/git/proj/pkgcore/pkgdev.git
 		https://github.com/pkgcore/pkgdev.git"
 	inherit git-r3
@@ -32,7 +33,7 @@ if [[ ${PV} == *9999 ]] ; then
 else
 	RDEPEND="
 		>=dev-python/snakeoil-0.10.4[${PYTHON_USEDEP}]
-		>=sys-apps/pkgcore-0.12.16[${PYTHON_USEDEP}]
+		>=sys-apps/pkgcore-0.12.23[${PYTHON_USEDEP}]
 		>=dev-util/pkgcheck-0.10.16[${PYTHON_USEDEP}]
 	"
 fi

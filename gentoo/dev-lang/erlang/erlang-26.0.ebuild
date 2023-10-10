@@ -4,7 +4,7 @@
 EAPI=7
 WX_GTK_VER="3.0-gtk3"
 
-inherit elisp-common flag-o-matic java-pkg-opt-2 systemd toolchain-funcs wxwidgets
+inherit autotools elisp-common flag-o-matic java-pkg-opt-2 systemd toolchain-funcs wxwidgets
 
 # NOTE: If you need symlinks for binaries please tell maintainers or
 # open up a bug to let it be created.
@@ -22,7 +22,7 @@ LICENSE="Apache-2.0"
 # same build of ERTS that was used when compiling the code.  See
 # http://erlang.org/doc/system_principles/misc.html for more information.
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ia64 ppc ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 IUSE="doc emacs java +kpoll odbc sctp ssl systemd tk wxwidgets"
 
 RDEPEND="
@@ -60,6 +60,14 @@ src_prepare() {
 	# bug #797886: erlang's VM does unsafe casts for ints
 	# to pointers and back. This breaks on gcc-11 -flto.
 	append-flags -fno-strict-aliasing
+
+	# Ensure that we use erl_interface's libei.a, and not the system
+	# libei.so from dev-libs/libei. Bug #912888.
+	sed -i 's/-lei$/-l:libei.a/' \
+		"${S}"/lib/odbc/c_src/Makefile.in || die
+	(cd "${S}"/lib/odbc &&
+		 eautoconf -B "${S}"/make/autoconf &&
+		 eautoheader -B "${S}"/make/autoconf) || die
 }
 
 src_configure() {

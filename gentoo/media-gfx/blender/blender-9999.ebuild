@@ -29,7 +29,7 @@ IUSE="+bullet +dds +fluid +openexr +tbb
 	alembic collada +color-management cuda +cycles cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +gmp jack jemalloc jpeg2k
 	man +nanovdb ndof nls openal +oidn +openmp +openpgl +opensubdiv
-	+openvdb optix +osl +pdf +potrace +pugixml pulseaudio sdl
+	+openvdb optix osl +pdf +potrace +pugixml pulseaudio sdl
 	+sndfile test +tiff valgrind wayland X"
 RESTRICT="!test? ( test )"
 
@@ -45,6 +45,8 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 
 # Library versions for official builds can be found in the blender source directory in:
 # build_files/build_environment/install_deps.sh
+#
+# <opencolorio-2.3.0 for https://projects.blender.org/blender/blender/issues/112917.
 RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=[nls?]
 	dev-libs/lzo:2=
@@ -66,7 +68,7 @@ RDEPEND="${PYTHON_DEPS}
 	virtual/opengl
 	alembic? ( >=media-gfx/alembic-1.8.3-r2[boost(+),hdf(+)] )
 	collada? ( >=media-libs/opencollada-1.6.68 )
-	color-management? ( >=media-libs/opencolorio-2.1.1-r7:= )
+	color-management? ( <media-libs/opencolorio-2.3.0:= )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	embree? ( >=media-libs/embree-3.10.0[raymask] )
 	ffmpeg? ( media-video/ffmpeg:=[x264,mp3,encode,theora,jpeg2k?,vpx,vorbis,opus,xvid] )
@@ -97,7 +99,7 @@ RDEPEND="${PYTHON_DEPS}
 	pdf? ( media-libs/libharu )
 	potrace? ( media-gfx/potrace )
 	pugixml? ( dev-libs/pugixml )
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 	sdl? ( media-libs/libsdl2[sound,joystick] )
 	sndfile? ( media-libs/libsndfile )
 	tbb? ( dev-cpp/tbb:= )
@@ -300,6 +302,9 @@ src_configure() {
 		)
 	fi
 
+	# This is currently needed on arm64 to get the NEON SIMD wrapper to compile the code successfully
+	use arm64 && append-flags -flax-vector-conversions
+
 	append-flags $(usex debug '-DDEBUG' '-DNDEBUG')
 
 	if tc-is-gcc ; then
@@ -400,13 +405,14 @@ pkg_postinst() {
 	elog "home directory. This can be done by starting blender, then"
 	elog "changing the 'Temporary Files' directory in Blender preferences."
 	elog
-	ewarn
-	ewarn "This ebuild does not unbundle the massive amount of 3rd party"
-	ewarn "libraries which are shipped with blender. Note that"
-	ewarn "these have caused security issues in the past."
-	ewarn "If you are concerned about security, file a bug upstream:"
-	ewarn "  https://developer.blender.org/"
-	ewarn
+
+	if use osl; then
+		ewarn ""
+		ewarn "OSL is know to cause runtime segfaults if Mesa has been linked to"
+		ewarn "an other LLVM version than what OSL is linked to."
+		ewarn "See https://bugs.gentoo.org/880671 for more details"
+		ewarn ""
+	fi
 
 	if ! use python_single_target_python3_10; then
 		elog "You are building Blender with a newer python version than"

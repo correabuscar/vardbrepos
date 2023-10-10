@@ -1,7 +1,7 @@
 # Copyright 2020-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 EGIT_REPO_URI="https://github.com/MaskRay/${PN}"
 
@@ -21,7 +21,7 @@ if [[ ${PV} == *9999 ]] ; then
 	SRC_URI=""
 else
 	SRC_URI="https://github.com/MaskRay/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~arm64 ~riscv"
 fi
 
 LICENSE="Apache-2.0"

@@ -4,6 +4,49 @@
 # NOTE: When masking a USE flag due to missing keywords, please file a keyword
 # request bug for the hppa arch.
 
+# Andreas Sturmlechner <asturm@gentoo.org> (2023-10-08)
+# Vulkan is not available on hppa.
+dev-qt/qtdeclarative vulkan
+dev-qt/qtgui vulkan
+<dev-qt/qtwayland-5.15.11:5 vulkan
+>=dev-qt/qtwayland-5.15.11:5 compositor
+
+# Patrick McLean <chutzpah@gentoo.org> (2023-10-03)
+# sys-apps/s6-linux-init has not been tested on this arch
+sys-apps/openrc s6
+
+# Sam James <sam@gentoo.org> (2023-09-24)
+# Qt not keyworded here.
+app-doc/doxygen gui
+
+# Sam James <sam@gentoo.org> (2023-09-22)
+# Qt 6 not keyworded here.
+dev-util/cmake gui
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2023-09-20)
+# Libei not keyworded here yet
+x11-base/xwayland libei
+
+# Sam James <sam@gentoo.org> (2023-09-18)
+# x11-libs/gtksourceview:4 not keyworded here
+media-gfx/inkscape sourceview
+
+# Rich Freeman <rich0@gentoo.org> (2023-09-13)
+# Tests require shellcheck which is not currently available on hppa
+sys-process/systemd-cron test
+
+# Ionen Wolkens <ionen@gentoo.org> (2023-07-26)
+# MPV currently[1] has no plans to support >=lua5-3 making luajit
+# the only choice for maintained lua. Apply mask/force to override
+# the profile's defaults, and invert on arches where not keyworded.
+# Done this way also avoids conflicts for users using another default.
+# [1] https://github.com/mpv-player/mpv/wiki/FAQ#why-does-mpv-not-support-lua-53-or-newer
+media-video/mpv -lua_single_target_lua5-1 lua_single_target_luajit
+
+# Matt Turner <mattst88@gentoo.org> (2023-05-30)
+# sys-apps/dbus-broker is not keyworded
+app-accessibility/at-spi2-core dbus-broker
+
 # Michał Górny <mgorny@gentoo.org> (2023-05-20)
 # Requires dev-python/sphinx-autodoc-types that has unkeyworded depgraph.
 dev-python/jupyter-core doc
@@ -45,10 +88,6 @@ dev-python/nbval doc
 # Unkeyworded dependencies
 dev-util/diffoscope opendocument pascal pdf R
 
-# Florian Schmaus <flow@gentoo.org> (2022-11-23)
-# avoid larger deptree, bug #882593
-dev-python/bracex doc
-
 # Conrad Kostecki <conikost@gentoo.org> (2022-11-01)
 # Mask tests, as not all needed deps are available on this arch.
 # See #878933 for progress.
@@ -70,7 +109,7 @@ dev-libs/libgdata crypt
 
 # Nickolas Raymond Kaczynski <nrk@disroot.org> (2022-04-24)
 # Dependencies are missing keywords
-media-libs/imlib2 svg heif
+media-libs/imlib2 svg
 
 # Sam James <sam@gentoo.org> (2022-04-24)
 # Requires dev-util/pahole.
@@ -164,10 +203,8 @@ dev-ruby/globalid test
 media-libs/rubberband jni
 
 # Sam James <sam@gentoo.org> (2021-03-11)
-# media-libs/libheif isn't keyworded here
 # media-libs/libavif isn't keyworded here
-media-libs/gd avif heif
-media-gfx/graphicsmagick heif
+media-libs/gd avif
 www-client/links avif
 dev-lang/php avif
 
@@ -190,7 +227,7 @@ media-sound/fluidsynth lash
 
 # Joonas Niilola <juippis@gentoo.org> (2020-10-08)
 # Dependency not keyworded on this arch.
-dev-libs/efl avif heif lua_single_target_luajit physics
+dev-libs/efl avif lua_single_target_luajit physics
 
 # Matt Turner <mattst88@gentoo.org> (2020-08-11)
 # No drivers on this architecture support Vulkan
@@ -249,10 +286,6 @@ net-im/pidgin gadu
 # Jeroen Roovers <jer@gentoo.org> (2020-01-28)
 # media-libs/libilbc has not been ported to HPPA
 net-analyzer/wireshark ilbc
-
-# Andreas Sturmlechner <asturm@gentoo.org> (2020-01-26)
-# media-libs/libheif is not keyworded
-media-gfx/gimp heif
 
 # Robin H. Johnson <robbat2@gentoo.org> (2019-12-06)
 # PPS should work on all arches, but only keyworded on some arches
@@ -347,7 +380,6 @@ dev-python/wsgiproxy2 test
 # Test phase requires dev-db/mongodb which requires dev-util/google-perftools
 # which has not been ported to HPPA (bug #517880, bug #525246)
 dev-libs/mongo-c-driver test
-dev-python/pymongo test
 
 # Jeroen Roovers <jer@gentoo.org> (2014-03-06)
 # USE=gui requires x11-libs/qscintilla,

@@ -78,7 +78,14 @@ DEPEND="!!sys-devel/llvm:0"
 # @INTERNAL
 # @DESCRIPTION:
 # Correct values of LLVM slots, newest first.
-declare -g -r _LLVM_KNOWN_SLOTS=( {17..8} )
+declare -g -r _LLVM_KNOWN_SLOTS=( {18..8} )
+
+# @ECLASS_VARIABLE: LLVM_ECLASS_SKIP_PKG_SETUP
+# @INTERNAL
+# @DESCRIPTION:
+# If set to a non-empty value, llvm_pkg_setup will not perform LLVM version
+# check, nor set PATH.  Useful for bootstrap-prefix.sh, where AppleClang has
+# unparseable version numbers, which are irrelevant anyway.
 
 # @FUNCTION: get_llvm_slot
 # @USAGE: [-b|-d] [<max_slot>]
@@ -242,6 +249,10 @@ llvm_fix_tool_path() {
 llvm_pkg_setup() {
 	debug-print-function ${FUNCNAME} "${@}"
 
+	if [[ ${LLVM_ECLASS_SKIP_PKG_SETUP} ]]; then
+		return
+	fi
+
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		LLVM_SLOT=$(get_llvm_slot "${LLVM_MAX_SLOT}")
 
@@ -249,6 +260,12 @@ llvm_pkg_setup() {
 		# keep in sync with profiles/features/llvm/make.defaults!
 		llvm_fix_tool_path ADDR2LINE AR AS LD NM OBJCOPY OBJDUMP RANLIB
 		llvm_fix_tool_path READELF STRINGS STRIP
+
+		# Set LLVM_CONFIG to help Meson (bug #907965) but only do it
+		# for empty ESYSROOT (as a proxy for "are we cross-compiling?").
+		if [[ -z ${ESYSROOT} ]] ; then
+			llvm_fix_tool_path LLVM_CONFIG
+		fi
 
 		local prefix=${ESYSROOT}
 		local llvm_path=${prefix}/usr/lib/llvm/${LLVM_SLOT}/bin

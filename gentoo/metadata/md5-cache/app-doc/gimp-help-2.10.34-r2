@@ -1,13 +1,13 @@
-BDEPEND=|| ( >=dev-lang/python-3.11.1-r1:3.11 >=dev-lang/python-3.10.9-r1:3.10 ) || ( ( >=dev-lang/python-3.11.1-r1:3.11 dev-libs/libxml2[python,python_targets_python3_11(-)] ) ( >=dev-lang/python-3.10.9-r1:3.10 dev-libs/libxml2[python,python_targets_python3_10(-)] ) ) app-text/docbook-xml-dtd dev-lang/perl dev-libs/libxslt gnome-base/librsvg sys-devel/gettext
+BDEPEND=|| ( dev-lang/python:3.11 dev-lang/python:3.10 ) || ( ( dev-lang/python:3.11 dev-libs/libxml2[python,python_targets_python3_11(-)] ) ( dev-lang/python:3.10 dev-libs/libxml2[python,python_targets_python3_10(-)] ) ) app-text/docbook-xml-dtd dev-lang/perl dev-libs/libxslt gnome-base/librsvg sys-devel/gettext
 DEFINED_PHASES=compile configure install setup test
 DESCRIPTION=GNU Image Manipulation Program help files
 EAPI=8
 HOMEPAGE=https://docs.gimp.org/
 INHERIT=python-any-r1
 IUSE=nls
-KEYWORDS=~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~riscv ~sparc ~x86
+KEYWORDS=~alpha amd64 ~hppa ~ia64 ppc ppc64 ~riscv ~sparc x86
 LICENSE=FDL-1.2+
 SLOT=2
 SRC_URI=mirror://gimp/help/gimp-help-2.10.34.tar.bz2
-_eclasses_=multilib	104e1332efb829e2f7cbf89307a474f1	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	python-any-r1	d2955aaac8daaaa69fcc6dc93ed19f29	python-utils-r1	d676fb844e9408f4290d20bc7312f8bb	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
-_md5_=f3344a922ec61a0fba1564fd476086a9
+_eclasses_=multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	python-any-r1	f5169813d1619761b459800587005fd2	python-utils-r1	12aa0037eb004139215ff04894d52b28	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
+_md5_=5fa963a7e66ffff3b1cc526f9598ef59

@@ -11,7 +11,7 @@ if [[ ${PV} == *9999* ]]; then
 else
 	SRC_URI="https://github.com/danvratil/${PN/5/}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${P/5/}"
-	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv ~x86"
+	KEYWORDS="amd64 ~arm arm64 ~loong ~ppc64 ~riscv x86"
 fi
 
 DESCRIPTION="C++ Coroutine Library for Qt5"
@@ -21,7 +21,7 @@ LICENSE="MIT"
 SLOT="0"
 IUSE="dbus examples +network qml test testlib websockets"
 
-REQUIRED_USE="test? ( testlib )"
+REQUIRED_USE="examples? ( network ) test? ( testlib )"
 RESTRICT="!test? ( test )"
 
 RDEPEND="

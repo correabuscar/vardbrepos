@@ -1,16 +1,16 @@
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=ffmpeg? ( >=media-video/ffmpeg-2.6:0= ) fftw? ( sci-libs/fftw:3.0= ) jack? ( virtual/jack ) libsamplerate? ( media-libs/libsamplerate ) python? ( python_targets_python3_10? ( >=dev-lang/python-3.10.9-r1:3.10[threads(+)] ) python_targets_python3_11? ( >=dev-lang/python-3.11.1-r1:3.11[threads(+)] ) dev-python/numpy[python_targets_python3_10(-)?,python_targets_python3_11(-)?] ) sndfile? ( media-libs/libsndfile ) python_targets_python3_10? ( >=dev-lang/python-3.10.9-r1:3.10[threads(+)] ) python_targets_python3_11? ( >=dev-lang/python-3.11.1-r1:3.11[threads(+)] ) app-text/txt2man virtual/pkgconfig doc? ( app-doc/doxygen dev-python/sphinx )
+DEPEND=ffmpeg? ( >=media-video/ffmpeg-2.6:0= ) fftw? ( sci-libs/fftw:3.0= ) jack? ( virtual/jack ) libsamplerate? ( media-libs/libsamplerate ) python? ( python_targets_python3_10? ( dev-lang/python:3.10[threads(+)] ) python_targets_python3_11? ( dev-lang/python:3.11[threads(+)] ) dev-python/numpy[python_targets_python3_10(-)?,python_targets_python3_11(-)?] ) sndfile? ( media-libs/libsndfile ) python_targets_python3_10? ( dev-lang/python:3.10[threads(+)] ) python_targets_python3_11? ( dev-lang/python:3.11[threads(+)] ) app-text/txt2man virtual/pkgconfig doc? ( app-doc/doxygen dev-python/sphinx )
 DESCRIPTION=Library for audio labelling
 EAPI=7
 HOMEPAGE=https://aubio.org/
 INHERIT=distutils-r1 waf-utils
 IUSE=doc double-precision examples ffmpeg fftw jack libsamplerate sndfile python test python_targets_python3_10 python_targets_python3_11
-KEYWORDS=amd64 ~ppc ppc64 sparc x86
+KEYWORDS=amd64 ~loong ~ppc ppc64 sparc x86
 LICENSE=GPL-3
-RDEPEND=ffmpeg? ( >=media-video/ffmpeg-2.6:0= ) fftw? ( sci-libs/fftw:3.0= ) jack? ( virtual/jack ) libsamplerate? ( media-libs/libsamplerate ) python? ( python_targets_python3_10? ( >=dev-lang/python-3.10.9-r1:3.10[threads(+)] ) python_targets_python3_11? ( >=dev-lang/python-3.11.1-r1:3.11[threads(+)] ) dev-python/numpy[python_targets_python3_10(-)?,python_targets_python3_11(-)?] ) sndfile? ( media-libs/libsndfile )
+RDEPEND=ffmpeg? ( >=media-video/ffmpeg-2.6:0= ) fftw? ( sci-libs/fftw:3.0= ) jack? ( virtual/jack ) libsamplerate? ( media-libs/libsamplerate ) python? ( python_targets_python3_10? ( dev-lang/python:3.10[threads(+)] ) python_targets_python3_11? ( dev-lang/python:3.11[threads(+)] ) dev-python/numpy[python_targets_python3_10(-)?,python_targets_python3_11(-)?] ) sndfile? ( media-libs/libsndfile )
 REQUIRED_USE=|| ( python_targets_python3_10 python_targets_python3_11 ) ?? ( double-precision libsamplerate ) doc? ( python )
 RESTRICT=!test? ( test )
 SLOT=0/5
 SRC_URI=https://aubio.org/pub/aubio-0.4.9.tar.bz2
-_eclasses_=distutils-r1	dc5ca9013da6279b2e24b0ae156f030e	eapi8-dosym	741bfa77afb2a9321261501aca58c208	multibuild	bddcb51b74f4a76724ff7cf8e7388869	multilib	104e1332efb829e2f7cbf89307a474f1	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	76050953ad5b70d7e09a6ca55558db92	out-of-source-utils	1a9007554652a6e627edbccb3c25a439	python-r1	3c6cd0f418ba702c186a9865b85e704d	python-utils-r1	d676fb844e9408f4290d20bc7312f8bb	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	waf-utils	be1df8dc616c09387b18633b4155fcb5
-_md5_=a9824d89ac6e7672969cc743b567c463
+_eclasses_=distutils-r1	24344aec2be39c69d9f279b5415298ce	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	flag-o-matic	e5cc383ea8420f92fe3737be790021dc	multibuild	30dbf3c5a31db09a19f31ad0a68f2405	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	f3010c780f65d1bb5aea15a9af1adc9c	out-of-source-utils	1a9007554652a6e627edbccb3c25a439	python-r1	8a28fa6d3e3bc96ff8a7eff2badbe71f	python-utils-r1	12aa0037eb004139215ff04894d52b28	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc	waf-utils	be1df8dc616c09387b18633b4155fcb5
+_md5_=ac9e88f042a6105f97fe0870de224f1d

@@ -15,7 +15,7 @@ DESCRIPTION="Capybara aims to simplify the process of integration testing Rack a
 HOMEPAGE="https://github.com/teamcapybara/capybara"
 LICENSE="MIT"
 
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86"
 SLOT="3"
 IUSE="test"
 
@@ -25,7 +25,7 @@ ruby_add_bdepend "test? (
 	dev-ruby/rspec:3
 	>=dev-ruby/launchy-2.4.0
 	dev-ruby/selenium-webdriver:4
-	|| ( dev-ruby/sinatra:3 dev-ruby/sinatra:2 )
+	dev-ruby/sinatra:3
 	www-servers/puma
 )"
 

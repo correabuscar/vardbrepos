@@ -4,7 +4,7 @@
 EAPI=8
 
 LUA_COMPAT=( lua5-1 luajit )
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit gnome.org lua-single meson python-single-r1 vala virtualx xdg
 
@@ -91,6 +91,9 @@ src_install() {
 
 	if use gtk-doc; then
 		mkdir -p "${ED}"/usr/share/gtk-doc/html/ || die
-		mv "${ED}"/usr/share/doc/libpeas{,-gtk}-1.0 "${ED}"/usr/share/gtk-doc/html/ || die
+		mv "${ED}"/usr/share/doc/libpeas-1.0 "${ED}"/usr/share/gtk-doc/html/ || die
+		if use gtk; then
+			mv "${ED}"/usr/share/doc/libpeas-gtk-1.0 "${ED}"/usr/share/gtk-doc/html/ || die
+		fi
 	fi
 }

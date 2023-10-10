@@ -4,7 +4,7 @@
 EAPI=8
 
 MY_PN=Vulkan-ValidationLayers
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{9..12} )
 inherit cmake-multilib python-any-r1
 
 if [[ ${PV} == *9999* ]]; then
@@ -29,6 +29,7 @@ DEPEND="${RDEPEND}
 	${PYTHON_DEPS}
 	>=dev-cpp/robin-hood-hashing-3.11.5
 	~dev-util/glslang-${PV}:=[${MULTILIB_USEDEP}]
+	~dev-util/spirv-headers-99999999
 	~dev-util/vulkan-headers-${PV}
 	wayland? ( dev-libs/wayland:=[${MULTILIB_USEDEP}] )
 	X? (
@@ -37,7 +38,7 @@ DEPEND="${RDEPEND}
 	)
 "
 
-PATCHES="${FILESDIR}/${PN}-1.3.239-r2-Build-shared-libs.patch"
+PATCHES="${FILESDIR}/${PN}-1.3.250-Build-shared-libs.patch"
 
 multilib_src_configure() {
 	local mycmakeargs=(

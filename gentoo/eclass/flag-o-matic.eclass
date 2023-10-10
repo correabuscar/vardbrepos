@@ -20,7 +20,7 @@ _FLAG_O_MATIC_ECLASS=1
 
 inherit toolchain-funcs
 
-[[ ${EAPI} == [67] ]] && inherit eutils
+[[ ${EAPI} == 6 ]] && inherit eutils
 
 # @FUNCTION: all-flag-vars
 # @DESCRIPTION:
@@ -61,6 +61,7 @@ _setup-allowed-flags() {
 		-mindirect-branch-register
 		'-mfunction-return=*'
 		-mretpoline
+		'-mbranch-protection=*'
 
 		# Misc
 		-fno-unit-at-a-time -fno-strict-overflow
@@ -95,6 +96,7 @@ _setup-allowed-flags() {
 		'-fno-stack-protector*' '-fabi-version=*'
 		-fno-strict-aliasing -fno-bounds-check -fno-bounds-checking -fstrict-overflow
 		-fno-omit-frame-pointer '-fno-builtin*'
+		-mno-omit-leaf-frame-pointer
 	)
 	ALLOWED_FLAGS+=(
 		'-mregparm=*' -mno-app-regs -mapp-regs -mno-mmx -mno-sse
@@ -132,6 +134,12 @@ _setup-allowed-flags() {
 		# binaries: bug #677852
 		-mstackrealign
 	)
+	ALLOWED_FLAGS+=(
+		# Clang-only
+		'--unwindlib=*'
+		'--rtlib=*'
+		'--stdlib=*'
+	)
 }
 
 # @FUNCTION: _filter-hardened
@@ -147,7 +155,10 @@ _filter-hardened() {
 			# not -fPIC or -fpic, but too many places filter -fPIC without
 			# thinking about -fPIE.
 			-fPIC|-fpic|-fPIE|-fpie|-Wl,pie|-pie)
-				gcc-specs-pie || continue
+				if ! gcc-specs-pie && ! tc-enables-pie ; then
+					continue
+				fi
+
 				if ! is-flagq -nopie && ! is-flagq -no-pie ; then
 					# Support older Gentoo form first (-nopie) before falling
 					# back to the official gcc-6+ form (-no-pie).
@@ -158,15 +169,36 @@ _filter-hardened() {
 					fi
 				fi
 				;;
-			-fstack-protector)
-				gcc-specs-ssp || continue
-				is-flagq -fno-stack-protector || append-flags $(test-flags -fno-stack-protector);;
+
+			-fstack-protector|-fstack-protector-strong)
+				if ! gcc-specs-ssp && ! tc-enables-ssp && ! tc-enables-ssp-strong ; then
+					continue
+				fi
+
+				is-flagq -fno-stack-protector || append-flags $(test-flags -fno-stack-protector)
+				;;
 			-fstack-protector-all)
-				gcc-specs-ssp-to-all || continue
-				is-flagq -fno-stack-protector-all || append-flags $(test-flags -fno-stack-protector-all);;
+				if ! gcc-specs-ssp-to-all && ! tc-enables-ssp-all ; then
+					continue
+				fi
+
+				is-flagq -fno-stack-protector-all || append-flags $(test-flags -fno-stack-protector-all)
+				;;
 			-fno-strict-overflow)
 				gcc-specs-nostrict || continue
-				is-flagq -fstrict-overflow || append-flags $(test-flags -fstrict-overflow);;
+
+				is-flagq -fstrict-overflow || append-flags $(test-flags -fstrict-overflow)
+				;;
+			-D_GLIBCXX_ASSERTIONS|-D_LIBCPP_ENABLE_ASSERTIONS|-D_LIBCPP_ENABLE_HARDENED_MODE)
+				tc-enables-cxx-assertions || continue
+
+				append-cppflags -U_GLIBCXX_ASSERTIONS -U_LIBCPP_ENABLE_ASSERTIONS -U_LIBCPP_ENABLE_HARDENED_MODE
+				;;
+			-D_FORTIFY_SOURCE=*)
+				tc-enables-fortify-source || continue
+
+				append-cppflags -U_FORTIFY_SOURCE
+				;;
 		esac
 	done
 }

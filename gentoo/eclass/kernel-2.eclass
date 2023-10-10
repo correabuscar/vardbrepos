@@ -281,22 +281,19 @@
 # If you do change them, there is a chance that we will not fix resulting bugs;
 # that of course does not mean we're not willing to help.
 
-inherit estack multiprocessing toolchain-funcs
+# Added by Daniel Ostrow <dostrow@gentoo.org>
+# This is an ugly hack to get around an issue with a 32-bit userland on ppc64.
+# I will remove it when I come up with something more reasonable.
+# Alfred Persson Forsberg <cat@catcream.org>
+# Moved this above inherit as crossdev.eclass uses CHOST internally.
+[[ ${PROFILE_ARCH} == ppc64 ]] && CHOST="powerpc64-${CHOST#*-}"
+
+inherit crossdev estack multiprocessing toolchain-funcs
 
 case ${EAPI} in
 	7|8) ;;
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
-
-# Added by Daniel Ostrow <dostrow@gentoo.org>
-# This is an ugly hack to get around an issue with a 32-bit userland on ppc64.
-# I will remove it when I come up with something more reasonable.
-[[ ${PROFILE_ARCH} == ppc64 ]] && CHOST="powerpc64-${CHOST#*-}"
-
-export CTARGET=${CTARGET:-${CHOST}}
-if [[ ${CTARGET} == ${CHOST} && ${CATEGORY/cross-} != ${CATEGORY} ]]; then
-	export CTARGET=${CATEGORY/cross-}
-fi
 
 HOMEPAGE="https://www.kernel.org/ https://wiki.gentoo.org/wiki/Kernel ${HOMEPAGE}"
 : "${LICENSE:="GPL-2"}"
@@ -680,7 +677,8 @@ if [[ ${ETYPE} == sources ]]; then
 			# Reflect that kernels contain firmware blobs unless otherwise
 			# stripped. Starting with version 4.14, the whole firmware
 			# tree has been dropped from the kernel.
-			kernel_is lt 4 14 && LICENSE+=" !deblob? ( linux-firmware )"
+			kernel_is lt 4 14 &&
+				LICENSE+=" !deblob? ( linux-fw-redistributable all-rights-reserved )"
 
 			if [[ -n KV_MINOR ]]; then
 				DEBLOB_PV="${KV_MAJOR}.${KV_MINOR}.${KV_PATCH}"
@@ -710,7 +708,7 @@ if [[ ${ETYPE} == sources ]]; then
 		elif kernel_is lt 4 14; then
 			# Deblobbing is not available, so just mark kernels older
 			# than 4.14 as tainted with non-libre materials.
-			LICENSE+=" linux-firmware"
+			LICENSE+=" linux-fw-redistributable all-rights-reserved"
 		fi
 	fi
 
@@ -879,7 +877,7 @@ install_sources() {
 	dodir /usr/src
 	einfo ">>> Copying sources ..."
 
-	file="$(find ${WORKDIR} -iname "docs" -type d)"
+	file="$(find "${WORKDIR}" -iname "docs" -type d)"
 	if [[ -n ${file} ]]; then
 		for file in $(find ${file} -type f); do
 			echo "${file//*docs\/}" >> "${S}"/patches.txt
@@ -890,7 +888,7 @@ install_sources() {
 		done
 	fi
 
-	mv "${WORKDIR}"/linux* "${ED}"/usr/src || die
+	cp -R "${WORKDIR}"/linux* "${ED}"/usr/src || die
 
 	if [[ -n ${UNIPATCH_DOCS} ]]; then
 		for i in ${UNIPATCH_DOCS}; do

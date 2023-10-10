@@ -18,10 +18,6 @@
       <email>mva@gentoo.org</email>
       <name>Vadim Misbakh-Soloviov</name>
     </member>
-    <member>
-      <email>slashbeast@gentoo.org</email>
-      <name>Piotr Karbowski</name>
-    </member>
   </project>
   <project>
     <email>alsa-bugs@gentoo.org</email>
@@ -53,14 +49,6 @@
     <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
-    </member>
-    <member>
-      <email>slashbeast@gentoo.org</email>
-      <name>Piotr Karbowski</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -122,10 +110,6 @@
       <email>zerochaos@gentoo.org</email>
       <name>Rick Farina</name>
     </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-    </member>
   </project>
   <project>
     <email>arm64@gentoo.org</email>
@@ -154,14 +138,6 @@
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
-    <member>
-      <email>sultan@gentoo.org</email>
-      <name>Stephan Hartmann</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-    </member>
   </project>
   <project>
     <email>accessibility@gentoo.org</email>
@@ -183,7 +159,7 @@
     <email>ada@gentoo.org</email>
     <name>Ada Project</name>
     <url>https://wiki.gentoo.org/wiki/Project:Ada</url>
-    <description>This project provides support for Ada compilers and libraries in Portage. At present a gnat compiler is provided: gnat-gpl by AdaCore.</description>
+    <description>This project provides support for Ada compilers and libraries in Portage. At present both a gnat compiler (gnat-gpl by AdaCore) and gcc (by FSF) are provided.</description>
     <member is-lead="1">
       <email>nerdboy@gentoo.org</email>
       <name>Steve Arnold</name>
@@ -293,10 +269,6 @@
       <role>new helper</role>
     </member>
     <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-    </member>
-    <member>
       <email>robbat2@gentoo.org</email>
       <name>Robin Johnson</name>
       <role>Specialized block devices and lots of other miscellaneous stuff</role>
@@ -309,11 +281,6 @@
       <email>soap@gentoo.org</email>
       <name>David Seifert</name>
       <role>NFS</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>Minor stuff doer (bumps/security/stabilization)</role>
     </member>
   </project>
   <project>
@@ -425,10 +392,6 @@
       <email>floppym@gentoo.org</email>
       <name>Mike Gilbert</name>
     </member>
-    <member>
-      <email>sultan@gentoo.org</email>
-      <name>Stephan Hartmann</name>
-    </member>
   </project>
   <project>
     <email>cjk@gentoo.org</email>
@@ -480,11 +443,6 @@
     <member>
       <email>prometheanfire@gentoo.org</email>
       <name>Matthew Thode</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>OpenMPI/Slurm</role>
     </member>
   </project>
   <project>
@@ -543,10 +501,6 @@
       <email>soap@gentoo.org</email>
       <name>David Seifert</name>
     </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-    </member>
   </project>
   <project>
     <email>comres@gentoo.org</email>
@@ -554,7 +508,6 @@
     <url>https://wiki.gentoo.org/wiki/Project:ComRes</url>
     <description>Community Resources is an umbrella project comprising the Recruiters, Retirement and Community Relations subprojects. It acts as a central place for all the human-resources related projects.</description>
     <subproject ref="comrel@gentoo.org" inherit-members="1"/>
-    <subproject ref="proctors@gentoo.org"/>
     <subproject ref="recruiters@gentoo.org" inherit-members="1"/>
   </project>
   <project>
@@ -566,6 +519,11 @@
       <email>ulm@gentoo.org</email>
       <name>Ulrich Müller</name>
       <role>Helping out here and there</role>
+    </member>
+    <member>
+      <email>xgqt@gentoo.org</email>
+      <name>Maciej Barć</name>
+      <role>Unusual CL tools</role>
     </member>
   </project>
   <project>
@@ -598,11 +556,6 @@
       <role>Council member</role>
     </member>
     <member>
-      <email>gyakovlev@gentoo.org</email>
-      <name>Georgy Yakovlev</name>
-      <role>Council member</role>
-    </member>
-    <member>
       <email>mattst88@gentoo.org</email>
       <name>Matt Turner</name>
       <role>Council member</role>
@@ -615,6 +568,11 @@
     <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
+      <role>Council member</role>
+    </member>
+    <member>
+      <email>soap@gentoo.org</email>
+      <name>David Seifert</name>
       <role>Council member</role>
     </member>
     <member>
@@ -654,10 +612,6 @@
       <name>Göktürk Yüksek</name>
     </member>
     <member>
-      <email>grknight@gentoo.org</email>
-      <name>Brian Evans</name>
-    </member>
-    <member>
       <email>kensington@gentoo.org</email>
       <name>Michael Palimaka</name>
     </member>
@@ -665,10 +619,6 @@
       <email>maffblaster@gentoo.org</email>
       <name>Matthew Marchese</name>
       <role>General editing</role>
-    </member>
-    <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
     </member>
     <member>
       <email>sam@gentoo.org</email>
@@ -697,12 +647,6 @@
     <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
-      <role>arm64 maintenance</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>Minion</role>
     </member>
   </project>
   <project>
@@ -735,6 +679,10 @@
     <url>https://wiki.gentoo.org/wiki/Project:Elections</url>
     <description>Gentoo Elections Project gathers all the information necessary to conduct elections in Gentoo.</description>
     <member>
+      <email>arthurzam@gentoo.org</email>
+      <name>Arthur Zamarin</name>
+    </member>
+    <member>
       <email>dabbott@gentoo.org</email>
       <name>David Abbott</name>
     </member>
@@ -749,10 +697,6 @@
     <member>
       <email>robbat2@gentoo.org</email>
       <name>Robin Johnson</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -845,11 +789,6 @@
       <name>Mike Frysinger</name>
       <role>Lead, ARM, SH, Cross Compiling</role>
     </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>AMD64, ARM, X86, MIPS, PPC</role>
-    </member>
   </project>
   <project>
     <email>fonts@gentoo.org</email>
@@ -906,14 +845,9 @@
     <url>https://wiki.gentoo.org/wiki/Foundation:Main_Page</url>
     <description>The Gentoo Foundation, Inc. provides the legal and financial base for the Gentoo project.</description>
     <member>
-      <email>anarchy@gentoo.org</email>
-      <name>Jory A. Pratt</name>
+      <email>dilfridge@gentoo.org</email>
+      <name>Andreas K. Hüttel</name>
       <role>Board Member</role>
-    </member>
-    <member is-lead="1">
-      <email>antarus@gentoo.org</email>
-      <name>Alec Warner</name>
-      <role>Officer:President, Board Member</role>
     </member>
     <member>
       <email>jmbsvicetto@gentoo.org</email>
@@ -928,16 +862,21 @@
     <member>
       <email>prometheanfire@gentoo.org</email>
       <name>Matthew Thode</name>
-      <role>Board Member</role>
+      <role>Board Member, Officer:Secretary</role>
     </member>
-    <member>
+    <member is-lead="1">
       <email>robbat2@gentoo.org</email>
       <name>Robin Johnson</name>
-      <role>Treasurer, Officer: Assistant Infra Liaison, Board Member</role>
+      <role>Board Member, Officer:President, Officer:Treasurer, Officer:Assistant Infra Liaison</role>
     </member>
     <member>
       <email>soap@gentoo.org</email>
       <name>David Seifert</name>
+      <role>Board Member</role>
+    </member>
+    <member>
+      <email>ulm@gentoo.org</email>
+      <name>Ulrich Müller</name>
       <role>Board Member</role>
     </member>
   </project>
@@ -988,10 +927,6 @@
       <email>leio@gentoo.org</email>
       <name>Mart Raudsepp</name>
       <role>Lead</role>
-    </member>
-    <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
     </member>
     <member>
       <email>pacho@gentoo.org</email>
@@ -1173,22 +1108,6 @@
     </member>
   </project>
   <project>
-    <email>gkeys@gentoo.org</email>
-    <name>Keys</name>
-    <url>https://wiki.gentoo.org/wiki/Project:Gentoo-keys</url>
-    <description>Gentoo Keys is a Python based project that aims to manage the OpenPGP keys used for validation on users and Gentoo's infrastructure servers.</description>
-    <member is-lead="1">
-      <email>dolsen@gentoo.org</email>
-      <name>Brian Dolbec</name>
-      <role>Lead, developer, tester,...</role>
-    </member>
-    <member>
-      <email>robbat2@gentoo.org</email>
-      <name>Robin Johnson</name>
-      <role>Project overview, infrastructure liaison, Gleps</role>
-    </member>
-  </project>
-  <project>
     <email>gentoostats@gentoo.org</email>
     <name>Gentoostats</name>
     <url>https://wiki.gentoo.org/wiki/Project:Gentoostats</url>
@@ -1249,20 +1168,20 @@
     <url>https://wiki.gentoo.org/wiki/Project:Group_Contacts</url>
     <description>Group Contacts for libera.chat administration</description>
     <member>
+      <email>bkohler@gentoo.org</email>
+      <name>Ben Kohler</name>
+    </member>
+    <member>
       <email>jmbsvicetto@gentoo.org</email>
       <name>Jorge Manuel B. S. Vicetto</name>
     </member>
-    <member>
+    <member is-lead="1">
       <email>juippis@gentoo.org</email>
       <name>Joonas Niilola</name>
     </member>
     <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
-    </member>
-    <member is-lead="1">
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -1278,10 +1197,6 @@
     <member>
       <email>jsmolic@gentoo.org</email>
       <name>Jakov Smolić</name>
-    </member>
-    <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
     </member>
     <member>
       <email>sam@gentoo.org</email>
@@ -1306,6 +1221,10 @@
       <email>maffblaster@gentoo.org</email>
       <name>Matthew Marchese</name>
       <role>Maintainer</role>
+    </member>
+    <member>
+      <email>sam@gentoo.org</email>
+      <name>Sam James</name>
     </member>
   </project>
   <project>
@@ -1402,16 +1321,8 @@
       <name>Akinori Hattori</name>
     </member>
     <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-    </member>
-    <member>
       <email>vapier@gentoo.org</email>
       <name>Mike Frysinger</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -1432,18 +1343,13 @@
       <role>General system administration, Kernel, gitolite, wiki</role>
     </member>
     <member>
-      <email>antarus@gentoo.org</email>
-      <name>Alec Warner</name>
-      <role>General wrangling, packages site</role>
+      <email>arthurzam@gentoo.org</email>
+      <name>Arthur Zamarin</name>
     </member>
     <member>
       <email>blueknight@gentoo.org</email>
       <name>Yury German</name>
       <role>General system administration, Blogs, Planet</role>
-    </member>
-    <member>
-      <email>grknight@gentoo.org</email>
-      <name>Brian Evans</name>
     </member>
     <member>
       <email>jmbsvicetto@gentoo.org</email>
@@ -1474,16 +1380,6 @@
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
       <role>newbie</role>
-    </member>
-    <member>
-      <email>slashbeast@gentoo.org</email>
-      <name>Piotr Karbowski</name>
-      <role>General system administration</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>General system administration</role>
     </member>
   </project>
   <project>
@@ -1736,18 +1632,12 @@
     </member>
   </project>
   <project>
-    <email>mate@gentoo.org</email>
-    <name>MATE Desktop</name>
-    <url>https://wiki.gentoo.org/wiki/Project:MATE</url>
-    <description>The MATE Project aims to bring the current and complete MATE Desktop Environment to Gentoo.</description>
-  </project>
-  <project>
     <email>mips@gentoo.org</email>
     <name>MIPS Development</name>
     <url>https://wiki.gentoo.org/wiki/Project:MIPS</url>
     <description>Gentoo/MIPS is a port of the Gentoo GNU/Linux and the Gentoo Portage package management system to mips-based platforms.</description>
     <subproject ref="gentoo-yeeloong@gentoo.org"/>
-    <member>
+    <member is-lead="1">
       <email>blueness@gentoo.org</email>
       <name>Anthony G. Basile</name>
     </member>
@@ -1760,18 +1650,9 @@
       <email>kumba@gentoo.org</email>
       <name>Joshua Kinard</name>
     </member>
-    <member is-lead="1">
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-      <role>Lead</role>
-    </member>
     <member>
       <email>xen0n@gentoo.org</email>
       <name>WANG Xuerui</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -1833,10 +1714,6 @@
       <name>Joonas Niilola</name>
     </member>
     <member>
-      <email>slashbeast@gentoo.org</email>
-      <name>Piotr Karbowski</name>
-    </member>
-    <member>
       <email>zerochaos@gentoo.org</email>
       <name>Rick Farina</name>
     </member>
@@ -1894,7 +1771,7 @@
   </project>
   <project>
     <email>netmon@gentoo.org</email>
-    <name>Gentoo network monitoring and analysis project</name>
+    <name>Network monitoring and analysis project</name>
     <url>https://wiki.gentoo.org/wiki/Project:Netmon</url>
     <description>Maintaining network monitoring and analysis libraries and programs</description>
     <member>
@@ -2039,10 +1916,6 @@
     <name>PHP</name>
     <url>https://wiki.gentoo.org/wiki/Project:PHP</url>
     <description>This project maintains PHP itself as well as the PHP extensions and libraries</description>
-    <member>
-      <email>grknight@gentoo.org</email>
-      <name>Brian Evans</name>
-    </member>
   </project>
   <project>
     <email>pms@gentoo.org</email>
@@ -2052,6 +1925,10 @@
     <member>
       <email>mgorny@gentoo.org</email>
       <name>Michał Górny</name>
+    </member>
+    <member>
+      <email>soap@gentoo.org</email>
+      <name>David Seifert</name>
     </member>
     <member is-lead="1">
       <email>ulm@gentoo.org</email>
@@ -2076,11 +1953,6 @@
     <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
-      <role>Minor Perl helper</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -2162,6 +2034,10 @@
       <name>John Helmert III</name>
     </member>
     <member>
+      <email>chewi@gentoo.org</email>
+      <name>James Le Cuirot</name>
+    </member>
+    <member>
       <email>floppym@gentoo.org</email>
       <name>Mike Gilbert</name>
     </member>
@@ -2169,10 +2045,6 @@
       <email>grobian@gentoo.org</email>
       <name>Fabian Groffen</name>
       <role>Prefix liaison</role>
-    </member>
-    <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
     </member>
     <member>
       <email>mgorny@gentoo.org</email>
@@ -2208,10 +2080,6 @@
     <member>
       <email>idl0r@gentoo.org</email>
       <name>Christian Ruppert</name>
-    </member>
-    <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
     </member>
     <member>
       <email>zmedico@gentoo.org</email>
@@ -2264,21 +2132,12 @@
       <role>ppc/ppc64 keywording/stabilization</role>
     </member>
     <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-    </member>
-    <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
     <member>
       <email>vapier@gentoo.org</email>
       <name>Mike Frysinger</name>
-      <role>ppc/ppc64 keywording/stabilization</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
       <role>ppc/ppc64 keywording/stabilization</role>
     </member>
   </project>
@@ -2339,33 +2198,6 @@
     <member>
       <email>stasibear@gentoo.org</email>
       <name>Erik Mackdanz</name>
-    </member>
-  </project>
-  <project>
-    <email>proctors@gentoo.org</email>
-    <name>Proctors</name>
-    <url>https://wiki.gentoo.org/wiki/Project:Proctors</url>
-    <description>The Proctors make sure our communication mediums are a friendly and productive place.</description>
-    <member>
-      <email>dolsen@gentoo.org</email>
-      <name>Brian Dolbec</name>
-    </member>
-    <member>
-      <email>leio@gentoo.org</email>
-      <name>Mart Raudsepp</name>
-    </member>
-    <member>
-      <email>rich0@gentoo.org</email>
-      <name>Richard Freeman</name>
-    </member>
-    <member>
-      <email>tamiko@gentoo.org</email>
-      <name>Matthias Maier</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>comrel liaison</role>
     </member>
   </project>
   <project>
@@ -2452,10 +2284,6 @@
       <email>tamiko@gentoo.org</email>
       <name>Matthias Maier</name>
     </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-    </member>
   </project>
   <project>
     <email>pr@gentoo.org</email>
@@ -2532,20 +2360,12 @@
       <name>Louis Sautier</name>
     </member>
     <member>
-      <email>slashbeast@gentoo.org</email>
-      <name>Piotr Karbowski</name>
-    </member>
-    <member>
       <email>soap@gentoo.org</email>
       <name>David Seifert</name>
     </member>
     <member>
       <email>sping@gentoo.org</email>
       <name>Sebastian Pipping</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -2556,6 +2376,10 @@
     <member>
       <email>chiitoo@gentoo.org</email>
       <name>Jimi Huotari</name>
+    </member>
+    <member>
+      <email>ionen@gentoo.org</email>
+      <name>Ionen Wolkens</name>
     </member>
     <member>
       <email>kensington@gentoo.org</email>
@@ -2597,10 +2421,6 @@
     <member>
       <email>ulm@gentoo.org</email>
       <name>Ulrich Müller</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -2650,10 +2470,6 @@
     <member>
       <email>xen0n@gentoo.org</email>
       <name>WANG Xuerui</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -2715,11 +2531,6 @@
       <name>Joonas Niilola</name>
       <role>Recruiter</role>
     </member>
-    <member is-lead="1">
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-      <role>Recruiter</role>
-    </member>
   </project>
   <project>
     <email>releng@gentoo.org</email>
@@ -2748,10 +2559,9 @@
       <name>Georgy Yakovlev</name>
       <role>ppc64 helper (musl, systemd, power9)</role>
     </member>
-    <member is-lead="1">
+    <member>
       <email>mattst88@gentoo.org</email>
       <name>Matt Turner</name>
-      <role>Lead</role>
     </member>
     <member>
       <email>robbat2@gentoo.org</email>
@@ -2853,10 +2663,6 @@
       <name>Agostino Sarubbo</name>
     </member>
     <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-    </member>
-    <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
@@ -2864,10 +2670,6 @@
       <email>vapier@gentoo.org</email>
       <name>Mike Frysinger</name>
       <role>Lead</role>
-    </member>
-    <member is-lead="1">
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -2902,10 +2704,6 @@
       <role>sparc keywording/stabilization</role>
     </member>
     <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-    </member>
-    <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
@@ -2913,10 +2711,6 @@
       <email>vapier@gentoo.org</email>
       <name>Mike Frysinger</name>
       <role>Core-only</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -3077,6 +2871,10 @@
       <role>Lead</role>
     </member>
     <member>
+      <email>graaff@gentoo.org</email>
+      <name>Hans de Graaff</name>
+    </member>
+    <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
@@ -3190,10 +2988,6 @@
       <email>ulm@gentoo.org</email>
       <name>Ulrich Müller</name>
     </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
-    </member>
   </project>
   <project>
     <email>themes@gentoo.org</email>
@@ -3240,10 +3034,6 @@
       <name>Mike Gilbert</name>
     </member>
     <member>
-      <email>mattst88@gentoo.org</email>
-      <name>Matt Turner</name>
-    </member>
-    <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
@@ -3270,6 +3060,10 @@
     <url>https://wiki.gentoo.org/wiki/Project:Treecleaner</url>
     <description>The Tree Cleaning Team is primarily concerned with removing unmaintained and broken packages from the tree.</description>
     <member>
+      <email>flow@gentoo.org</email>
+      <name>Florian Schmaus</name>
+    </member>
+    <member>
       <email>jsmolic@gentoo.org</email>
       <name>Jakov Smolić</name>
     </member>
@@ -3289,9 +3083,26 @@
       <email>soap@gentoo.org</email>
       <name>David Seifert</name>
     </member>
+  </project>
+  <project>
+    <email>dist-kernel@gentoo.org</email>
+    <name>Distribution Kernel</name>
+    <url>https://wiki.gentoo.org/wiki/User:Rahil/Project:Distribution_Kernel</url>
+    <description>Dist-kernel project maintains packages providing for zero-effort kernel install and upgrades</description>
     <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
+      <email>gyakovlev@gentoo.org</email>
+      <name>Georgy Yakovlev</name>
+      <role>ppc64 maintenance, testing</role>
+    </member>
+    <member is-lead="1">
+      <email>mgorny@gentoo.org</email>
+      <name>Michał Górny</name>
+      <role>Self-appointed lead</role>
+    </member>
+    <member>
+      <email>sam@gentoo.org</email>
+      <name>Sam James</name>
+      <role>arm64 maintenance</role>
     </member>
   </project>
   <project>
@@ -3314,7 +3125,7 @@
     <email>vdr@gentoo.org</email>
     <name>VDR project</name>
     <url>https://wiki.gentoo.org/wiki/Project:VDR</url>
-    <description>The VDR Project maintains and updates the VDR packages in the portage tree. It integrates them with Gentoo as tight as possible. VDR is the abbreviation for Video Disk Recorder.</description>
+    <description>The Video Disk Recorder (VDR) Project maintains and updates the VDR packages in the Gentoo ebuild repository. It integrates them with Gentoo as tight as possible.</description>
   </project>
   <project>
     <email>media-video@gentoo.org</email>
@@ -3421,13 +3232,8 @@
     <email>wiki@gentoo.org</email>
     <name>Wiki</name>
     <url>https://wiki.gentoo.org/wiki/Project:Wiki</url>
-    <description>The wiki project oversees the community and the content surrounding wiki.gentoo.org</description>
+    <description>The wiki project oversees and governs the community and the content under the wiki.gentoo.org domain.</description>
     <subproject ref="handbook@gentoo.org" inherit-members="1"/>
-    <member>
-      <email>grknight@gentoo.org</email>
-      <name>Brian Evans</name>
-      <role>Administrator / Contributor</role>
-    </member>
     <member is-lead="1">
       <email>maffblaster@gentoo.org</email>
       <name>Matthew Marchese</name>
@@ -3442,6 +3248,11 @@
       <email>ris@gentoo.org</email>
       <name>P.Fox</name>
       <role>Administrator / Contributor</role>
+    </member>
+    <member>
+      <email>ulm@gentoo.org</email>
+      <name>Ulrich Müller</name>
+      <role>Administrator / Helping here and there</role>
     </member>
   </project>
   <project>
@@ -3494,10 +3305,6 @@
       <email>sarnex@gentoo.org</email>
       <name>Nick Sarnie</name>
     </member>
-    <member>
-      <email>slashbeast@gentoo.org</email>
-      <name>Piotr Karbowski</name>
-    </member>
   </project>
   <project>
     <email>x86@gentoo.org</email>
@@ -3520,10 +3327,6 @@
     <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -3606,11 +3409,6 @@
     <member>
       <email>prometheanfire@gentoo.org</email>
       <name>Matthew Thode</name>
-      <role>Member (*)</role>
-    </member>
-    <member>
-      <email>zlogene@gentoo.org</email>
-      <name>Mikle Kolyada</name>
       <role>Member (*)</role>
     </member>
   </project>

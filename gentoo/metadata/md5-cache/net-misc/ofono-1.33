@@ -3,7 +3,7 @@ DEFINED_PHASES=configure install
 DEPEND=>=sys-apps/dbus-1.6 >=dev-libs/glib-2.68 net-misc/mobile-broadband-provider-info bluetooth? ( >=net-wireless/bluez-4.99 ) udev? ( virtual/udev ) examples? ( dev-python/dbus-python ) tools? ( virtual/libusb:1 )
 DESCRIPTION=Open Source mobile telephony (GSM/UMTS) daemon
 EAPI=7
-HOMEPAGE=https://01.org/ofono
+HOMEPAGE=https://git.kernel.org/pub/scm/network/ofono/ofono.git
 INHERIT=systemd
 IUSE=+atmodem bluetooth +cdmamodem +datafiles doc dundee examples +isimodem +phonesim +provision +qmimodem tools +udev upower
 KEYWORDS=amd64 arm arm64 ~hppa ppc ppc64 ~riscv sparc x86
@@ -12,5 +12,5 @@ RDEPEND=>=sys-apps/dbus-1.6 >=dev-libs/glib-2.68 net-misc/mobile-broadband-provi
 REQUIRED_USE=dundee? ( bluetooth )
 SLOT=0
 SRC_URI=https://www.kernel.org/pub/linux/network/ofono/ofono-1.33.tar.xz
-_eclasses_=multilib	104e1332efb829e2f7cbf89307a474f1	systemd	5f4bb0758df2e483babf68cd517078ca	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
-_md5_=374d6ad5613340257373b6cce27a2360
+_eclasses_=multilib	c19072c3cd7ac5cb21de013f7e9832e0	systemd	c8b03e8df84486aa991d4396686e8942	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
+_md5_=907d6fcf1dbcdd3bd127b2a15639ddbe

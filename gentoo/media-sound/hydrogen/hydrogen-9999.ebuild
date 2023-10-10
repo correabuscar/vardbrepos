@@ -6,7 +6,7 @@ EAPI=8
 inherit cmake xdg
 
 DESCRIPTION="Advanced drum machine"
-HOMEPAGE="http://www.hydrogen-music.org/"
+HOMEPAGE="http://hydrogen-music.org/"
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
@@ -37,7 +37,7 @@ CDEPEND="
 	dev-qt/qtwidgets:5
 	dev-qt/qtxml:5
 	dev-qt/qtxmlpatterns:5
-	>=media-libs/libsndfile-1.0.18
+	media-libs/libsndfile
 	alsa? ( media-libs/alsa-lib )
 	archive? ( app-arch/libarchive )
 	!archive? ( dev-libs/libtar )
@@ -48,7 +48,7 @@ CDEPEND="
 	osc? ( media-libs/liblo )
 	portaudio? ( media-libs/portaudio )
 	portmidi? ( media-libs/portmidi )
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 "
 DEPEND="
 	${CDEPEND}
@@ -56,10 +56,10 @@ DEPEND="
 "
 RDEPEND="${CDEPEND}"
 
-DOCS=( AUTHORS ChangeLog DEVELOPERS README.md )
+DOCS=( AUTHORS ChangeLog DEVELOPERS.md README.md )
 
 PATCHES=(
-	"${FILESDIR}/${PN}-1.1.0-gnuinstalldirs.patch"
+	"${FILESDIR}/${PN}-1.2.1-gnuinstalldirs.patch"
 )
 
 src_prepare() {

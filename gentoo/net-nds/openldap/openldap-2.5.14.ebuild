@@ -25,7 +25,7 @@ S="${WORKDIR}"/${PN}-OPENLDAP_REL_ENG_${MY_PV}
 LICENSE="OPENLDAP GPL-2"
 # Subslot added for bug #835654
 SLOT="0/$(ver_cut 1-2)"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~mips ~ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ~ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
 
 IUSE_DAEMON="argon2 +cleartext crypt experimental minimal samba tcpd"
 IUSE_OVERLAY="overlays perl autoca"
@@ -33,15 +33,13 @@ IUSE_OPTIONAL="debug gnutls iodbc ipv6 odbc sasl ssl selinux static-libs +syslog
 IUSE_CONTRIB="kerberos kinit pbkdf2 sha2 smbkrb5passwd"
 IUSE_CONTRIB="${IUSE_CONTRIB} cxx"
 IUSE="systemd ${IUSE_DAEMON} ${IUSE_BACKEND} ${IUSE_OVERLAY} ${IUSE_OPTIONAL} ${IUSE_CONTRIB}"
-RESTRICT="!test? ( test )"
-
-RESTRICT="!test? ( test )"
 REQUIRED_USE="cxx? ( sasl )
 	pbkdf2? ( ssl )
 	test? ( cleartext debug sasl )
 	autoca? ( !gnutls )
 	?? ( test minimal )
 	kerberos? ( ?? ( kinit smbkrb5passwd ) )"
+RESTRICT="!test? ( test )"
 
 SYSTEM_LMDB_VER=0.9.30
 # openssl is needed to generate lanman-passwords required by samba
@@ -143,6 +141,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-2.6.1-cloak.patch
 	"${FILESDIR}"/${PN}-2.6.1-flags.patch
 	"${FILESDIR}"/${PN}-2.6.4-clang16.patch
+	"${FILESDIR}"/${PN}-2.6.4-libressl.patch #903001
 )
 
 openldap_filecount() {
@@ -246,7 +245,7 @@ openldap_find_versiontags() {
 			fail=1
 		fi
 		if has_version "${CATEGORY}/${PN}[berkdb]" || grep -sq '^backend.*(bdb|hdb)' /etc/openldap/slapd.conf; then
-			eerror "	OpenLDAP >= 2.6.x has dropped support for Berkeley DB."
+			eerror "	OpenLDAP >= 2.5.x has dropped support for Berkeley DB."
 			eerror "	You will need to migrate per upstream's migration notes"
 			eerror "	at https://www.openldap.org/doc/admin25/appendix-upgrading.html."
 			eerror "	Your existing database will not be accessible until it is"
@@ -341,7 +340,7 @@ src_prepare() {
 	# Fish out MDB_VERSION_MAJOR/MDB_VERSION_MINOR/MDB_VERSION_PATCH from
 	# the bundled lmdb's header to find out the version.
 	local bundled_lmdb_version=$(sed -En '/^#define MDB_VERSION_(MAJOR|MINOR|PATCH)(\s+)?/{s/[^0-9.]//gp}' libraries/liblmdb/lmdb.h || die)
-	bundled_lmdb_version=$(printf "%s." ${bundled_lmdb_version})
+	printf -v bundled_lmdb_version "%s." ${bundled_lmdb_version}
 
 	if [[ ${SYSTEM_LMDB_VER}. != ${bundled_lmdb_version} ]] ; then
 		eerror "Source lmdb version: ${bundled_lmdb_version}"

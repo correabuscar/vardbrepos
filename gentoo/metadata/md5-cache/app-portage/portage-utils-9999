@@ -1,6 +1,6 @@
 BDEPEND=virtual/pkgconfig >=dev-vcs/git-1.8.2.1[curl] sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) >=sys-devel/autoconf-2.71-r5 >=sys-devel/libtool-2.4.7
-DEFINED_PHASES=configure prepare pretend setup unpack
-DEPEND=qmanifest? ( !static? ( app-crypt/gpgme:= app-crypt/libb2:= dev-libs/openssl:= sys-libs/zlib:= ) ) qtegrity? ( !static? ( dev-libs/openssl:= ) ) qmanifest? ( static? ( app-crypt/gpgme[static-libs] app-crypt/libb2[static-libs] dev-libs/openssl[static-libs] sys-libs/zlib[static-libs] ) ) qtegrity? ( static? ( dev-libs/openssl[static-libs] ) )
+DEFINED_PHASES=configure prepare setup unpack
+DEPEND=openmp? ( || ( sys-devel/gcc:*[openmp] sys-libs/libomp ) ) qmanifest? ( !static? ( app-crypt/gpgme:= app-crypt/libb2:= dev-libs/openssl:= sys-libs/zlib:= ) ) qtegrity? ( !static? ( dev-libs/openssl:= ) ) qmanifest? ( static? ( app-crypt/gpgme[static-libs] app-crypt/libb2[static-libs] dev-libs/openssl[static-libs] sys-libs/zlib[static-libs] ) ) qtegrity? ( static? ( dev-libs/openssl[static-libs] ) )
 DESCRIPTION=Small and fast Portage helper tools written in C
 EAPI=8
 HOMEPAGE=https://wiki.gentoo.org/wiki/Portage-utils
@@ -8,7 +8,7 @@ INHERIT=flag-o-matic toolchain-funcs git-r3 autotools
 IUSE=openmp +qmanifest +qtegrity static
 LICENSE=GPL-2
 PROPERTIES=live
-RDEPEND=qmanifest? ( !static? ( app-crypt/gpgme:= app-crypt/libb2:= dev-libs/openssl:= sys-libs/zlib:= ) ) qtegrity? ( !static? ( dev-libs/openssl:= ) )
+RDEPEND=openmp? ( || ( sys-devel/gcc:*[openmp] sys-libs/libomp ) ) qmanifest? ( !static? ( app-crypt/gpgme:= app-crypt/libb2:= dev-libs/openssl:= sys-libs/zlib:= ) ) qtegrity? ( !static? ( dev-libs/openssl:= ) )
 SLOT=0
-_eclasses_=autotools	f0d3196128225dee3220e65f3371bc7a	flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	git-r3	27e13c09a4c7e4c78ac812f74727e676	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e
-_md5_=cef3e78af2289ebf46af76d6d47636cf
+_eclasses_=autotools	6ae9a4347149b19a112caa1182d03bde	flag-o-matic	e5cc383ea8420f92fe3737be790021dc	git-r3	2358a7b20091609e24bd3a83b3ac5991	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
+_md5_=9592576ee19f3786bea360507822966e

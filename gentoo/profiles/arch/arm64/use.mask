@@ -4,6 +4,14 @@
 # Unmask the flag which corresponds to ARCH.
 -arm64
 
+# Mart Raudsepp <leio@gentoo.org> (2023-10-03)
+# dev-util/sysprof-capture is keyworded on arm64
+-sysprof
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2023-07-11)
+# Unmask secureboot flag on arches where sbsigntools is keyworded
+-secureboot
+
 # Georgy Yakovlev <gyakovlev@gentoo.org> (2023-01-01)
 # unmask synaptics input driver
 -input_devices_synaptics
@@ -46,11 +54,6 @@ mono
 cpu_flags_arm_neon
 
 # Unmask arm specific USE flags
--cpu_flags_arm_v4
--cpu_flags_arm_v4
--cpu_flags_arm_v5
--cpu_flags_arm_v6
--cpu_flags_arm_v7
 -cpu_flags_arm_v8
 
 -cpu_flags_arm_aes
@@ -58,8 +61,6 @@ cpu_flags_arm_neon
 -cpu_flags_arm_edsp
 -cpu_flags_arm_sha1
 -cpu_flags_arm_sha2
--cpu_flags_arm_thumb
--cpu_flags_arm_thumb2
 -cpu_flags_arm_vfp
 -cpu_flags_arm_vfpv3
 -cpu_flags_arm_vfpv4

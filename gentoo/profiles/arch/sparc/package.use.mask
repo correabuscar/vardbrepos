@@ -1,6 +1,48 @@
 # Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+# Andreas Sturmlechner <asturm@gentoo.org> (2023-10-08)
+# Vulkan is not available on sparc.
+dev-qt/qtdeclarative vulkan
+dev-qt/qtgui vulkan
+<dev-qt/qtwayland-5.15.11:5 vulkan
+>=dev-qt/qtwayland-5.15.11:5 compositor
+
+# Patrick McLean <chutzpah@gentoo.org> (2023-10-03)
+# sys-apps/s6-linux-init has not been tested on this arch
+sys-apps/openrc s6
+
+# Sam James <sam@gentoo.org> (2023-09-22)
+# Qt 6 not keyworded here.
+dev-util/cmake gui
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2023-09-20)
+# Libei not keyworded here yet
+x11-base/xwayland libei
+
+# Rich Freeman <rich0@gentoo.org> (2023-09-13)
+# Tests require shellcheck which is not currently available
+sys-process/systemd-cron test
+
+# Sam James <sam@gentoo.org> (2023-07-21)
+# Requires app-emulation/qemu.
+sys-kernel/gentoo-kernel test
+sys-kernel/vanilla-kernel test
+
+# Sam James <sam@gentoo.org> (2023-07-21)
+# Requires dev-util/pahole.
+sys-kernel/gentoo-kernel debug
+sys-kernel/vanilla-kernel debug
+
+# Sam James <sam@gentoo.org> (2023-06-18)
+# Qt 5 not keyworded here
+app-text/ansifilter gui
+app-text/highlight gui
+
+# Matt Turner <mattst88@gentoo.org> (2023-05-30)
+# sys-apps/dbus-broker is not keyworded
+app-accessibility/at-spi2-core dbus-broker
+
 # Arsen Arsenović <arsen@gentoo.org> (2023-05-17)
 # app-emulation/libguestfs pulls in a large amount of dependencies, most
 # of which aren't or can't be kw'd on SPARC.
@@ -70,6 +112,7 @@ dev-util/pkgcheck emacs
 # Sam James <sam@gentoo.org> (2022-07-27)
 # sys-devel/lld is not keyworded on sparc
 >=dev-lang/spidermonkey-78 lto
+>=dev-lang/spidermonkey-115 clang
 
 # Matt Turner <mattst88@gentoo.org> (2022-06-25)
 # net-libs/libqrtr-glib not keyworded
@@ -86,7 +129,7 @@ dev-lang/rust-bin clippy doc rustfmt rust-analyzer
 
 # Nickolas Raymond Kaczynski <nrk@disroot.org> (2022-04-24)
 # Dependencies are missing keywords
-media-libs/imlib2 svg heif
+media-libs/imlib2 svg
 
 # Matt Turner <mattst88@gentoo.org> (2022-04-18)
 # app-text/nuspell is not keyworded
@@ -170,11 +213,9 @@ sys-apps/grep static
 media-libs/rubberband jni
 
 # Sam James <sam@gentoo.org> (2021-03-13)
-# media-libs/libheif isn't keyworded here
 # media-libs/libavif isn't keyworded here
-media-libs/gd avif heif
+media-libs/gd avif
 net-libs/webkit-gtk avif
-media-gfx/graphicsmagick heif
 www-client/links avif
 dev-lang/php avif
 

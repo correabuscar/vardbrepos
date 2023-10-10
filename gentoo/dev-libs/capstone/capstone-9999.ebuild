@@ -3,8 +3,9 @@
 
 EAPI=8
 
+PYTHON_COMPAT=( python3_{10..12} )
+DISTUTILS_EXT=1
 DISTUTILS_OPTIONAL=1
-PYTHON_COMPAT=( python3_{9..11} )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit cmake distutils-r1 toolchain-funcs
@@ -17,9 +18,10 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/capstone-engine/capstone.git"
 	EGIT_REPO_BRANCH="next"
 else
-	SRC_URI="https://github.com/capstone-engine/capstone/archive/${PV/_rc/-rc}.tar.gz -> ${P}.tar.gz"
-	S=${WORKDIR}/${P/_rc/-rc}
-	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86"
+	MY_PV="${PV/_rc/-rc}"
+	SRC_URI="https://github.com/capstone-engine/capstone/archive/${MY_PV}.tar.gz -> ${P}.tar.gz"
+	S="${WORKDIR}/${PN}-${MY_PV}"
+	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
 fi
 
 LICENSE="BSD"
@@ -32,6 +34,13 @@ DEPEND="${RDEPEND}
 "
 BDEPEND="${DISTUTILS_DEPS}"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
+PATCHES=(
+	# Currently "-Werror" is only added in the `next`-development branch, but
+	# not merged into 5.* releases. Eventually this patch may be needed in
+	# version 5 releas line. See bug #911481.
+	"${FILESDIR}/${P}-werror.patch"
+)
 
 distutils_enable_tests setup.py
 

@@ -1,6 +1,20 @@
 # Copyright 2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+# Sam James <sam@gentoo.org> (2023-09-28)
+# Broken on BE (https://bugs.chromium.org/p/aomedia/issues/detail?id=3487)
+~media-libs/libaom-3.7.0
+
+# matoro <matoro_gentoo@matoro.tk> (2023-06-30)
+# Test failures on BE
+# https://github.com/libjxl/libjxl/issues/2433
+media-libs/libjxl
+
+# James Le Cuirot <chewi@gentoo.org> (2023-06-24)
+# Test failures on BE (#901391).
+# https://github.com/any1/neatvnc/issues/85
+gui-libs/neatvnc
+
 # matoro <matoro_gentoo@matoro.tk> (2023-05-05)
 # Test failures on BE (https://github.com/sekrit-twc/zimg/pull/156)
 media-libs/zimg

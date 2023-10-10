@@ -58,12 +58,13 @@ BDEPEND="
 	virtual/pkgconfig
 	lua? ( ${LUA_DEPS} )
 	amd64? ( dev-lang/yasm )
+	wayland? ( dev-util/wayland-scanner )
 	x86? ( dev-lang/yasm )
 "
 RDEPEND="
 	media-libs/libvorbis
 	net-dns/libidn:=
-	sys-libs/zlib[minizip]
+	sys-libs/zlib
 	virtual/libintl
 	virtual/opengl
 	a52? ( media-libs/a52dec )
@@ -140,7 +141,7 @@ RDEPEND="
 		x11-libs/gdk-pixbuf:2
 		x11-libs/libnotify
 	)
-	libplacebo? ( media-libs/libplacebo )
+	libplacebo? ( media-libs/libplacebo:= )
 	libsamplerate? ( media-libs/libsamplerate )
 	libtar? ( dev-libs/libtar )
 	libtiger? ( media-libs/libtiger )
@@ -168,7 +169,7 @@ RDEPEND="
 		media-fonts/dejavu
 		>=media-libs/libprojectm-3.1.12:0=
 	)
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 	rdp? ( >=net-misc/freerdp-2.0.0_rc0:=[client(+)] )
 	samba? ( >=net-fs/samba-4.0.0:0[client,-debug(-)] )
 	sdl-image? ( media-libs/sdl-image )
@@ -230,9 +231,8 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.1.0-fix-libtremor-libs.patch # build system
-	"${FILESDIR}"/${PN}-2.2.8-freerdp-2.patch # bug 590164
-	"${FILESDIR}"/${PN}-configure_lua_version.patch
+	"${FILESDIR}"/${PN}-9999-fix-libtremor-libs.patch # build system
+	"${FILESDIR}"/${PN}-9999-configure-lua-version.patch
 )
 
 DOCS=( AUTHORS THANKS NEWS README.md doc/fortunes.txt )
@@ -492,12 +492,12 @@ src_install() {
 }
 
 pkg_postinst() {
-	if [[ -z "${ROOT}" ]] && [[ -x "${EROOT}/usr/$(get_libdir)/vlc/vlc-cache-gen" ]] ; then
-		einfo "Running ${EPREFIX}/usr/$(get_libdir)/vlc/vlc-cache-gen on ${EROOT}/usr/$(get_libdir)/vlc/plugins/"
-		"${EPREFIX}/usr/$(get_libdir)/vlc/vlc-cache-gen" "${EROOT}/usr/$(get_libdir)/vlc/plugins/"
+	if [[ -z "${ROOT}" ]] && [[ -x "${EROOT}"/usr/libexec/vlc/vlc-cache-gen ]] ; then
+		einfo "Running ${EPREFIX}/usr/libexec/vlc/vlc-cache-gen on ${EROOT}/usr/$(get_libdir)/vlc/plugins/"
+		"${EPREFIX}"/usr/libexec/vlc/vlc-cache-gen "${EROOT}/usr/$(get_libdir)/vlc/plugins/"
 	else
 		ewarn "We cannot run vlc-cache-gen (most likely ROOT != /)"
-		ewarn "Please run ${EPREFIX}/usr/$(get_libdir)/vlc/vlc-cache-gen manually"
+		ewarn "Please run ${EPREFIX}/usr/libexec/vlc/vlc-cache-gen manually"
 		ewarn "If you do not do it, vlc will take a long time to load."
 	fi
 

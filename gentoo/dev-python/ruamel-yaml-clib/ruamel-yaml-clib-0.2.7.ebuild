@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( pypy3 python3_{9..11} )
+PYTHON_COMPAT=( pypy3 python3_{10..12} )
 
 inherit distutils-r1
 
@@ -24,14 +24,14 @@ S=${WORKDIR}/ruamel_yaml_clib
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 ~hppa ~ia64 ppc ppc64 ~riscv sparc x86"
+KEYWORDS="amd64 arm arm64 hppa ~ia64 ~loong ppc ppc64 ~riscv sparc x86"
 
 BDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-0.2.7-clang-16.patch
+	"${FILESDIR}"/${PN}-0.2.7_cython_pointer_types.patch
 )
 
 src_unpack() {
@@ -40,5 +40,5 @@ src_unpack() {
 }
 
 src_configure() {
-	cythonize -3 _ruamel_yaml.pyx || die
+	cython -f -3 _ruamel_yaml.pyx || die
 }

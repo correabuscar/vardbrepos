@@ -14,8 +14,6 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
 BDEPEND="dev-util/nvidia-cuda-toolkit"
 
 src_prepare() {
@@ -36,5 +34,5 @@ src_configure() {
 
 src_install() {
 	cmake_src_install
-	rm -r "${D}"/usr/test || die
+	rm -r "${ED}"/usr/test || die
 }

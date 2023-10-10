@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,7 +17,7 @@ SRC_URI="https://download.libguestfs.org/${PN}/${MY_PV_1}-${SD}/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0/${MY_PV_1}"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="doc +ocaml +perl test"
 RESTRICT="!test? ( test )"
 
@@ -55,7 +55,8 @@ COMMON_DEPEND="
 "
 # Some OCaml is always required
 # bug #729674
-DEPEND="${COMMON_DEPEND}
+DEPEND="
+	${COMMON_DEPEND}
 	>=dev-lang/ocaml-4.03:=[ocamlopt]
 	dev-ml/findlib[ocamlopt]
 	doc? ( app-text/po4a )
@@ -67,8 +68,13 @@ DEPEND="${COMMON_DEPEND}
 		)
 	)
 "
-BDEPEND="virtual/pkgconfig"
-RDEPEND="${COMMON_DEPEND}
+BDEPEND="
+	sys-devel/bison
+	sys-devel/flex
+	virtual/pkgconfig
+"
+RDEPEND="
+	${COMMON_DEPEND}
 	app-emulation/libguestfs-appliance
 "
 
@@ -86,6 +92,9 @@ pkg_setup() {
 src_configure() {
 	# bug #794877
 	tc-export AR
+
+	# Needs both bison+flex (bug #915339, see configure too)
+	unset YACC LEX
 
 	if use test ; then
 		# Skip Bash test
