@@ -2354,6 +2354,7 @@ dev-python/mkdocs-material:social - Install the dependencies of the "social" plu
 dev-python/mpmath:matplotlib - Add support for dev-python/matplotlib
 dev-python/msgpack:native-extensions - Compiles native "C" extensions (speedups, instead of using python fallback code).
 dev-python/multidict:native-extensions - Compile native C extensions (speedups, instead of using Python fallback code).
+dev-python/mypy:native-extensions - Compiles native C extensions (speedups, instead of using Python fallback code).
 dev-python/pandas:full-support - Pull all packages to give pandas full support
 dev-python/paramiko:server - Enable server feature
 dev-python/peewee:native-extensions - Compiles native C extension for more complete SQLite3 support.
@@ -2492,6 +2493,7 @@ dev-qt/qt-docs:declarative - Install documentation for dev-qt/qtdeclarative
 dev-qt/qt-docs:designer - Install documentation for dev-qt/designer
 dev-qt/qt-docs:gamepad - Install documentation for dev-qt/qtgamepad (available in qt overlay only)
 dev-qt/qt-docs:graphicaleffects - Install documentation for dev-qt/qtgraphicaleffects
+dev-qt/qt-docs:graphs - Install documentation for QtGraphs (unpackaged)
 dev-qt/qt-docs:grpc - Install documentation for QtGRPC (unpackaged)
 dev-qt/qt-docs:gui - Install documentation for dev-qt/qtgui
 dev-qt/qt-docs:help - Install documentation for dev-qt/qthelp
@@ -6640,6 +6642,21 @@ net-p2p/amule:daemon - Enable amule daemon
 net-p2p/amule:remote - Enable remote controlling of the client
 net-p2p/amule:stats - Enable statistic reporting
 net-p2p/bitcoin-cli:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
+net-p2p/bitcoin-core:asm - Enable assembly for optimization
+net-p2p/bitcoin-core:berkdb - Support legacy wallets in Berkeley DB format
+net-p2p/bitcoin-core:bitcoin-cli - Build and install bitcoin-cli command line interface
+net-p2p/bitcoin-core:daemon - Build and install bitcoind daemon
+net-p2p/bitcoin-core:external-signer - Include support for external wallet signer programs
+net-p2p/bitcoin-core:libs - Build and install libbitcoinconsensus
+net-p2p/bitcoin-core:nat-pmp - Enable NAT-PMP port forwarding
+net-p2p/bitcoin-core:qrcode - Enable generation of QR Codes for receiving payments
+net-p2p/bitcoin-core:qt5 - Build and install Bitcoin-Qt GUI
+net-p2p/bitcoin-core:sqlite - Support descriptor wallets in SQLite format
+net-p2p/bitcoin-core:system-leveldb - Link with virtual/bitcoin-leveldb rather than embedding an internal copy
+net-p2p/bitcoin-core:system-libsecp256k1 - Link with dev-libs/libsecp256k1 rather than embedding an internal copy
+net-p2p/bitcoin-core:systemtap - Enable SystemTAP/DTrace tracing
+net-p2p/bitcoin-core:upnp - Enable Universal Plug and Play
+net-p2p/bitcoin-core:zeromq - Report blocks and transactions via zeromq
 net-p2p/bitcoin-qt:asm - Enable assembly for optimization
 net-p2p/bitcoin-qt:external-signer - Include support for external wallet signer programs
 net-p2p/bitcoin-qt:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
