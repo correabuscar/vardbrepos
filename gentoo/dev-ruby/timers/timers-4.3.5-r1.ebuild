@@ -3,7 +3,7 @@
 
 EAPI=8
 
-USE_RUBY="ruby27 ruby30 ruby31 ruby32"
+USE_RUBY="ruby31 ruby32 ruby33"
 
 RUBY_FAKEGEM_EXTRADOC="readme.md"
 
@@ -18,7 +18,7 @@ SRC_URI="https://github.com/socketry/timers/archive/v${PV}.tar.gz -> ${P}.tar.gz
 
 LICENSE="MIT"
 SLOT="4"
-KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86 ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86 ~ppc-macos ~x64-macos ~x64-solaris"
 
 PATCHES=(
 	# https://github.com/socketry/timers/issues/82

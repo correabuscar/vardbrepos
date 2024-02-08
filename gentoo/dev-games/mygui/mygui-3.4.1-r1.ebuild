@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,7 +15,7 @@ SRC_URI="https://github.com/MyGUI/mygui/archive/${MY_P}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
 IUSE="debug doc +ogre opengl plugins samples static-libs test tools l10n_ru"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="ogre? ( !opengl )
@@ -34,7 +34,7 @@ RDEPEND="media-libs/freetype:2
 	tools? ( dev-games/ois )"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig
-	doc? ( app-doc/doxygen )"
+	doc? ( app-text/doxygen )"
 
 S=${WORKDIR}/mygui-${MY_P}
 STATIC_BUILD=${WORKDIR}/${P}_build_static

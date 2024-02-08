@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Gentoo Authors
+# Copyright 2022-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,12 +6,12 @@ EAPI=8
 # Note: if bumping pax-utils because of syscall changes in glibc, please
 # revbump glibc and update the dependency in its ebuild for the affected
 # versions.
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit meson python-single-r1
 
 DESCRIPTION="ELF utils that can check files for security relevant properties"
-HOMEPAGE="https://wiki.gentoo.org/index.php?title=Project:Hardened/PaX_Utilities"
+HOMEPAGE="https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities"
 
 if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://anongit.gentoo.org/git/proj/pax-utils.git"
@@ -21,7 +21,7 @@ else
 		https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${P}.tar.xz
 		https://dev.gentoo.org/~vapier/dist/${P}.tar.xz
 	"
-	KEYWORDS="~alpha ~amd64 arm arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ppc64 ~riscv ~s390 ~sparc x86 ~amd64-linux ~x86-linux ~arm64-macos ~ppc-macos ~x64-macos ~x64-solaris"
+	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~arm64-macos ~ppc-macos ~x64-macos ~x64-solaris"
 fi
 
 LICENSE="GPL-2"

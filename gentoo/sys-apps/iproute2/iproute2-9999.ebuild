@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,7 +18,7 @@ HOMEPAGE="https://wiki.linuxfoundation.org/networking/iproute2"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="atm berkdb bpf caps elf +iptables minimal nfs selinux split-usr"
+IUSE="atm berkdb bpf caps elf +iptables minimal nfs selinux"
 # Needs root
 RESTRICT="test"
 
@@ -43,13 +43,13 @@ DEPEND="
 BDEPEND="
 	app-arch/xz-utils
 	>=sys-devel/bison-2.4
-	sys-devel/flex
+	app-alternatives/lex
 	virtual/pkgconfig
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.1.0-mtu.patch # bug #291907
-	"${FILESDIR}"/${PN}-5.12.0-configure-nomagic-nolibbsd.patch # bug #643722 & 911727
+	"${FILESDIR}"/${PN}-6.5.0-mtu.patch # bug #291907
+	"${FILESDIR}"/${PN}-6.5.0-configure-nomagic-nolibbsd.patch # bug #643722 & #911727
 	"${FILESDIR}"/${PN}-5.7.0-mix-signal.h-include.patch
 	"${FILESDIR}"/${PN}-6.4.0-disable-libbsd-fallback.patch # bug #911727
 )
@@ -61,12 +61,12 @@ src_prepare() {
 	local versionfile="include/version.h"
 	if [[ ${PV} != 9999 ]] && ! grep -Fq "${PV}" ${versionfile} ; then
 		einfo "Fixing version string"
-		sed "s@\"[[:digit:]\.]\+\"@\"${PV}\"@" \
-			-i ${versionfile} || die
+		sed -i "s@\"[[:digit:]\.]\+\"@\"${PV}\"@" \
+			${versionfile} || die
 	fi
 
 	# echo -n is not POSIX compliant
-	sed 's@echo -n@printf@' -i configure || die
+	sed -i 's@echo -n@printf@' configure || die
 
 	sed -i \
 		-e '/^CC :\?=/d' \
@@ -187,6 +187,7 @@ src_install() {
 
 	dodir /bin
 	mv "${ED}"/{s,}bin/ip || die # bug #330115
+	mv "${ED}"/{s,}bin/ss || die # bug #547264
 
 	dolib.a lib/libnetlink.a
 	insinto /usr/include
@@ -195,13 +196,6 @@ src_install() {
 	# Collides with net-analyzer/ifstat
 	# https://bugs.gentoo.org/868321
 	mv "${ED}"/sbin/ifstat{,-iproute2} || die
-
-	if use split-usr ; then
-		# Can remove compatibility symlink in a year: 2023-05-28.
-		# bug #547264
-		mv "${ED}"/sbin/ss "${ED}"/bin/ss || die
-		dosym -r /bin/ss /sbin/ss
-	fi
 
 	if use berkdb ; then
 		keepdir /var/lib/arpd

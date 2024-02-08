@@ -1,4 +1,4 @@
-# Copyright 2014-2023 Gentoo Authors
+# Copyright 2014-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -13,7 +13,7 @@ SRC_URI="https://gitlab.freedesktop.org/${PN}/${PN}/-/archive/${PV}/${P}.tar.bz2
 LICENSE="MIT"
 SLOT="0/10"
 if [[ $(ver_cut 3) -lt 900 ]] ; then
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+	KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 fi
 IUSE="doc input_devices_wacom test"
 RESTRICT="!test? ( test )"
@@ -38,22 +38,31 @@ BDEPEND="
 			dev-python/sphinx[${PYTHON_USEDEP}]
 			>=dev-python/sphinx-rtd-theme-0.2.4[${PYTHON_USEDEP}]
 		')
-		>=app-doc/doxygen-1.8.3
+		>=app-text/doxygen-1.8.3
 		>=media-gfx/graphviz-2.38.0
 	)
+	test? (
+		$(python_gen_any_dep '
+			dev-python/pytest[${PYTHON_USEDEP}]
+		')
+	)
 "
-#	test? ( dev-util/valgrind )
+#	test? ( dev-debug/valgrind )
 
 python_check_deps() {
-	python_has_version \
-		"dev-python/commonmark[${PYTHON_USEDEP}]" \
-		"dev-python/recommonmark[${PYTHON_USEDEP}]" \
-		"dev-python/sphinx[${PYTHON_USEDEP}]" \
-		">=dev-python/sphinx-rtd-theme-0.2.4[${PYTHON_USEDEP}]"
-}
-
-pkg_setup() {
-	use doc && python-any-r1_pkg_setup
+	if use doc; then
+		python_has_version \
+			"dev-python/commonmark[${PYTHON_USEDEP}]" \
+			"dev-python/recommonmark[${PYTHON_USEDEP}]" \
+			"dev-python/sphinx[${PYTHON_USEDEP}]" \
+			">=dev-python/sphinx-rtd-theme-0.2.4[${PYTHON_USEDEP}]" \
+		|| return
+	fi
+	if use test; then
+		python_has_version \
+			"dev-python/pytest[${PYTHON_USEDEP}]" \
+		|| return
+	fi
 }
 
 src_prepare() {
@@ -82,7 +91,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	optfeature "measure and replay tools" dev-python/python-libevdev
+	optfeature "measure and replay tools" dev-python/libevdev
 	udev_reload
 }
 

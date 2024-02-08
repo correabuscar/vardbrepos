@@ -1,4 +1,4 @@
-# Copyright 2021-2023 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ inherit flag-o-matic qt6-build toolchain-funcs
 DESCRIPTION="Cross-platform application development framework"
 
 if [[ ${QT6_BUILD_TYPE} == release ]]; then
-	KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~loong ~x86"
+	KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
 fi
 
 declare -A QT6_IUSE=(
@@ -136,6 +136,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-6.5.2-hppa-forkfd-grow-stack.patch
 	"${FILESDIR}"/${PN}-6.5.2-no-glx.patch
 	"${FILESDIR}"/${PN}-6.5.2-no-symlink-check.patch
+	"${FILESDIR}"/${PN}-6.6.1-forkfd-childstack-size.patch
 )
 
 src_prepare() {
@@ -183,7 +184,8 @@ src_configure() {
 		$(qt_feature gui)
 		$(qt_feature network)
 		$(qt_feature sql)
-		-DQT_FEATURE_testlib=ON # trivial and often needed to build revdeps
+		# trivial, and is often needed (sometimes even when not building tests)
+		-DQT_FEATURE_testlib=ON
 		$(qt_feature xml)
 	)
 
@@ -203,7 +205,8 @@ src_configure() {
 		-DINPUT_opengl=$(usex opengl $(usex gles2-only es2 desktop) no)
 		-DQT_FEATURE_system_textmarkdownreader=OFF # TODO?: package md4c
 	) && use widgets && mycmakeargs+=(
-		$(qt_feature cups) # qtprintsupport is enabled w/ gui+widgets
+		# note: qtprintsupport is enabled w/ gui+widgets regardless of USE=cups
+		$(qt_feature cups)
 		$(qt_feature gtk gtk3)
 	)
 
@@ -243,9 +246,6 @@ src_configure() {
 		IFS=' ' read -ra intrins < <(
 			: "$(test-flags-CXX "${cpuflags[@]/#/-m}")"
 			$(tc-getCXX) -E -P ${_} ${CXXFLAGS} ${CPPFLAGS} - <<-EOF | tail -n 1
-				#if defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
-				#include <x86intrin.h>
-				#endif
 				$(printf '__%s__ ' "${cpuflags[@]^^}")
 			EOF
 			assert
@@ -284,9 +284,14 @@ src_test() {
 		tst_qsharedmemory
 		# typical to lack SCTP support on non-generic kernels
 		tst_qsctpsocket
+		# randomly fails without -j1, and not worth it over this (bug #916181)
+		tst_qfiledialog{,2}
+		# may randomly hang+timeout, perhaps related to -j as well
+		tst_qtimer
 		# these can be flaky depending on the environment/toolchain
 		tst_qlogging # backtrace log test can easily vary
 		tst_q{,raw}font # affected by available fonts / settings (bug #914737)
+		tst_qprinter # checks system's printers (bug #916216)
 		tst_qstorageinfo # checks mounted filesystems
 		# flaky due to using different test framework and fails with USE=-gui
 		tst_selftests
@@ -304,14 +309,14 @@ src_test() {
 		# similarly, but on armv7 and potentially others (bug #914028)
 		tst_qlineedit
 		tst_qpainter
-		# likewise, known failing at least on BE arches (bug #914033,914371)
+		# likewise, known failing on BE arches (bug #914033,914371,918878)
 		tst_qimagereader
 		tst_qimagewriter
 		tst_qpluginloader
+		tst_quuid
 		# partially broken on llvm-musl, needs looking into but skip to have
 		# a baseline for regressions (rest of dev-qt still passes with musl)
 		$(usev elibc_musl '
-			tst_qfiledialog2
 			tst_qicoimageformat
 			tst_qimagereader
 			tst_qimage
@@ -320,6 +325,12 @@ src_test() {
 		$(usev hppa '
 			tst_qcborvalue
 			tst_qnumeric
+		')
+		# bug #914033
+		$(usev sparc '
+			tst_qbuffer
+			tst_qprocess
+			tst_qtconcurrentiteratekernel
 		')
 		# note: for linux, upstream only really runs+maintains tests for amd64
 		# https://doc.qt.io/qt-6/supported-platforms.html

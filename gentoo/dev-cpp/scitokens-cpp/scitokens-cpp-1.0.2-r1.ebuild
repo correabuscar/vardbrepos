@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -10,7 +10,7 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="https://github.com/scitokens/scitokens-cpp"
 else
 	SRC_URI="https://github.com/scitokens/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 fi
 
 DESCRIPTION="C++ implementation of the SciTokens library with a C library interface"
@@ -21,7 +21,7 @@ SLOT="0"
 IUSE="test"
 
 DEPEND="
-	dev-cpp/jwt-cpp[picojson]
+	<dev-cpp/jwt-cpp-0.7.0[picojson]
 	dev-db/sqlite
 	dev-libs/openssl:0=
 	net-misc/curl:0=

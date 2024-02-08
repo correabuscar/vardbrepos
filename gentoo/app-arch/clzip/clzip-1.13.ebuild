@@ -1,9 +1,9 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/antoniodiazdiaz.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/antoniodiazdiaz.asc
 inherit toolchain-funcs verify-sig
 
 DESCRIPTION="C language version of lzip"
@@ -14,7 +14,7 @@ S="${WORKDIR}/${P/_/-}"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 
 BDEPEND="verify-sig? ( sec-keys/openpgp-keys-antoniodiazdiaz )"
 

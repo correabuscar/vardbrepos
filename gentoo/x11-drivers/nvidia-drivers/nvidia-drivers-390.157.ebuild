@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,9 +16,10 @@ SRC_URI="
 	amd64? ( ${NV_URI}Linux-x86_64/${PV}/NVIDIA-Linux-x86_64-${PV}.run )
 	x86? ( ${NV_URI}Linux-x86/${PV}/NVIDIA-Linux-x86-${PV}.run )
 	$(printf "${NV_URI}%s/%s-${PV}.tar.bz2 " \
-		nvidia-{installer,modprobe,persistenced,settings,xconfig}{,})"
+		nvidia-{installer,modprobe,persistenced,settings,xconfig}{,})
+"
 # nvidia-installer is unused but here for GPL-2's "distribute sources"
-S="${WORKDIR}"
+S=${WORKDIR}
 
 LICENSE="NVIDIA-r2 BSD BSD-2 GPL-2 MIT"
 SLOT="0/${PV%%.*}"
@@ -43,7 +44,8 @@ COMMON_DEPEND="
 		x11-libs/libXext
 		x11-libs/libXxf86vm
 		x11-libs/pango
-	)"
+	)
+"
 RDEPEND="
 	${COMMON_DEPEND}
 	sys-libs/glibc
@@ -51,10 +53,12 @@ RDEPEND="
 		media-libs/libglvnd[X,abi_x86_32(-)?]
 		x11-libs/libX11[abi_x86_32(-)?]
 		x11-libs/libXext[abi_x86_32(-)?]
-	)"
+	)
+"
 DEPEND="
 	${COMMON_DEPEND}
 	static-libs? (
+		x11-base/xorg-proto
 		x11-libs/libX11
 		x11-libs/libXext
 	)
@@ -65,10 +69,12 @@ DEPEND="
 		x11-libs/libXrandr
 		x11-libs/libXv
 		x11-libs/libvdpau
-	)"
+	)
+"
 BDEPEND="
 	sys-devel/m4
-	virtual/pkgconfig"
+	virtual/pkgconfig
+"
 
 QA_PREBUILT="opt/bin/* usr/lib*"
 
@@ -92,7 +98,8 @@ pkg_setup() {
 		~!AMD_MEM_ENCRYPT_ACTIVE_BY_DEFAULT
 		~!LOCKDEP
 		~!X86_KERNEL_IBT
-		!DEBUG_MUTEXES"
+		!DEBUG_MUTEXES
+	"
 
 	local ERROR_DRM_KMS_HELPER="CONFIG_DRM_KMS_HELPER: is not set but needed for Xorg auto-detection
 	of drivers (no custom config), and optional nvidia-drm.modeset=1.
@@ -141,8 +148,18 @@ src_prepare() {
 }
 
 src_compile() {
-	tc-export AR CC CXX LD OBJCOPY OBJDUMP
+	tc-export AR CC CXX LD OBJCOPY OBJDUMP PKG_CONFIG
 	local -x RAW_LDFLAGS="$(get_abi_LDFLAGS) $(raw-ldflags)" # raw-ldflags.patch
+
+	# latest branches has proper fixes, but legacy have more issues and are
+	# not worth the trouble, so doing the lame "fix" for gcc14 (bug #921370)
+	local noerr=(
+		-Wno-error=implicit-function-declaration
+		-Wno-error=incompatible-pointer-types
+	)
+	# not *FLAGS to ensure it's used everywhere including conftest.sh
+	CC+=" $(test-flags-CC "${noerr[@]}")"
+	use modules && KERNEL_CC+=" $(CC=${KERNEL_CC} test-flags-CC "${noerr[@]}")"
 
 	NV_ARGS=(
 		PREFIX="${EPREFIX}"/usr
@@ -155,6 +172,7 @@ src_compile() {
 	local modlist=( nvidia{,-drm,-modeset}=video:kernel )
 	use x86 || modlist+=( nvidia-uvm=video:kernel )
 	local modargs=(
+		CC="${KERNEL_CC}" # for the above gcc14 workarounds
 		IGNORE_CC_MISMATCH=yes NV_VERBOSE=1
 		SYSOUT="${KV_OUT_DIR}" SYSSRC="${KV_DIR}"
 	)
@@ -167,8 +185,8 @@ src_compile() {
 
 	if use persistenced; then
 		# 390.xx persistenced does not auto-detect libtirpc
-		LIBS=$($(tc-getPKG_CONFIG) --libs libtirpc || die) \
-			common_cflags=$($(tc-getPKG_CONFIG) --cflags libtirpc || die) \
+		LIBS=$(${PKG_CONFIG} --libs libtirpc || die) \
+			common_cflags=$(${PKG_CONFIG} --cflags libtirpc || die) \
 			emake "${NV_ARGS[@]}" -C nvidia-persistenced
 	fi
 
@@ -176,7 +194,7 @@ src_compile() {
 	use X && emake "${NV_ARGS[@]}" -C nvidia-xconfig
 
 	if use tools; then
-		# cflags: avoid noisy logs, only use here and set first to let override
+		# avoid noisy *very* noisy logs with deprecation warnings
 		CFLAGS="-Wno-deprecated-declarations ${CFLAGS}" \
 			emake "${NV_ARGS[@]}" -C nvidia-settings
 	elif use static-libs; then

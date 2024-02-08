@@ -93,7 +93,7 @@ JAVA_TEST_GENTOO_CLASSPATH="
 JAVA_TEST_RESOURCE_DIRS="test"
 JAVA_TEST_SRC_DIR="test"
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/freenetproject.org.asc"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/freenetproject.org.asc"
 src_unpack() {
 	if use verify-sig; then
 		verify-sig_verify_detached \
@@ -128,7 +128,7 @@ src_prepare() {
 	EOF
 
 	cat "${WORKDIR}"/seedrefs-build01480/* > "${S}"/seednodes.fref
-	cp "${FILESDIR}"/freenet-0.7.5_p1491-wrapper.conf freenet-wrapper.conf || die
+	cp "${FILESDIR}"/freenet-0.7.5_p1497-wrapper.conf freenet-wrapper.conf || die
 	cp "${FILESDIR}"/run.sh-20090501 run.sh || die
 
 	sed -i -e "s:=/usr/lib:=/usr/$(get_libdir):g" \

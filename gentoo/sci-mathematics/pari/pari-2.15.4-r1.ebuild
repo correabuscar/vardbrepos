@@ -9,12 +9,13 @@ DESCRIPTION="Computer-aided number theory C library and tools"
 HOMEPAGE="https://pari.math.u-bordeaux.fr/"
 SRC_URI="https://pari.math.u-bordeaux.fr/pub/${PN}/unix/${P}.tar.gz"
 
-LICENSE="GPL-2"
+# Their LICENSE file says "or (at your option) any later version"
+LICENSE="GPL-2+"
 
 # The subslot is the value of $soname_num obtained from
 # upstream's config/version script.
 SLOT="0/8"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~mips ~ppc ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="data doc examples fltk gmp test threads X"
 REQUIRED_USE="fltk? ( !X )" # mutually exclusive plot implementations
 RESTRICT="!test? ( test )"

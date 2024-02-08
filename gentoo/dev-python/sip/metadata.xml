@@ -5,6 +5,7 @@
 		<email>qt@gentoo.org</email>
 		<name>Gentoo Qt Project</name>
 	</maintainer>
+	<stabilize-allarches/>
 	<upstream>
 		<maintainer status="active">
 			<email>phil@riverbankcomputing.com</email>

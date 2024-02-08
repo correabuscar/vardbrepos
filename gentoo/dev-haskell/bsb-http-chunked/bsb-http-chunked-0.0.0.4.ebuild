@@ -19,6 +19,14 @@ IUSE=""
 
 RDEPEND=">=dev-lang/ghc-7.10.1:=
 "
+
+# Tests do not work correctly on >=ghc-9.2
+RDEPEND+="
+	test? (
+		<dev-lang/ghc-9.1
+	)
+"
+
 DEPEND="${RDEPEND}
 	>=dev-haskell/cabal-1.22.2.0
 	test? ( dev-haskell/attoparsec
@@ -30,9 +38,6 @@ DEPEND="${RDEPEND}
 		dev-haskell/tasty-hunit )
 "
 
-src_prepare() {
-	default
-
-	cabal_chdeps \
-		'base >= 4.8 && < 4.13' 'base >= 4.8'
-}
+CABAL_CHDEPS=(
+	'base >= 4.8 && < 4.13' 'base >= 4.8'
+)

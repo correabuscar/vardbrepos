@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: llvm.eclass
@@ -78,7 +78,7 @@ DEPEND="!!sys-devel/llvm:0"
 # @INTERNAL
 # @DESCRIPTION:
 # Correct values of LLVM slots, newest first.
-declare -g -r _LLVM_KNOWN_SLOTS=( {18..8} )
+declare -g -r _LLVM_KNOWN_SLOTS=( {19..8} )
 
 # @ECLASS_VARIABLE: LLVM_ECLASS_SKIP_PKG_SETUP
 # @INTERNAL
@@ -172,6 +172,37 @@ get_llvm_prefix() {
 	[[ ${1} == -b ]] && prefix=${BROOT}
 
 	echo "${prefix}/usr/lib/llvm/$(get_llvm_slot "${@}")"
+}
+
+# @FUNCTION: llvm_tuple_to_target
+# @USAGE: [<tuple>]
+# @DESCRIPTION:
+# Translate a tuple into a target suitable for LLVM_TARGETS.
+# Defaults to ${CHOST} if not specified.
+llvm_tuple_to_target() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	case ${1:-${CHOST}} in
+		aarch64*) echo "AArch64";;
+		amdgcn*) echo "AMDGPU";;
+		arc*) echo "ARC";;
+		arm*) echo "ARM";;
+		avr*) echo "AVR";;
+		bpf*) echo "BPF";;
+		csky*) echo "CSKY";;
+		loong*) echo "LoongArch";;
+		m68k*) echo "M68k";;
+		mips*) echo "Mips";;
+		msp430*) echo "MSP430";;
+		nvptx*) echo "NVPTX";;
+		powerpc*) echo "PowerPC";;
+		riscv*) echo "RISCV";;
+		sparc*) echo "Sparc";;
+		s390*) echo "SystemZ";;
+		x86_64*|i?86*) echo "X86";;
+		xtensa*) echo "Xtensa";;
+		*) die "Unknown LLVM target for tuple ${1:-${CHOST}}"
+	esac
 }
 
 # @FUNCTION: llvm_fix_clang_version

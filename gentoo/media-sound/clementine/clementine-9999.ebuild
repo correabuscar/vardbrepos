@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -21,7 +21,7 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="alsa box cdda +dbus debug dropbox googledrive ipod lastfm mms moodbar mtp projectm pulseaudio seafile skydrive test +udisks wiimote"
+IUSE="alsa box cdda +dbus debug dropbox googledrive ipod lastfm moodbar mtp projectm pulseaudio seafile skydrive test +udisks wiimote"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
@@ -30,6 +30,7 @@ REQUIRED_USE="
 "
 
 COMMON_DEPEND="
+	dev-cpp/abseil-cpp:=
 	dev-db/sqlite:3
 	dev-libs/glib:2
 	dev-libs/protobuf:=
@@ -65,7 +66,6 @@ RDEPEND="${COMMON_DEPEND}
 	media-plugins/gst-plugins-meta:1.0
 	media-plugins/gst-plugins-soup:1.0
 	media-plugins/gst-plugins-taglib:1.0
-	mms? ( media-plugins/gst-plugins-libmms:1.0 )
 	mtp? ( gnome-base/gvfs[mtp] )
 	udisks? ( sys-fs/udisks:2 )
 "
@@ -92,6 +92,12 @@ BDEPEND="
 	)
 "
 
+PATCHES=(
+	"${FILESDIR}/clementine-1.4.0_rc2-c17.patch"
+	"${FILESDIR}/clementine-1.4.0_rc2-absl.patch"
+	"${FILESDIR}/clementine-1.4.0_rc2-projectm-dir.patch"
+)
+
 DOCS=( Changelog README.md )
 
 src_prepare() {
@@ -108,7 +114,7 @@ src_prepare() {
 		cmake_comment_add_subdirectory tests
 	fi
 
-	rm -r 3rdparty/{libmygpo-qt,libmygpo-qt5,taglib} || die
+	rm -r 3rdparty/{libmygpo-qt5,taglib} || die
 }
 
 src_configure() {
@@ -138,6 +144,7 @@ src_configure() {
 		-DENABLE_UDISKS2="$(usex udisks)"
 		-DENABLE_WIIMOTEDEV="$(usex wiimote)"
 		"$(cmake_use_find_package alsa ALSA)"
+		-DGENTOO_FIX_ABSL_LIBS="$(test-flags-CCLD -labsl_log_internal_check_op -labsl_log_internal_message)"
 	)
 
 	use !debug && append-cppflags -DQT_NO_DEBUG_OUTPUT

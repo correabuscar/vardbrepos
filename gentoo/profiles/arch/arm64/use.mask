@@ -4,6 +4,10 @@
 # Unmask the flag which corresponds to ARCH.
 -arm64
 
+# Mart Raudsepp <leio@gentoo.org> (2023-10-05)
+# Orc optimisations are supported on arm64 NEON since 0.4.33
+-orc
+
 # Mart Raudsepp <leio@gentoo.org> (2023-10-03)
 # dev-util/sysprof-capture is keyworded on arm64
 -sysprof
@@ -44,7 +48,7 @@
 -python_targets_pypy3
 -python_single_target_pypy3
 
-# David Seifert <soap@gentoo.org (2020-05-17)
+# David Seifert <soap@gentoo.org> (2020-05-17)
 # Mono is hopelessly broken on arm64
 mono
 
@@ -95,24 +99,20 @@ mpi
 lasi
 hardened
 pdfannotextractor
-prelude
 mssql
 
 # havent tested yet
-darcs
 afs
 zvbi
 sid
 mms
 ieee1394
-darcs
 bs2b
 ggi
 dvd
 fits
 lpsol
 zvbi
-gts
 anthy
 snapcast
 
@@ -135,7 +135,6 @@ snapcast
 
 # Donnie Berkholz <dberkholz@gentoo.org> (2006-02-05)
 # Modular X: mask for architectures on which they aren't available
-video_cards_glint
 video_cards_mga
 video_cards_r128
 

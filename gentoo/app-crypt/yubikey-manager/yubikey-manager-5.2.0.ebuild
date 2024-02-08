@@ -23,9 +23,9 @@ SRC_URI="https://developers.yubico.com/${PN}/Releases/${MY_P}.tar.gz
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
+KEYWORDS="amd64 ~arm64 ~ppc64 ~riscv x86"
 IUSE="ssl"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/yubico.com.asc"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/yubico.com.asc"
 
 # app-crypt/ccid required for
 # - 'ykman oath'

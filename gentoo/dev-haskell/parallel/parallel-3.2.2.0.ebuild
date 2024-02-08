@@ -13,7 +13,7 @@ HOMEPAGE="https://hackage.haskell.org/package/parallel"
 SRC_URI="https://hackage.haskell.org/package/${P}/${P}.tar.gz"
 
 LICENSE="BSD"
-SLOT="3/${PV}"
+SLOT="0/${PV}"
 KEYWORDS="amd64 ~arm64 ~ppc64 ~riscv ~x86"
 IUSE=""
 
@@ -23,9 +23,6 @@ DEPEND="${RDEPEND}
 	>=dev-haskell/cabal-1.10
 "
 
-src_prepare() {
-	default
-
-	cabal_chdeps \
-		'base       >= 4.3 && < 4.13' 'base       >= 4.3'
-}
+CABAL_CHDEPS=(
+	'base       >= 4.3 && < 4.13' 'base       >= 4.3'
+)

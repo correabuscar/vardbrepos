@@ -13,14 +13,14 @@ if [[ ${PV} == 9999 ]] ; then
 	EHG_REPO_URI="http://hg.code.sf.net/p/${PN}/code"
 	inherit mercurial
 else
-	VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/bobfriesenhahn.asc
+	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/bobfriesenhahn.asc
 	inherit verify-sig
 
 	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.xz"
 	SRC_URI+=" verify-sig? ( mirror://sourceforge/${PN}/${MY_P}.tar.xz.asc )"
 	S="${WORKDIR}/${MY_P}"
 
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
 
 	BDEPEND="verify-sig? ( sec-keys/openpgp-keys-bobfriesenhahn )"
 fi
@@ -68,6 +68,7 @@ BDEPEND+=" virtual/pkgconfig"
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.3.41-flags.patch
 	"${FILESDIR}"/${PN}-1.3.41-perl.patch
+	"${FILESDIR}"/${PN}-1.3.42-autoconf-2.72-perl-lfs.patch
 )
 
 pkg_pretend() {

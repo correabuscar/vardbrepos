@@ -25,7 +25,7 @@ RDEPEND="virtual/libcrypt:=
 	brltty? ( app-accessibility/brltty[api(+)] )
 	cairo? ( x11-libs/cairo[X(+)] )
 	fbcon? ( media-fonts/unifont )
-	fcitx? ( app-i18n/fcitx )
+	fcitx? ( app-i18n/fcitx:* )
 	freewnn? ( app-i18n/freewnn )
 	gtk? ( x11-libs/gtk+:3 )
 	harfbuzz? ( media-libs/harfbuzz[truetype(+)] )
@@ -61,7 +61,7 @@ DOCS=( doc/{en,ja} )
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-font.patch
-	"${FILESDIR}"/${PN}-configure-clang16.patch
+	"${FILESDIR}"/${PN}-clang-16.patch
 )
 
 src_prepare() {

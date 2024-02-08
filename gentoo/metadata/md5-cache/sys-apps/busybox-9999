@@ -4,7 +4,7 @@ DEPEND=!static? ( virtual/libc virtual/libcrypt:= selinux? ( sys-libs/libselinux
 DESCRIPTION=Utilities for rescue and embedded systems
 EAPI=8
 HOMEPAGE=https://www.busybox.net/
-INHERIT=flag-o-matic savedconfig toolchain-funcs git-r3
+INHERIT=flag-o-matic readme.gentoo-r1 savedconfig toolchain-funcs git-r3
 IUSE=debug livecd make-symlinks math mdev pam selinux sep-usr static syslog systemd savedconfig
 LICENSE=GPL-2
 PROPERTIES=live
@@ -12,5 +12,5 @@ RDEPEND=!static? ( virtual/libc virtual/libcrypt:= selinux? ( sys-libs/libselinu
 REQUIRED_USE=pam? ( !static )
 RESTRICT=test
 SLOT=0
-_eclasses_=flag-o-matic	e5cc383ea8420f92fe3737be790021dc	git-r3	2358a7b20091609e24bd3a83b3ac5991	multilib	c19072c3cd7ac5cb21de013f7e9832e0	portability	a74d533f258f1f435be71312558c12f9	savedconfig	8b5f9d995a970e49cd427c55d5840285	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
-_md5_=ac0647e62eba38a501d5c266b1885c09
+_eclasses_=flag-o-matic	b2b07efa51009704f88173b2c7feab47	git-r3	86fa1f157b70b9d2ff340c4633b1cf4b	multilib	c19072c3cd7ac5cb21de013f7e9832e0	portability	225656ad6c6594fe3b0187bdd50707fb	readme.gentoo-r1	204091a2cde6179cd9d3db26d09412d3	savedconfig	8b5f9d995a970e49cd427c55d5840285	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084
+_md5_=5f92ef932b4365849ce713762f4fc621

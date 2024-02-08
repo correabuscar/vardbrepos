@@ -14,7 +14,7 @@ HOMEPAGE="https://skrooge.org/"
 
 if [[ ${KDE_BUILD_TYPE} = release ]]; then
 	SRC_URI="mirror://kde/stable/${PN}/${P}.tar.xz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 ~x86"
 fi
 
 LICENSE="GPL-2"
@@ -60,7 +60,7 @@ COMMON_DEPEND="
 	>=kde-frameworks/kwallet-${KFMIN}:5
 	>=kde-frameworks/kwidgetsaddons-${KFMIN}:5
 	>=kde-frameworks/kxmlgui-${KFMIN}:5
-	activities? ( >=kde-frameworks/kactivities-${KFMIN}:5 )
+	activities? ( >=kde-plasma/plasma-activities-${KFMIN}:5 )
 	kde? ( >=kde-frameworks/krunner-${KFMIN}:5 )
 	ofx? ( dev-libs/libofx:= )
 "

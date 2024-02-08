@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,13 +6,13 @@ EAPI=8
 inherit cmake multilib-minimal
 
 DESCRIPTION="Cryptographic library for embedded systems"
-HOMEPAGE="https://tls.mbed.org/"
+HOMEPAGE="https://www.trustedfirmware.org/projects/mbed-tls/"
 SRC_URI="https://github.com/Mbed-TLS/mbedtls/archive/${P}.tar.gz"
 S="${WORKDIR}"/${PN}-${P}
 
 LICENSE="Apache-2.0"
 SLOT="0/7.14.1" # ffmpeg subslot naming: SONAME tuple of {libmbedcrypto.so,libmbedtls.so,libmbedx509.so}
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 IUSE="cmac cpu_flags_x86_sse2 doc havege programs static-libs test threads zlib"
 RESTRICT="!test? ( test )"
 
@@ -25,7 +25,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 BDEPEND="
 	doc? (
-		app-doc/doxygen
+		app-text/doxygen
 		media-gfx/graphviz
 	)
 	test? ( dev-lang/perl )
@@ -71,16 +71,10 @@ multilib_src_compile() {
 }
 
 multilib_src_test() {
-	# psa isn't ready yet, it might be in 3.x(?) but certainly not
-	# at the moment.
-	# bug #718390
-	CMAKE_SKIP_TESTS=(
-		psa_crypto
-		psa_its-suite
-	)
-
+	# Disable parallel run, bug #718390
+	# https://github.com/Mbed-TLS/mbedtls/issues/4980
 	LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${BUILD_DIR}/library" \
-		cmake_src_test
+		cmake_src_test -j1
 }
 
 multilib_src_install() {

@@ -14,7 +14,7 @@ SRC_URI="
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 ~ia64 ppc ppc64 ~riscv ~sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
 
 DEPEND="sys-libs/ncurses:=[unicode(+)]"
 RDEPEND="${DEPEND}"
@@ -24,4 +24,4 @@ BDEPEND="
 	verify-sig? ( sec-keys/openpgp-keys-yorhel )
 "
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/yoranheling.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/yoranheling.asc

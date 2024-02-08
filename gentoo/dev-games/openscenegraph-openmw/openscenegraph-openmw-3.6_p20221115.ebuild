@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,10 +17,10 @@ S="${WORKDIR}/osg-${MY_COMMIT}"
 
 LICENSE="wxWinLL-3 LGPL-2.1"
 SLOT="0/162" # NOTE: CHECK WHEN BUMPING! Subslot is SOVERSION
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
 IUSE="
 	+collada curl dicom debug doc egl examples fltk fox gdal
-	gif glut gstreamer +jpeg las lua openexr openinventor osgapps pdf +png
+	gif gstreamer +jpeg las lua openexr openinventor osgapps pdf +png
 	+sdl sdl2 +svg tiff +truetype vnc wxwidgets xrandr +zlib
 "
 
@@ -35,7 +35,7 @@ REQUIRED_USE="
 BDEPEND="
 	app-arch/unzip
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen[dot] )
+	doc? ( app-text/doxygen[dot] )
 "
 RDEPEND="
 	!dev-games/openscenegraph
@@ -51,7 +51,6 @@ RDEPEND="
 	examples? (
 		fltk? ( x11-libs/fltk:1[opengl] )
 		fox? ( x11-libs/fox:1.6[opengl] )
-		glut? ( media-libs/freeglut )
 		sdl2? ( media-libs/libsdl2 )
 		wxwidgets? ( x11-libs/wxGTK:${WX_GTK_VER}[opengl,X] )
 	)
@@ -148,7 +147,6 @@ src_configure() {
 		mycmakeargs+=(
 			$(cmake_use_find_package fltk FLTK)
 			$(cmake_use_find_package fox FOX)
-			$(cmake_use_find_package glut GLUT)
 			$(cmake_use_find_package wxwidgets wxWidgets)
 		)
 	fi

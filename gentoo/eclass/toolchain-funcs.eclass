@@ -534,10 +534,9 @@ tc-ld-force-bfd() {
 	ewarn "Forcing usage of the BFD linker"
 
 	# Set up LD to point directly to bfd if it's available.
-	local ld=$(tc-getLD "$@")
-	# We need to extract the first word in case there are flags appended
-	# to its value (like multilib), bug #545218.
-	local bfd_ld="${ld%% *}.bfd"
+	# Unset LD first so we get the default value from tc-getLD.
+	local ld=$(unset LD; tc-getLD "$@")
+	local bfd_ld="${ld}.bfd"
 	local path_ld=$(type -P "${bfd_ld}" 2>/dev/null)
 	[[ -e ${path_ld} ]] && export LD=${bfd_ld}
 
@@ -648,6 +647,7 @@ tc-ninja_magic_to_arch() {
 	case ${host} in
 		aarch64*)	echo arm64;;
 		alpha*)		echo alpha;;
+		arc*)		echo arc;;
 		arm*)		echo arm;;
 		avr*)		_tc_echo_kernel_alias avr32 avr;;
 		bfin*)		_tc_echo_kernel_alias blackfin bfin;;
@@ -736,6 +736,8 @@ tc-endian() {
 		aarch64*be)	echo big;;
 		aarch64)	echo little;;
 		alpha*)		echo little;;
+		arc*b*)		echo big;;
+		arc*)		echo little;;
 		arm*b*)		echo big;;
 		arm*)		echo little;;
 		cris*)		echo little;;
@@ -1212,6 +1214,41 @@ tc-get-c-rtlib() {
 	esac
 
 	return 0
+}
+
+# @FUNCTION: tc-get-ptr-size
+# @RETURN: Size of a pointer in bytes for CHOST (e.g. 4 or 8).
+tc-get-ptr-size() {
+	$(tc-getCPP) -P - <<< __SIZEOF_POINTER__ ||
+		die "Could not determine CHOST pointer size"
+}
+
+# @FUNCTION: tc-get-build-ptr-size
+# @RETURN: Size of a pointer in bytes for CBUILD (e.g. 4 or 8).
+tc-get-build-ptr-size() {
+	$(tc-getBUILD_CPP) -P - <<< __SIZEOF_POINTER__ ||
+		die "Could not determine CBUILD pointer size"
+}
+
+# @FUNCTION: tc-is-lto
+# @RETURN: Shell true if we are using LTO, shell false otherwise
+tc-is-lto() {
+	local f="${T}/test-lto.o"
+
+	case $(tc-get-compiler-type) in
+		clang)
+			$(tc-getCC) ${CFLAGS} -c -o "${f}" -x c - <<<"" || die
+			# If LTO is used, clang will output bytecode and llvm-bcanalyzer
+			# will run successfully.  Otherwise, it will output plain object
+			# file and llvm-bcanalyzer will exit with error.
+			llvm-bcanalyzer "${f}" &>/dev/null && return 0
+			;;
+		gcc)
+			$(tc-getCC) ${CFLAGS} -c -o "${f}" -x c - <<<"" || die
+			[[ $($(tc-getREADELF) -S "${f}") == *.gnu.lto* ]] && return 0
+			;;
+	esac
+	return 1
 }
 
 fi

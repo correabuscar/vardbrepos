@@ -3,7 +3,7 @@
 
 EAPI=8
 
-USE_RUBY="ruby27 ruby30 ruby31 ruby32"
+USE_RUBY="ruby31 ruby32 ruby33"
 
 RUBY_FAKEGEM_RECIPE_TEST="rspec3"
 RUBY_FAKEGEM_EXTRADOC="README.md"
@@ -17,7 +17,7 @@ SRC_URI="https://github.com/socketry/fiber-local/archive/refs/tags/v${PV}.tar.gz
 
 LICENSE="MIT"
 SLOT="$(ver_cut 1)"
-KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86"
 IUSE=""
 
 all_ruby_prepare() {

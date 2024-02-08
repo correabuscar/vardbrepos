@@ -3,7 +3,7 @@
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/vincentlefevre.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/vincentlefevre.asc
 inherit multilib-minimal verify-sig
 
 # Upstream distribute patches before a new release is made
@@ -48,7 +48,7 @@ LICENSE="LGPL-3+"
 # preserve-libs.eclass usage to pkg_*inst! See e.g. the readline ebuild.
 SLOT="0/6" # libmpfr.so version
 if [[ ${PV} != *_rc* ]] ; then
-	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ~ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~arm64-macos ~ppc-macos ~x64-macos ~x64-solaris"
+	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~arm64-macos ~ppc-macos ~x64-macos ~x64-solaris"
 fi
 IUSE="static-libs"
 

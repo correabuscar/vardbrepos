@@ -1,4 +1,4 @@
-BDEPEND=<sys-devel/clang-18 >=virtual/rust-1.70 test? ( dev-util/cargo-nextest ) >=virtual/rust-1.53 >=dev-vcs/git-1.8.2.1[curl]
+BDEPEND=<sys-devel/clang-18 >=virtual/rust-1.71 test? ( dev-util/cargo-nextest ) >=virtual/rust-1.53 >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile configure install setup test unpack
 DEPEND=!!sys-devel/llvm:0
 DESCRIPTION=pkgcraft-based tools for Gentoo
@@ -10,5 +10,5 @@ LICENSE=MIT Apache-2.0 BSD-2 BSD CC0-1.0 GPL-3+ ISC MIT Unicode-DFS-2016
 PROPERTIES=live
 RESTRICT=!test? ( test )
 SLOT=0
-_eclasses_=cargo	8520ae1bed0e6965d027399b471a3595	edo	c0eb9cbe6b0bd01fcb4918f12598a4d3	flag-o-matic	e5cc383ea8420f92fe3737be790021dc	git-r3	2358a7b20091609e24bd3a83b3ac5991	llvm	2e1701c714b75feb512bffdecd3fe7d0	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
-_md5_=3a0e688c6f932f88aaefdbdd26aa56ad
+_eclasses_=cargo	4dede41d64d595673f6da62ab5540fa0	edo	c0eb9cbe6b0bd01fcb4918f12598a4d3	flag-o-matic	b2b07efa51009704f88173b2c7feab47	git-r3	86fa1f157b70b9d2ff340c4633b1cf4b	llvm	203003e590307acca60eba586555388b	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084
+_md5_=0eda1c7613e3efe1c1caa7c87bb562d3

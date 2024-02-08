@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,7 +6,7 @@ EAPI=8
 # Please bump with dev-libs/icu-layoutex
 
 PYTHON_COMPAT=( python3_{10..11} )
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/icu.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/icu.asc
 inherit autotools flag-o-matic multilib-minimal python-any-r1 toolchain-funcs verify-sig
 
 MY_PV=${PV/_rc/-rc}
@@ -28,9 +28,9 @@ RESTRICT="!test? ( test )"
 
 BDEPEND="
 	${PYTHON_DEPS}
-	sys-devel/autoconf-archive
+	dev-build/autoconf-archive
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen[dot] )
+	doc? ( app-text/doxygen[dot] )
 	verify-sig? ( >=sec-keys/openpgp-keys-icu-20221020 )
 "
 
@@ -42,6 +42,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-65.1-remove-bashisms.patch"
 	"${FILESDIR}/${PN}-64.2-darwin.patch"
 	"${FILESDIR}/${PN}-68.1-nonunicode.patch"
+	"${FILESDIR}/${P}-fix-TestHebrewCalendarInTemporalLeapYear-test.patch"
 )
 
 src_prepare() {
@@ -122,7 +123,7 @@ multilib_src_configure() {
 	)
 
 	# Work around cross-endian testing failures with LTO, bug #757681
-	if tc-is-cross-compiler && is-flagq '-flto*' ; then
+	if tc-is-cross-compiler && tc-is-lto ; then
 		myeconfargs+=( --disable-strict )
 	fi
 

@@ -1,4 +1,4 @@
-# Copyright 2020-2023 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,7 +18,7 @@ fi
 
 LICENSE="ISC"
 SLOT="0"
-IUSE="examples gbm h264 jpeg ssl test tracing"
+IUSE="examples gbm h264 jpeg ssl test tracing websockets"
 REQUIRED_USE="h264? ( gbm )"
 RESTRICT="!test? ( test )"
 
@@ -33,7 +33,11 @@ RDEPEND="
 	)
 	jpeg? ( media-libs/libjpeg-turbo:= )
 	ssl? ( net-libs/gnutls:= )
-	tracing? ( dev-util/systemtap )
+	tracing? ( dev-debug/systemtap )
+	websockets? (
+		dev-libs/gmp:=
+		dev-libs/nettle:=[gmp]
+	)
 "
 DEPEND="
 	${RDEPEND}
@@ -49,6 +53,7 @@ src_configure() {
 		$(meson_use test tests)
 		$(meson_feature jpeg)
 		$(meson_feature ssl tls)
+		$(meson_feature websockets nettle)
 		$(meson_use tracing systemtap)
 		$(meson_feature gbm)
 		$(meson_feature h264)

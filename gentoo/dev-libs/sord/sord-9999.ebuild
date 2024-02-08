@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -10,7 +10,7 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/drobilla/sord.git"
 else
 	SRC_URI="https://download.drobilla.net/${P}.tar.xz"
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
 fi
 
 DESCRIPTION="Library for storing RDF data in memory"
@@ -23,12 +23,18 @@ RESTRICT="!test? ( test )"
 
 BDEPEND="
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen )
+	doc? (
+		app-text/doxygen
+		dev-python/sphinx
+		dev-python/sphinx-lv2-theme
+		dev-python/sphinxygen
+	)
 "
 # Take care on bumps to check minimum versions!
 RDEPEND="
-	dev-libs/libpcre
-	>=dev-libs/serd-0.30.10
+	>=dev-libs/serd-0.30.10[${MULTILIB_USEDEP}]
+	>=dev-libs/zix-0.4.0[${MULTILIB_USEDEP}]
+	tools? ( dev-libs/libpcre2[${MULTILIB_USEDEP}] )
 "
 DEPEND="${RDEPEND}"
 

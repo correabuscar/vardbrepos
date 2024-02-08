@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,17 +15,20 @@ S="${WORKDIR}/${MY_P}/native"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc x86"
 
 DEPEND="dev-libs/apr:1="
 RDEPEND="${DEPEND}"
 BDEPEND="
 	dev-lang/perl
-	verify-sig? ( sec-keys/openpgp-keys-apache-tomcat-connectors )"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/tomcat-connectors.apache.org.asc"
+	verify-sig? ( sec-keys/openpgp-keys-apache-tomcat-connectors )
+"
+
+PATCHES=( "${FILESDIR}/${PN}-1.2.49-musl.patch" )
 
 APACHE2_MOD_FILE="${S}/apache-2.0/${PN}.so"
 APACHE2_MOD_DEFINE="JK"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/tomcat-connectors.apache.org.asc"
 
 need_apache2
 

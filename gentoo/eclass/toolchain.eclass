@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: toolchain.eclass
@@ -231,7 +231,7 @@ tc_has_feature() {
 }
 
 if [[ ${PN} != kgcc64 && ${PN} != gcc-* ]] ; then
-	IUSE+=" debug +cxx +nptl" TC_FEATURES+=( nptl )
+	IUSE+=" debug +cxx"
 	IUSE+=" +fortran" TC_FEATURES+=( fortran )
 	IUSE+=" doc hardened multilib objc"
 	IUSE+=" pgo"
@@ -253,8 +253,7 @@ if [[ ${PN} != kgcc64 && ${PN} != gcc-* ]] ; then
 	IUSE+=" ada"
 	IUSE+=" vtv"
 	IUSE+=" jit"
-	tc_version_is_between 5.0 9 && IUSE+=" mpx"
-	IUSE+=" +pie +ssp +pch"
+	IUSE+=" +pie +ssp pch"
 
 	IUSE+=" systemtap" TC_FEATURES+=( systemtap )
 
@@ -303,7 +302,7 @@ if tc_has_feature graphite ; then
 fi
 
 BDEPEND="
-	>=sys-devel/bison-1.875
+	app-alternatives/yacc
 	>=sys-devel/flex-2.5.4
 	nls? ( sys-devel/gettext )
 	test? (
@@ -329,7 +328,7 @@ fi
 
 if tc_has_feature systemtap ; then
 	# gcc needs sys/sdt.h headers on target
-	DEPEND+=" systemtap? ( dev-util/systemtap )"
+	DEPEND+=" systemtap? ( dev-debug/systemtap )"
 fi
 
 if tc_has_feature zstd ; then
@@ -338,7 +337,7 @@ if tc_has_feature zstd ; then
 fi
 
 if tc_has_feature valgrind ; then
-	BDEPEND+=" valgrind? ( dev-util/valgrind )"
+	BDEPEND+=" valgrind? ( dev-debug/valgrind )"
 fi
 
 # TODO: Add a pkg_setup & pkg_pretend check for whether the active compiler
@@ -356,7 +355,7 @@ if tc_has_feature d && tc_version_is_at_least 12.0 ; then
 	BDEPEND+=" d? ( || ( sys-devel/gcc[d(-)] <sys-devel/gcc-12[d(-)] ) )"
 fi
 
-PDEPEND=">=sys-devel/gcc-config-2.3"
+PDEPEND=">=sys-devel/gcc-config-2.11"
 
 #---->> S + SRC_URI essentials <<----
 
@@ -581,7 +580,7 @@ toolchain_src_prepare() {
 	setup_multilib_osdirnames
 
 	local actual_version=$(< "${S}"/gcc/BASE-VER)
-	if [[ "${GCC_RELEASE_VER}" != "${actual_version}" ]] ; then
+	if ! tc_is_live && [[ "${GCC_RELEASE_VER}" != "${actual_version}" ]] ; then
 		eerror "'${S}/gcc/BASE-VER' contains '${actual_version}', expected '${GCC_RELEASE_VER}'"
 		die "Please set 'TOOLCHAIN_GCC_PV' to '${actual_version}'"
 	fi
@@ -1239,14 +1238,6 @@ toolchain_src_configure() {
 		confgcc+=( $(use_enable cet) )
 	fi
 
-	if in_iuse cilk ; then
-		confgcc+=( $(use_enable cilk libcilkrts) )
-	fi
-
-	if in_iuse mpx ; then
-		confgcc+=( $(use_enable mpx libmpx) )
-	fi
-
 	if in_iuse systemtap ; then
 		confgcc+=( $(use_enable systemtap) )
 	fi
@@ -1378,7 +1369,10 @@ toolchain_src_configure() {
 			--disable-systemtap
 			--enable-host-shared
 			--enable-languages=jit
-			--without-isl
+			# Might be used for the just-built GCC. Easier to just
+			# respect USE=graphite here in case the user passes some
+			# graphite flags rather than try strip them out.
+			$(use_with graphite isl)
 			--without-zstd
 			--with-system-zlib
 		)
@@ -1533,6 +1527,21 @@ gcc_do_filter_flags() {
 		else
 			append-flags '-O2'
 		fi
+	fi
+
+
+	if ver_test -lt 13.6 ; then
+		# These aren't supported by the just-built compiler either.
+		filter-flags -fharden-compares -fharden-conditional-branches \
+			-fharden-control-flow-redundancy -fno-harden-control-flow-redundancy \
+			-fhardcfr-skip-leaf -fhardcfr-check-exceptions \
+			-fhardcfr-check-returning-calls '-fhardcfr-check-noreturn-calls=*'
+
+		# New in GCC 14.
+		filter-flags -Walloc-size
+	else
+		# Makes things painfully slow and no real benefit for the compiler.
+		append-flags $(test-flags-CC -fno-harden-control-flow-redundancy)
 	fi
 
 	# Please use USE=lto instead (bug #906007).
@@ -1703,7 +1712,7 @@ gcc_do_make() {
 		# The last known issues are with < GCC 4.9 or so, but it's easier
 		# to keep this bound somewhat fresh just to avoid problems. Ultimately,
 		# using not-O0 is just a build-time speed improvement anyway.
-		if tc-is-gcc && ver_test $(gcc-fullversion) -lt 10 ; then
+		if ! tc-is-gcc || ver_test $(gcc-fullversion) -lt 10 ; then
 			STAGE1_CFLAGS="-O0"
 		fi
 
@@ -1966,6 +1975,8 @@ toolchain_src_install() {
 		rm "${D}${DATAPATH}"/info/dir || die
 	fi
 
+	docompress "${DATAPATH}"/{info,man}
+
 	# Prune empty dirs left behind
 	find "${ED}" -depth -type d -delete 2>/dev/null
 
@@ -1984,8 +1995,6 @@ toolchain_src_install() {
 	# libgfortran.la: gfortran itself handles linkage correctly in the
 	# dynamic & static case (libgfortran.spec). bug #573302
 	# libgfortranbegin.la: Same as above, and it's an internal lib.
-	# libmpx.la: gcc itself handles linkage correctly (libmpx.spec).
-	# libmpxwrappers.la: See above.
 	# libitm.la: gcc itself handles linkage correctly (libitm.spec).
 	# libvtv.la: gcc itself handles linkage correctly.
 	# lib*san.la: Sanitizer linkage is handled internally by gcc, and they
@@ -1994,6 +2003,7 @@ toolchain_src_install() {
 		'(' \
 			-name libstdc++.la -o \
 			-name libstdc++fs.la -o \
+			-name libstdc++exp.la -o \
 			-name libsupc++.la -o \
 			-name libcc1.la -o \
 			-name libcc1plugin.la -o \
@@ -2002,8 +2012,6 @@ toolchain_src_install() {
 			-name 'libgomp-plugin-*.la' -o \
 			-name libgfortran.la -o \
 			-name libgfortranbegin.la -o \
-			-name libmpx.la -o \
-			-name libmpxwrappers.la -o \
 			-name libitm.la -o \
 			-name libvtv.la -o \
 			-name 'lib*san.la' \

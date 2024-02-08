@@ -6,6 +6,8 @@
 		<name>Gentoo Haskell</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="sourceforge">lazy-regex</remote-id>
+		<remote-id type="hackage">regex-posix</remote-id>
+		<remote-id type="github">hvr/regex-base</remote-id>
+		<remote-id type="github">hvr/regex-posix</remote-id>
 	</upstream>
 </pkgmetadata>

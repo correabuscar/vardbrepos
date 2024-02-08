@@ -1,11 +1,11 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 DISTUTILS_OPTIONAL=1
 DISTUTILS_USE_PEP517=no
@@ -17,7 +17,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI="
 		https://gitlab.com/gromacs/gromacs.git
 		https://github.com/gromacs/gromacs.git
-		git://git.gromacs.org/gromacs.git"
+		"
 	[[ ${PV} = 9999 ]] && EGIT_BRANCH="master" || EGIT_BRANCH="release-${PV:0:4}"
 	inherit git-r3
 else
@@ -58,7 +58,7 @@ BDEPEND="${CDEPEND}
 	virtual/pkgconfig
 	clang? ( >=sys-devel/clang-6:* )
 	build-manual? (
-		app-doc/doxygen
+		app-text/doxygen
 		$(python_gen_cond_dep '
 			dev-python/sphinx[${PYTHON_USEDEP}]
 			dev-python/sphinx-copybutton[${PYTHON_USEDEP}]
@@ -107,7 +107,7 @@ src_unpack() {
 	else
 		git-r3_src_unpack
 		if use test; then
-			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
+			EGIT_REPO_URI="https://gitlab.com/gromacs/gromacs-regressiontests.git" \
 			EGIT_BRANCH="${EGIT_BRANCH}" \
 			EGIT_CHECKOUT_DIR="${WORKDIR}/regressiontests"\
 				git-r3_src_unpack
@@ -152,8 +152,8 @@ src_prepare() {
 	DOC_CONTENTS="Gromacs can use sci-chemistry/vmd to read additional file formats"
 	if use build-manual; then
 		# try to create policy for imagemagik
-		mkdir -p ${HOME}/.config/ImageMagick
-		cat >> ${HOME}/.config/ImageMagick/policy.xml <<- EOF
+		mkdir -p "${HOME}"/.config/ImageMagick
+		cat >> "${HOME}"/.config/ImageMagick/policy.xml <<- EOF
 		<?xml version="1.0" encoding="UTF-8"?>
 		<!DOCTYPE policymap [
 		<!ELEMENT policymap (policy)+>
@@ -329,7 +329,7 @@ src_install() {
 pkg_postinst() {
 	einfo
 	einfo  "Please read and cite gromacs related papers from list:"
-	einfo  "https://www.gromacs.org/Gromacs_papers"
+	einfo  "https://www.gromacs.org/articles.html"
 	einfo
 	readme.gentoo_print_elog
 }

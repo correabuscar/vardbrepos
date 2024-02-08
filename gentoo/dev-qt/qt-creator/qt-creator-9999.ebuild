@@ -1,4 +1,4 @@
-# Copyright 2023 Gentoo Authors
+# Copyright 2023-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -81,8 +81,12 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-11.0.2-musl-no-execinfo.patch
-	"${FILESDIR}"/${PN}-11.0.2-musl-no-malloc-trim.patch
+	"${FILESDIR}"/${PN}-12.0.0-musl-no-malloc-trim.patch
 )
+
+llvm_check_deps() {
+	has_version -d "sys-devel/clang:${LLVM_SLOT}"
+}
 
 pkg_setup() {
 	python-any-r1_pkg_setup
@@ -191,8 +195,8 @@ dev-qt/qt-docs:6 with USE=\"examples qch\" is notably recommended, or
 else the example tab will be empty alongside missing documentation.
 
 Build Systems:
-- CMakeProjectManager (dev-util/cmake)
-- MesonProjectManager (dev-util/meson)
+- CMakeProjectManager (dev-build/cmake)
+- MesonProjectManager (dev-build/meson)
 - QbsProjectManager (dev-util/qbs)
 
 C++:
@@ -205,7 +209,7 @@ Code Analyzer:
 - Cppcheck (dev-util/cppcheck)
 - CtfVisualizer (USE=tracing)
 - PerfProfiler (USE=tracing)
-- Valgrind (dev-util/valgrind)
+- Valgrind (dev-debug/valgrind)
 
 Core:
 - Help (USE=help + dev-qt/qt-docs:6 with USE=\"examples qch\")
@@ -230,6 +234,7 @@ Utilities:
 - Conan (dev-util/conan)
 - Docker (app-containers/docker)
 - Haskell (dev-lang/ghc)
+- ScreenRecorder (media-video/ffmpeg)
 - SerialTerminal (USE=serialterminal)
 - SilverSearcher (sys-apps/the_silver_searcher)
 - StudioWelcome (USE=qmldesigner)

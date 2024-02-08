@@ -7,7 +7,8 @@ inherit autotools
 
 DESCRIPTION="A container init that is so simple it's effectively brain-dead"
 HOMEPAGE="https://github.com/openSUSE/catatonit"
-if [[ ${PV} == *9999* ]]; then
+
+if [[ ${PV} == 9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/openSUSE/catatonit.git"
 else
@@ -15,7 +16,7 @@ else
 	KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv"
 fi
 
-LICENSE="GPL-3+"
+LICENSE="GPL-2+"
 SLOT="0"
 
 src_prepare() {

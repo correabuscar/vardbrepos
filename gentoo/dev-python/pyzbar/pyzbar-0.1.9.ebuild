@@ -4,17 +4,23 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( pypy3 python3_{10..12} )
 
 inherit distutils-r1
 
 DESCRIPTION="Read one-dimensional barcodes and QR codes from Python"
-HOMEPAGE="https://github.com/NaturalHistoryMuseum/pyzbar/"
-SRC_URI="https://github.com/NaturalHistoryMuseum/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="
+	https://github.com/NaturalHistoryMuseum/pyzbar/
+	https://pypi.org/project/pyzbar/
+"
+SRC_URI="
+	https://github.com/NaturalHistoryMuseum/pyzbar/archive/v${PV}.tar.gz
+		-> ${P}.gh.tar.gz
+"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~x86"
 
 RDEPEND="
 	dev-python/pillow[${PYTHON_USEDEP}]

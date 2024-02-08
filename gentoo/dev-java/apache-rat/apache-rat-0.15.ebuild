@@ -21,7 +21,7 @@ S="${WORKDIR}/${P}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 CP_DEPEND="
 	dev-java/ant-core:0
@@ -39,7 +39,7 @@ RDEPEND="${CP_DEPEND}
 	>=virtual/jre-1.8:*"
 
 BDEPEND="verify-sig? ( sec-keys/openpgp-keys-apache-creadur )"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/creadur.apache.org.asc"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/creadur.apache.org.asc"
 
 DOCS=( NOTICE README.md README.txt RELEASE-NOTES.txt RELEASE_NOTES.txt )
 

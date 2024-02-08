@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -10,7 +10,7 @@ if [[ ${PV} == *9999 ]]; then
 else
 	MDDS_VER="2.0"
 	SRC_URI="https://dev-www.libreoffice.org/src/libetonyek/${P}.tar.xz"
-	KEYWORDS="amd64 ~arm arm64 ~loong ~ppc64 ~riscv x86"
+	KEYWORDS="amd64 ~arm arm64 ~loong ppc64 ~riscv x86"
 fi
 DESCRIPTION="Library parsing Apple Keynote presentations"
 HOMEPAGE="https://wiki.documentfoundation.org/DLP/Libraries/libetonyek"
@@ -22,7 +22,7 @@ RESTRICT="!test? ( test )"
 
 BDEPEND="
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen )
+	doc? ( app-text/doxygen )
 "
 RDEPEND="
 	app-text/liblangtag
@@ -34,7 +34,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	dev-libs/boost
 	media-libs/glm
-	sys-devel/libtool
+	dev-build/libtool
 	test? ( dev-util/cppunit )
 "
 

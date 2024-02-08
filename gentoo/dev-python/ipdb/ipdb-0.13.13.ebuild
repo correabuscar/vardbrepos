@@ -3,8 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
 DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit distutils-r1 optfeature pypi
 
@@ -16,7 +16,7 @@ HOMEPAGE="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ppc64 ~riscv ~sparc x86"
+KEYWORDS="amd64 ~arm arm64 ~hppa ~ia64 ~ppc ppc64 ~riscv ~sparc x86"
 
 RDEPEND="
 	>=dev-python/ipython-7.17[${PYTHON_USEDEP}]
@@ -25,7 +25,7 @@ BDEPEND="
 	test? (
 		$(python_gen_cond_dep '
 			dev-python/tomli[${PYTHON_USEDEP}]
-		' 3.8 3.9 3.10)
+		' 3.10)
 	)
 "
 

@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/netfilter.org.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/netfilter.org.asc
 inherit autotools linux-info systemd verify-sig
 
 DESCRIPTION="Connection tracking userspace tools"
@@ -34,8 +34,8 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
-	sys-devel/bison
-	sys-devel/flex
+	app-alternatives/yacc
+	app-alternatives/lex
 	virtual/pkgconfig
 	doc? (
 		app-text/docbook-xml-dtd:4.1.2

@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
@@ -52,7 +52,7 @@ BDEPEND="
 	sctp? ( >=net-misc/lksctp-tools-1.0.12 )
 	test? (
 		sys-apps/diffutils
-		sys-devel/bc
+		app-alternatives/bc
 	)"
 PDEPEND="app-misc/ca-certificates"
 
@@ -248,7 +248,9 @@ multilib_src_install() {
 		mkdir "${ED}"/usr || die
 	fi
 
-	emake INSTALL_PREFIX="${D}" install
+	# Only -j1 is supported for the install targets:
+	# https://github.com/openssl/openssl/issues/21999#issuecomment-1771150305
+	emake INSTALL_PREFIX="${D}" -j1 install
 
 	# This is crappy in that the static archives are still built even
 	# when USE=static-libs.  But this is due to a failing in the openssl

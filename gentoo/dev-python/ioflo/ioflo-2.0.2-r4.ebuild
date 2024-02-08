@@ -3,17 +3,24 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..12} )
+
 inherit distutils-r1
 
 DESCRIPTION="Automated Reasoning Engine and Flow Based Programming Framework"
-HOMEPAGE="https://github.com/ioflo/ioflo/"
-SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+HOMEPAGE="
+	https://github.com/ioflo/ioflo/
+	https://pypi.org/project/ioflo/
+"
+SRC_URI="
+	https://github.com/ioflo/ioflo/archive/v${PV}.tar.gz
+		-> ${P}.gh.tar.gz
+"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~riscv x86"
+KEYWORDS="amd64 ~arm arm64 ~riscv x86"
 
 PATCHES=(
 	"${FILESDIR}/ioflo-1.7.8-network-test.patch"

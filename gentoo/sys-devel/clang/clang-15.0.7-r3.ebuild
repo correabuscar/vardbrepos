@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 inherit cmake llvm llvm.org multilib multilib-minimal \
 	prefix python-single-r1 toolchain-funcs
 
@@ -15,7 +15,7 @@ HOMEPAGE="https://llvm.org/"
 
 LICENSE="Apache-2.0-with-LLVM-exceptions UoI-NCSA MIT"
 SLOT="${LLVM_MAJOR}/${LLVM_SOABI}g1"
-KEYWORDS="amd64 ~arm arm64 ~ppc ppc64 ~riscv sparc ~x86 ~amd64-linux ~x64-macos"
+KEYWORDS="amd64 arm arm64 ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x64-macos"
 IUSE="debug doc +extra ieee-long-double +pie +static-analyzer test xml"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RESTRICT="!test? ( test )"
@@ -33,7 +33,6 @@ RDEPEND="
 "
 BDEPEND="
 	${PYTHON_DEPS}
-	>=dev-util/cmake-3.16
 	doc? ( $(python_gen_cond_dep '
 		dev-python/recommonmark[${PYTHON_USEDEP}]
 		dev-python/sphinx[${PYTHON_USEDEP}]

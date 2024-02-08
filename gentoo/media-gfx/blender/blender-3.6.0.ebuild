@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -104,7 +104,7 @@ RDEPEND="${PYTHON_DEPS}
 	sndfile? ( media-libs/libsndfile )
 	tbb? ( dev-cpp/tbb:= )
 	tiff? ( media-libs/tiff:= )
-	valgrind? ( dev-util/valgrind )
+	valgrind? ( dev-debug/valgrind )
 	wayland? (
 		>=dev-libs/wayland-1.12
 		>=dev-libs/wayland-protocols-1.15
@@ -126,7 +126,7 @@ DEPEND="${RDEPEND}
 BDEPEND="
 	virtual/pkgconfig
 	doc? (
-		app-doc/doxygen[dot]
+		app-text/doxygen[dot]
 		dev-python/sphinx[latex]
 		dev-texlive/texlive-bibtexextra
 		dev-texlive/texlive-fontsextra
@@ -173,8 +173,8 @@ src_unpack() {
 	if [[ ${PV} = *9999* ]] ; then
 		git-r3_src_unpack
 
-		git-r3_fetch ${ADDONS_EGIT_REPO_URI}
-		git-r3_checkout ${ADDONS_EGIT_REPO_URI} ${S}/scripts/addons
+		git-r3_fetch "${ADDONS_EGIT_REPO_URI}"
+		git-r3_checkout "${ADDONS_EGIT_REPO_URI}" "${S}/scripts/addons"
 
 		if use test; then
 			TESTS_SVN_URL=https://svn.blender.org/svnroot/bf-blender/trunk/lib/tests
@@ -187,7 +187,7 @@ src_unpack() {
 		if use test; then
 			#The tests are downloaded from: https://svn.blender.org/svnroot/bf-blender/tags/blender-${SLOT}-release/lib/tests
 			mkdir -p lib || die
-			mv "${WORKDIR}"/blender-${TEST_TARBALL_VERSION}-tests/tests lib || die
+			mv "${WORKDIR}/blender-${TEST_TARBALL_VERSION}-tests/tests" lib || die
 		fi
 	fi
 
@@ -212,18 +212,21 @@ src_prepare() {
 	sed -e "s|Exec=blender|Exec=blender-${BV}|" -i release/freedesktop/blender.desktop || die
 	sed -e "s|Icon=blender|Icon=blender-${BV}|" -i release/freedesktop/blender.desktop || die
 
-	mv release/freedesktop/icons/scalable/apps/blender.svg release/freedesktop/icons/scalable/apps/blender-${BV}.svg || die
-	mv release/freedesktop/icons/symbolic/apps/blender-symbolic.svg release/freedesktop/icons/symbolic/apps/blender-${BV}-symbolic.svg || die
-	mv release/freedesktop/blender.desktop release/freedesktop/blender-${BV}.desktop || die
+	mv release/freedesktop/icons/scalable/apps/blender.svg "release/freedesktop/icons/scalable/apps/blender-${BV}.svg" || die
+	mv release/freedesktop/icons/symbolic/apps/blender-symbolic.svg "release/freedesktop/icons/symbolic/apps/blender-${BV}-symbolic.svg" || die
+	mv release/freedesktop/blender.desktop "release/freedesktop/blender-${BV}.desktop" || die
 
 	if use test; then
 		# Without this the tests will try to use /usr/bin/blender and /usr/share/blender/ to run the tests.
-		sed -e "s|set(TEST_INSTALL_DIR.*|set(TEST_INSTALL_DIR ${ED}/usr/)|g" -i tests/CMakeLists.txt || die
-		sed -e "s|string(REPLACE.*|set(TEST_INSTALL_DIR ${ED}/usr/)|g" -i build_files/cmake/Modules/GTestTesting.cmake || die
+		sed -e "s|set(TEST_INSTALL_DIR.*|set(TEST_INSTALL_DIR ${T}/usr)|g" -i tests/CMakeLists.txt || die
+		sed -e "s|string(REPLACE.*|set(TEST_INSTALL_DIR ${T}/usr)|g" -i build_files/cmake/Modules/GTestTesting.cmake || die
 	fi
 }
 
 src_configure() {
+	# Workaround for bug #922600
+	append-ldflags $(test-flags-CCLD -Wl,--undefined-version)
+
 	append-lfs-flags
 	blender_get_version
 
@@ -251,7 +254,7 @@ src_configure() {
 		-DWITH_DOC_MANPAGE=$(usex man)
 		-DWITH_FFTW3=$(usex fftw)
 		-DWITH_GHOST_WAYLAND=$(usex wayland)
-		-DWITH_GHOST_WAYLAND_APP_ID=blender-${BV}
+		-DWITH_GHOST_WAYLAND_APP_ID="blender-${BV}"
 		-DWITH_GHOST_WAYLAND_DBUS=$(usex wayland)
 		-DWITH_GHOST_WAYLAND_DYNLOAD=OFF
 		-DWITH_GHOST_WAYLAND_LIBDECOR=OFF
@@ -322,13 +325,13 @@ src_configure() {
 src_test() {
 	# A lot of tests needs to have access to the installed data files.
 	# So install them into the image directory now.
-	cmake_src_install
+	DESTDIR="${T}" cmake_build install
 
 	blender_get_version
 	# Define custom blender data/script file paths not be able to find them otherwise during testing.
 	# (Because the data is in the image directory and it will default to look in /usr/share)
-	export BLENDER_SYSTEM_SCRIPTS="${ED}"/usr/share/blender/${BV}/scripts
-	export BLENDER_SYSTEM_DATAFILES="${ED}"/usr/share/blender/${BV}/datafiles
+	export BLENDER_SYSTEM_SCRIPTS="${T}/usr/share/blender/${BV}/scripts"
+	export BLENDER_SYSTEM_DATAFILES="${T}/usr/share/blender/${BV}/datafiles"
 
 	# Sanity check that the script and datafile path is valid.
 	# If they are not vaild, blender will fallback to the default path which is not what we want.
@@ -338,7 +341,7 @@ src_test() {
 	cmake_src_test
 
 	# Clean up the image directory for src_install
-	rm -fr "${ED}"/* || die
+	rm -fr "${T}"/usr || die
 }
 
 src_install() {

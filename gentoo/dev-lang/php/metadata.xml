@@ -17,11 +17,12 @@
     <flag name="argon2">
       Enable password hashing algorithm from <pkg>app-crypt/argon2</pkg>
     </flag>
-    <flag name="avif">
-      Enable AVIF support in bundled libgd
-    </flag>
     <flag name="bcmath">
       Enable the BCMath Arbitrary Precision Mathematics extension
+    </flag>
+    <flag name="capstone">
+      Support opcache JIT disassembly through
+      <pkg>dev-libs/capstone</pkg>
     </flag>
     <flag name="cli">
       Enable the Command-Line Interface (CLI) SAPI
@@ -121,9 +122,6 @@
     </flag>
     <flag name="xslt">
       Build the XSL extension
-    </flag>
-    <flag name="webp">
-      Enable webp support for GD in php-7.x
     </flag>
   </use>
   <upstream>

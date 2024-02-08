@@ -18,7 +18,7 @@ if [[ ${PV} == *9999* ]] ; then
 	EGIT_REPO_URI="https://github.com/nmap/nmap"
 
 else
-	VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/nmap.asc
+	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/nmap.asc
 	inherit verify-sig
 
 	SRC_URI="https://nmap.org/dist/${P}.tar.bz2"
@@ -81,6 +81,7 @@ fi
 
 PATCHES=(
 	"${WORKDIR}"/${PN}-7.94-patches
+	"${FILESDIR}"/${PN}-7.94-autoconf-2.72.patch
 )
 
 pkg_setup() {

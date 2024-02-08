@@ -1,13 +1,13 @@
 # Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 CABAL_FEATURES="test-suite"
 inherit haskell-cabal
 
 DESCRIPTION="Confirm delegation of NS and MX records"
-HOMEPAGE="http://michael.orlitzky.com/code/haeredes.xhtml"
+HOMEPAGE="https://michael.orlitzky.com/code/haeredes.xhtml"
 SRC_URI="https://hackage.haskell.org/package/${P}/${P}.tar.gz"
 
 LICENSE="AGPL-3"

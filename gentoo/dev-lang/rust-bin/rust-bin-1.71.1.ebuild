@@ -20,7 +20,7 @@ SRC_URI+=" sparc? ( ${GENTOO_BIN_BASEURI}/${MY_P}-sparc64-unknown-linux-gnu.tar.
 
 LICENSE="|| ( MIT Apache-2.0 ) BSD BSD-1 BSD-2 BSD-4 UoI-NCSA"
 SLOT="stable"
-KEYWORDS="amd64 ~arm arm64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86"
+KEYWORDS="amd64 arm arm64 ~loong ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 IUSE="big-endian clippy cpu_flags_x86_sse2 doc prefix rust-analyzer rust-src rustfmt"
 
 DEPEND=""
@@ -56,7 +56,7 @@ QA_PREBUILT="
 # so we can safely silence the warning for this QA check.
 QA_EXECSTACK="opt/${P}/lib/rustlib/*/lib*.rlib:lib.rmeta"
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/rust.asc"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/rust.asc"
 
 pkg_pretend() {
 	if [[ "$(tc-is-softfloat)" != "no" ]] && [[ ${CHOST} == armv7* ]]; then

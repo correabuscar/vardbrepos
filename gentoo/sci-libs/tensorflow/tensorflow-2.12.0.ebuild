@@ -1,10 +1,10 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 DISTUTILS_OPTIONAL=1
-PYTHON_COMPAT=( python3_10 python3_11 )
+PYTHON_COMPAT=( python3_{10..11} )
 MY_PV=${PV/_rc/-rc}
 MY_P=${PN}-${MY_PV}
 DEP_VER="$(ver_cut 1-2)"
@@ -82,7 +82,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz
 # abseil-cpp-20211102.0-r0 does not work with NVCC
 RDEPEND="
 	app-arch/snappy
-	>=dev-cpp/abseil-cpp-20211102-r2:=
+	=dev-cpp/abseil-cpp-20220623*:=
 	dev-db/lmdb
 	dev-db/sqlite
 	dev-libs/double-conversion
@@ -140,9 +140,9 @@ PDEPEND="python? (
 	)"
 BDEPEND="
 	app-arch/unzip
+	=dev-build/bazel-5*
 	>=dev-libs/protobuf-3.8.0
 	dev-java/java-config
-	=dev-util/bazel-5*
 	cuda? (
 		>=dev-util/nvidia-cuda-toolkit-9.1[profiler]
 	)
@@ -200,6 +200,7 @@ src_prepare() {
 	bazel_setup_bazelrc
 
 	eapply "${WORKDIR}"/patches/*.patch
+	eapply "${FILESDIR}/tensorflow-2.13.0-0013-Fixing-build-issue-with-Clang-16-and-GCC-13.patch"
 
 	# Relax version checks in setup.py
 	sed -i "/^    '/s/==/>=/g" tensorflow/tools/pip_package/setup.py || die

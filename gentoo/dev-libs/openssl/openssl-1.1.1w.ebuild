@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/openssl.org.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/openssl.org.asc
 inherit edo flag-o-matic toolchain-funcs multilib-minimal verify-sig
 
 MY_P=${P/_/-}
@@ -29,7 +29,7 @@ BDEPEND="
 	sctp? ( >=net-misc/lksctp-tools-1.0.12 )
 	test? (
 		sys-apps/diffutils
-		sys-devel/bc
+		app-alternatives/bc
 		kernel_linux? ( sys-process/procps )
 	)
 	verify-sig? ( >=sec-keys/openpgp-keys-openssl-20230801 )"
@@ -127,6 +127,7 @@ src_configure() {
 	# code. This has been in the ebuild for > 10 years but even in 2022,
 	# it's still relevant:
 	# - https://github.com/llvm/llvm-project/issues/55255
+	# - https://github.com/openssl/openssl/issues/12247
 	# - https://github.com/openssl/openssl/issues/18225
 	# - https://github.com/openssl/openssl/issues/18663#issuecomment-1181478057
 	# Don't remove the no strict aliasing bits below!
@@ -223,11 +224,13 @@ multilib_src_test() {
 }
 
 multilib_src_install() {
-	emake DESTDIR="${D}" install_sw
+	# Only -j1 is supported for the install targets:
+	# https://github.com/openssl/openssl/issues/21999#issuecomment-1771150305
+	emake DESTDIR="${D}" -j1 install_sw
 
 	if multilib_is_native_abi; then
-		emake DESTDIR="${D}" install_ssldirs
-		emake DESTDIR="${D}" DOCDIR='$(INSTALLTOP)'/share/doc/${PF} MANSUFFIX=ssl install_docs
+		emake DESTDIR="${D}" -j1 install_ssldirs
+		emake DESTDIR="${D}" DOCDIR='$(INSTALLTOP)'/share/doc/${PF} MANSUFFIX=ssl -j1 install_docs
 	fi
 
 	# This is crappy in that the static archives are still built even

@@ -3,7 +3,7 @@
 
 EAPI=8
 
-USE_RUBY="ruby30 ruby31 ruby32"
+USE_RUBY="ruby31 ruby32 ruby33"
 
 RUBY_FAKEGEM_EXTRADOC="readme.md"
 RUBY_FAKEGEM_GEMSPEC="${PN}.gemspec"
@@ -17,7 +17,7 @@ SRC_URI="https://github.com/ioquatix/fiber-annotation/archive/refs/tags/v${PV}.t
 
 LICENSE="MIT"
 SLOT="$(ver_cut 1)"
-KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86"
 IUSE=""
 
 all_ruby_prepare() {

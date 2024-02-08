@@ -1,10 +1,10 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/guillemjover.asc
-inherit autotools multilib multilib-minimal verify-sig
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/guillemjover.asc
+inherit autotools multilib multilib-minimal verify-sig flag-o-matic
 
 DESCRIPTION="Library to provide useful functions commonly found on BSD systems"
 HOMEPAGE="https://libbsd.freedesktop.org/wiki/ https://gitlab.freedesktop.org/libbsd/libbsd"
@@ -35,6 +35,12 @@ src_prepare() {
 }
 
 multilib_src_configure() {
+	# Broken (still) with lld-17 (bug #922342, bug #915068)
+	append-ldflags $(test-flags-CCLD -Wl,--undefined-version)
+
+	# bug 911726, https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/26
+	filter-flags -fno-semantic-interposition
+
 	# The build system will install libbsd-ctor.a despite USE="-static-libs"
 	# which is correct, see:
 	# https://gitlab.freedesktop.org/libbsd/libbsd/commit/c5b959028734ca2281250c85773d9b5e1d259bc8

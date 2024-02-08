@@ -1,4 +1,4 @@
-# Copyright 2020-2023 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: verify-sig.eclass
@@ -37,7 +37,7 @@
 # BDEPEND="
 #   verify-sig? ( sec-keys/openpgp-keys-example )"
 #
-# VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/example.asc
+# VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/example.asc
 # @CODE
 
 case ${EAPI} in
@@ -68,7 +68,7 @@ case ${VERIFY_SIG_METHOD} in
 		BDEPEND="
 			verify-sig? (
 				app-crypt/gnupg
-				>=app-portage/gemato-16
+				>=app-portage/gemato-20
 			)
 		"
 		;;
@@ -86,6 +86,8 @@ esac
 # Path to key bundle used to perform the verification.  This is required
 # when using default src_unpack.  Alternatively, the key path can be
 # passed directly to the verification functions.
+#
+# The value of BROOT will be prepended to this path automatically.
 #
 # NB: this variable is also used for non-OpenPGP signatures.  The name
 # contains "OPENPGP" for historical reasons.
@@ -119,10 +121,15 @@ esac
 verify-sig_verify_detached() {
 	local file=${1}
 	local sig=${2}
-	local key=${3:-${VERIFY_SIG_OPENPGP_KEY_PATH}}
+	local key=${3}
 
-	[[ -n ${key} ]] ||
-		die "${FUNCNAME}: no key passed and VERIFY_SIG_OPENPGP_KEY_PATH unset"
+	if [[ -z ${key} ]]; then
+		if [[ -z ${VERIFY_SIG_OPENPGP_KEY_PATH} ]]; then
+			die "${FUNCNAME}: no key passed and VERIFY_SIG_OPENPGP_KEY_PATH unset"
+		else
+			key="${BROOT}${VERIFY_SIG_OPENPGP_KEY_PATH}"
+		fi
+	fi
 
 	local extra_args=()
 	[[ ${VERIFY_SIG_OPENPGP_KEY_REFRESH} == yes ]] || extra_args+=( -R )
@@ -152,16 +159,10 @@ verify-sig_verify_detached() {
 			# gpg can't handle very long TMPDIR
 			# https://bugs.gentoo.org/854492
 			local -x TMPDIR=/tmp
-			if has_version ">=app-portage/gemato-20"; then
-				gemato openpgp-verify-detached -K "${key}" \
-					"${extra_args[@]}" \
-					"${sig}" "${file}" ||
-					die "PGP signature verification failed"
-			else
-				gemato gpg-wrap -K "${key}" "${extra_args[@]}" -- \
-					gpg --verify "${sig}" "${file}" ||
-					die "PGP signature verification failed"
-			fi
+			gemato openpgp-verify-detached -K "${key}" \
+				"${extra_args[@]}" --no-require-all-good \
+				"${sig}" "${file}" ||
+				die "PGP signature verification failed"
 			;;
 		signify)
 			signify -V -p "${key}" -m "${file}" -x "${sig}" ||
@@ -182,10 +183,15 @@ verify-sig_verify_detached() {
 verify-sig_verify_message() {
 	local file=${1}
 	local output_file=${2}
-	local key=${3:-${VERIFY_SIG_OPENPGP_KEY_PATH}}
+	local key=${3}
 
-	[[ -n ${key} ]] ||
-		die "${FUNCNAME}: no key passed and VERIFY_SIG_OPENPGP_KEY_PATH unset"
+	if [[ -z ${key} ]]; then
+		if [[ -z ${VERIFY_SIG_OPENPGP_KEY_PATH} ]]; then
+			die "${FUNCNAME}: no key passed and VERIFY_SIG_OPENPGP_KEY_PATH unset"
+		else
+			key="${BROOT}${VERIFY_SIG_OPENPGP_KEY_PATH}"
+		fi
+	fi
 
 	local extra_args=()
 	[[ ${VERIFY_SIG_OPENPGP_KEY_REFRESH} == yes ]] || extra_args+=( -R )
@@ -313,7 +319,7 @@ _gpg_verify_signed_checksums() {
 	local checksum_file=${1}
 	local algo=${2}
 	local files=${3}
-	local key=${4:-${VERIFY_SIG_OPENPGP_KEY_PATH}}
+	local key=${4}
 
 	verify-sig_verify_unsigned_checksums - "${algo}" "${files}" < <(
 		verify-sig_verify_message "${checksum_file}" - "${key}"
@@ -336,10 +342,15 @@ verify-sig_verify_signed_checksums() {
 	local algo=${2}
 	local files=()
 	read -r -d '' -a files <<<"${3}"
-	local key=${4:-${VERIFY_SIG_OPENPGP_KEY_PATH}}
+	local key=${4}
 
-	[[ -n ${key} ]] ||
-		die "${FUNCNAME}: no key passed and VERIFY_SIG_OPENPGP_KEY_PATH unset"
+	if [[ -z ${key} ]]; then
+		if [[ -z ${VERIFY_SIG_OPENPGP_KEY_PATH} ]]; then
+			die "${FUNCNAME}: no key passed and VERIFY_SIG_OPENPGP_KEY_PATH unset"
+		else
+			key="${BROOT}${VERIFY_SIG_OPENPGP_KEY_PATH}"
+		fi
+	fi
 
 	case ${VERIFY_SIG_METHOD} in
 		openpgp)

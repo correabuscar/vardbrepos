@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit autotools libtool bash-completion-r1 python-r1
 
@@ -44,7 +44,7 @@ DEPEND="${RDEPEND}"
 BDEPEND="
 	doc? (
 		dev-util/gtk-doc
-		dev-util/gtk-doc-am
+		dev-build/gtk-doc-am
 	)
 	lzma? ( virtual/pkgconfig )
 	python? (
@@ -136,9 +136,9 @@ src_test() {
 	python_test() {
 		mkdir "${T}/test-${EPYTHON}" || die
 		emake -C "${BUILD_DIR}" DESTDIR="${T}/test-${EPYTHON}" \
-                                VPATH="${native_builddir}:${S}" \
-                                install-pkgpyexecLTLIBRARIES \
-                                install-dist_pkgpyexecPYTHON
+				VPATH="${native_builddir}:${S}" \
+				install-pkgpyexecLTLIBRARIES \
+				install-dist_pkgpyexecPYTHON
 
 		# Smoke test based on https://bugs.gentoo.org/891975#c5
 		local -x PYTHONPATH="${T}/test-${EPYTHON}/usr/lib/${EPYTHON}/site-packages:${PYTHONPATH}"

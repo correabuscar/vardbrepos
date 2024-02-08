@@ -4,12 +4,12 @@ DEPEND=dev-libs/libbpf:= dev-util/bpftool net-libs/libpcap sys-libs/zlib virtual
 DESCRIPTION=The libxdp library and various tools for use with XDP
 EAPI=8
 HOMEPAGE=https://github.com/xdp-project/xdp-tools
-INHERIT=flag-o-matic
+INHERIT=flag-o-matic toolchain-funcs
 IUSE=+tools
 KEYWORDS=amd64 ~arm ~arm64 ~riscv ~x86
 LICENSE=GPL-2 LGPL-2.1 BSD-2
 RDEPEND=dev-libs/libbpf:= dev-util/bpftool net-libs/libpcap sys-libs/zlib virtual/libelf
 SLOT=0
 SRC_URI=https://github.com/xdp-project/xdp-tools/archive/refs/tags/v1.4.0.tar.gz -> xdp-tools-1.4.0.tar.gz
-_eclasses_=flag-o-matic	e5cc383ea8420f92fe3737be790021dc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc
-_md5_=4b107125370767184bb03c0165f0c117
+_eclasses_=flag-o-matic	b2b07efa51009704f88173b2c7feab47	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084
+_md5_=cf40cbc78fd24ef54c6352dac293f4f3

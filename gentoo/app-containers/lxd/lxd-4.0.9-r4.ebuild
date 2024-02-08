@@ -27,8 +27,13 @@ DEPEND="acct-group/lxd
 	sys-libs/libcap
 	virtual/udev"
 RDEPEND="${DEPEND}
-	net-firewall/ebtables
-	net-firewall/iptables[ipv6(+)?]
+	|| (
+			net-firewall/nftables[json]
+			(
+				net-firewall/ebtables
+				net-firewall/iptables[ipv6(+)?]
+			)
+	)
 	sys-apps/iproute2[ipv6(+)?]
 	sys-fs/fuse:*
 	sys-fs/lxcfs
@@ -72,7 +77,7 @@ QA_PREBUILT="/usr/bin/fuidshift
 	/usr/bin/lxd-p2c
 	/usr/sbin/lxd"
 
-VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/linuxcontainers.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/linuxcontainers.asc
 
 # The testsuite must be run as root.
 # make: *** [Makefile:156: check] Error 1

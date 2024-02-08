@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 inherit distutils-r1
 
 DESCRIPTION="Mapbox Vector Tile encoding and decoding."
@@ -16,7 +16,7 @@ SRC_URI="https://github.com/tilezen/mapbox-vector-tile/archive/refs/tags/v${PV}.
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 ~arm64 ~x86"
+KEYWORDS="amd64 arm64 ~x86"
 
 RDEPEND="
 	dev-python/protobuf-python[${PYTHON_USEDEP}]

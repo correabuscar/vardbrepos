@@ -5,7 +5,7 @@ EAPI=7
 
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( pypy3 python3_{10..12} )
 
 inherit distutils-r1
 
@@ -22,7 +22,7 @@ SRC_URI="
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 ~hppa ~loong ~ppc ppc64 ~riscv ~s390 ~sparc x86"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~ppc ppc64 ~riscv ~s390 ~sparc x86"
 
 DEPEND="
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
@@ -38,5 +38,11 @@ BDEPEND="
 		dev-python/pytz[${PYTHON_USEDEP}]
 	)
 "
+
+EPYTEST_DESELECT=(
+	# sigh
+	tests/datetime/test_behavior.py::test_proper_dst
+	tests/tz/test_timezone.py::test_dst
+)
 
 distutils_enable_tests pytest

@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( pypy3 python3_{10..12} )
 
 inherit distutils-r1
 
@@ -20,9 +20,11 @@ SRC_URI="
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 arm ~arm64 ~loong ppc64 ~riscv x86"
+KEYWORDS="amd64 arm arm64 ~loong ppc64 ~riscv x86"
 
-RDEPEND="dev-python/six[${PYTHON_USEDEP}]"
+RDEPEND="
+	dev-python/six[${PYTHON_USEDEP}]
+"
 
 distutils_enable_tests pytest
 

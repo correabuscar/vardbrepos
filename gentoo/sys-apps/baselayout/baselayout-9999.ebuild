@@ -209,6 +209,7 @@ src_prepare() {
 		hprefixify -w '/PATH=/' etc/env.d/50baselayout
 		hprefixify -w 1 etc/env.d/50baselayout
 		echo PATH=/usr/sbin:/sbin:/usr/bin:/bin >> etc/env.d/99host
+		echo MANPATH=/usr/share/man >> etc/env.d/99host
 
 		# change branding
 		sed -i \

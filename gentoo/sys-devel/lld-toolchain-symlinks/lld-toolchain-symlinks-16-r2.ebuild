@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Gentoo Authors
+# Copyright 2022-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,12 +7,11 @@ inherit multilib
 
 DESCRIPTION="Symlinks to use LLD on binutils-free system"
 HOMEPAGE="https://wiki.gentoo.org/wiki/Project:LLVM"
-SRC_URI=""
 S=${WORKDIR}
 
 LICENSE="public-domain"
 SLOT="${PV}"
-KEYWORDS="amd64 arm arm64 ~ppc ppc64 ~riscv x86"
+KEYWORDS="amd64 arm arm64 ~ppc ppc64 ~riscv x86 ~arm64-macos"
 IUSE="multilib-symlinks +native-symlinks"
 
 RDEPEND="

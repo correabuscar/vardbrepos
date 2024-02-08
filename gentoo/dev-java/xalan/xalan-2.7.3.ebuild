@@ -17,7 +17,7 @@ S="${WORKDIR}/xalan-j_${PV//./_}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="amd64 ~arm arm64 ppc64 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 
 CP_DEPEND="
 	dev-java/bcel:0
@@ -33,7 +33,7 @@ RDEPEND="${CP_DEPEND}
 	>=virtual/jre-1.8:*"
 
 BDEPEND="verify-sig? ( sec-keys/openpgp-keys-apache-xalan-j )"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/xalan-j.apache.org.asc"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/xalan-j.apache.org.asc"
 
 JAVA_MAIN_CLASS="org.apache.xalan.xslt.Process"
 JAVA_SRC_DIR="src"

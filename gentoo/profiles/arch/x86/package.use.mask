@@ -1,5 +1,15 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+
+# Marek Szuba <marecki@gentoo.org> (2024-02-01)
+# dev-libs/isa-l is seriously broken on x86 (Bugs #922193, #923425),
+# and upstream seems to have little to no interest in really
+# supporting this arch.
+net-libs/xrootd xrdec
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-01-13)
+# Unmask only where grub is keyworded
+sys-kernel/installkernel -grub
 
 # Ionen Wolkens <ionen@gentoo.org> (2023-10-09)
 # media-libs/shaderc is keyworded here.
@@ -80,7 +90,6 @@ media-video/mpv -libplacebo -vulkan
 # WANG Xuerui <xen0n@gentoo.org> (2022-10-07)
 # sys-libs/libsmbios is available here.
 app-laptop/pbbuttonsd -macbook
-sys-apps/fwupd -dell
 
 # Alexey Shvetsov <alexxy@gentoo.org> (2022-09-15)
 # Mask nvml use flag for slurm
@@ -89,10 +98,6 @@ sys-cluster/slurm nvml
 # Alfredo Tupone <tupone@gentoo.org> (2022-08-30)
 # ada bootstrap currently only available on amd64/x86
 sys-devel/gcc -ada
-
-# Andreas Sturmlechner <asturm@gentoo.org> (2020-09-11)
-# media-libs/qtav not keyworded yet
-media-gfx/kphotoalbum qtav
 
 # Arthur Zamarin <arthurzam@gentoo.org> (2022-08-15)
 # deps not keyworded
@@ -113,7 +118,7 @@ app-vim/jedi test
 
 # Ben Kohler <bkohler@gentoo.org> (2022-06-07)
 # Disable 64bit builds on x86
-sys-apps/memtest86+ bios64 efi64 iso64
+sys-apps/memtest86+ bios64 uefi64 iso64
 
 # Jimi Huotari <chiitoo@gentoo.org> (2022-05-08)
 # Not keyworded here yet.
@@ -226,7 +231,7 @@ sys-apps/flashrom -atahpt -atapromise -atavia -drkaiser -gfxnvidia -internal -it
 # clisp is keyworded on x86
 app-text/texlive-core -xindy
 
-# Georgy Yakovlev <gyakovlev@gentoo.org (2020-04-26)
+# Georgy Yakovlev <gyakovlev@gentoo.org> (2020-04-26)
 # static-pie works on x86, #719444
 sys-libs/glibc -static-pie
 
@@ -235,7 +240,7 @@ sys-libs/glibc -static-pie
 mail-client/thunderbird -eme-free
 www-client/firefox -eme-free
 
-# Georgy Yakovlev <gyakovlev@gentoo.org (2020-01-04)
+# Georgy Yakovlev <gyakovlev@gentoo.org> (2020-01-04)
 # zfs is not keyworded on x86
 dev-util/schroot zfs
 
@@ -379,14 +384,15 @@ www-client/vivaldi-snapshot widevine
 # mask revdeps of xen that imply a hypervisor in arch x86
 app-emulation/libvirt xen
 
-# Brian Evans <grknight@gentoo.org (2015-09-14)
+# Brian Evans <grknight@gentoo.org> (2015-09-14)
 # Unmask new USE flags for mariadb on supported arches
 >=dev-db/mariadb-10.1.0 -galera
 
 # Mike Gilbert <floppym@gentoo.org> (2015-09-05)
 # sys-boot/gnu-efi is not supported on all archs.
-sys-apps/systemd -boot -gnuefi
-sys-apps/systemd-utils -boot
+sys-apps/systemd -boot -gnuefi -ukify
+sys-apps/systemd-utils -boot -ukify
+sys-kernel/installkernel -systemd-boot -ukify
 
 # Ben de Groot <yngwin@gentoo.org> (2015-03-15)
 # media-libs/libbdplus is keyworded on x86, so unmask the useflag
@@ -396,7 +402,7 @@ media-libs/libbluray -bdplus
 # sys-fs/zfs not keyworded on x86
 sys-cluster/ceph zfs
 
-# Lars Wendler <polynomial-c@gentoo.org (2014-04-23)
+# Lars Wendler <polynomial-c@gentoo.org> (2014-04-23)
 # Works on 32bit x86
 media-sound/lmms -vst
 
@@ -436,10 +442,6 @@ gnustep-base/gnustep-make -libobjc2
 # The SPICE server is only supported on 64-bit platforms and not on 32-bit
 # https://lists.freedesktop.org/archives/spice-devel/2015-September/021846.html
 app-emulation/qemu spice
-
-# Samuli Suominen <ssuominen@gentoo.org> (2011-12-06)
-# NuppelVideo support is x86 only
-media-video/transcode -nuv -pic
 
 # Davide Pesavento <pesa@gentoo.org> (2011-11-30)
 # The QML (V4) and JSC JITs are supported only on amd64/arm/x86,

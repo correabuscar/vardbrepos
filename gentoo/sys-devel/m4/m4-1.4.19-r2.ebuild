@@ -3,7 +3,7 @@
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/m4.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/m4.asc
 inherit verify-sig
 
 DESCRIPTION="GNU macro processor"
@@ -41,7 +41,8 @@ PATCHES=(
 	"${FILESDIR}"/loong-fix-build.patch
 	"${FILESDIR}"/${PN}-1.4.19-make-4.4-tests.patch
 	"${WORKDIR}"/${P}-test-198-sysval-r1.patch
-	"${FILESDIR}"/${PN}-1.4.19-fortify-source.patch
+	"${FILESDIR}"/${P}-fortify-source.patch
+	"${FILESDIR}"/${P}-race-condition-tests.patch
 )
 
 src_unpack() {

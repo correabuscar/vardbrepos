@@ -14,6 +14,7 @@ KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv 
 PATCHES=(
 	"${FILESDIR}"/${P}-strncmp-decl-mismatch.patch
 	"${FILESDIR}"/${P}-clang-16-wregister.patch
+	"${FILESDIR}"/${P}-parallel-tests.patch
 )
 
 src_prepare() {
@@ -22,4 +23,8 @@ src_prepare() {
 		*/Makefile.in || die #444078
 
 	default
+}
+
+src_configure() {
+	econf --cache-file="${S}"/config.cache
 }

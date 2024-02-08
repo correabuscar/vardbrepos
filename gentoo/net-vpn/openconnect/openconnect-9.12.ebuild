@@ -1,4 +1,4 @@
-# Copyright 2011-2023 Gentoo Authors
+# Copyright 2011-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -72,7 +72,7 @@ BDEPEND="
 
 if [[ ${PV} != 9999 ]]; then
 	BDEPEND+=" verify-sig? ( sec-keys/openpgp-keys-dwmw2 )"
-	VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/dwmw2@kernel.org.key"
+	VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/dwmw2@kernel.org.key"
 fi
 
 CONFIG_CHECK="~TUN"
@@ -86,6 +86,9 @@ pkg_setup() {
 }
 
 src_prepare() {
+	local PATCHES=(
+		"${FILESDIR}/openconnect-9.12-stdlib.patch"
+	)
 	default
 	if [[ ${PV} == 9999 ]]; then
 		eautoreconf

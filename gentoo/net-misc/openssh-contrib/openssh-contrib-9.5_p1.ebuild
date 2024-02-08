@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -43,7 +43,7 @@ SRC_URI="mirror://openbsd/OpenSSH/portable/${PARCH}.tar.gz
 	)}
 	verify-sig? ( mirror://openbsd/OpenSSH/portable/${PARCH}.tar.gz.asc )
 "
-VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/openssh.org.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/openssh.org.asc
 S="${WORKDIR}/${PARCH}"
 
 LICENSE="BSD GPL-2"
@@ -100,7 +100,7 @@ RDEPEND="${RDEPEND}
 "
 # Weird dep construct for newer gcc-config for bug #872416
 BDEPEND="
-	sys-devel/autoconf
+	dev-build/autoconf
 	virtual/pkgconfig
 	|| (
 		>=sys-devel/gcc-config-2.6

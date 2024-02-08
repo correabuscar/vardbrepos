@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -13,7 +13,7 @@ if [[ ${PV} == 9999 ]] ; then
 	EGIT_REPO_URI="https://github.com/glensc/file.git"
 	inherit autotools git-r3
 else
-	VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/file.asc
+	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/file.asc
 	inherit verify-sig
 	SRC_URI="ftp://ftp.astron.com/pub/file/${P}.tar.gz"
 	SRC_URI+=" verify-sig? ( ftp://ftp.astron.com/pub/file/${P}.tar.gz.asc )"
@@ -35,17 +35,16 @@ DEPEND="
 	bzip2? ( app-arch/bzip2[${MULTILIB_USEDEP}] )
 	lzip? ( app-arch/lzlib )
 	lzma? ( app-arch/xz-utils[${MULTILIB_USEDEP}] )
-	python? (
-		${PYTHON_DEPS}
-		dev-python/setuptools[${PYTHON_USEDEP}]
-	)
 	seccomp? ( >=sys-libs/libseccomp-2.5.4[${MULTILIB_USEDEP}] )
 	zlib? ( >=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}] )
 	zstd? ( app-arch/zstd:=[${MULTILIB_USEDEP}] )
 "
 RDEPEND="
 	${DEPEND}
-	python? ( !dev-python/python-magic )
+	python? (
+		${PYTHON_DEPS}
+		!dev-python/python-magic
+	)
 	seccomp? ( >=sys-libs/libseccomp-2.5.4[${MULTILIB_USEDEP}] )
 "
 BDEPEND+="

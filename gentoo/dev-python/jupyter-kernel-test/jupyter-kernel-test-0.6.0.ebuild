@@ -4,11 +4,11 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Jupyter kernel for octave"
+DESCRIPTION="A tool for testing Jupyter kernels"
 HOMEPAGE="
 	https://github.com/jupyter/jupyter_kernel_test/
 	https://pypi.org/project/jupyter-kernel-test/
@@ -16,7 +16,7 @@ HOMEPAGE="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~x86"
 
 RDEPEND="
 	>=dev-python/jupyter-client-6.1.13[${PYTHON_USEDEP}]

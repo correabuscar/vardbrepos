@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Gentoo Authors
+# Copyright 2022-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,7 +19,7 @@ SRC_URI="
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 
 RDEPEND="
 	>=dev-python/packaging-19.0[${PYTHON_USEDEP}]
@@ -41,6 +41,11 @@ BDEPEND="
 
 distutils_enable_tests pytest
 
+PATCHES=(
+	# https://github.com/pypa/build/pull/722
+	"${FILESDIR}/${P}-setuptools-69.patch"
+)
+
 python_test() {
 	local EPYTEST_DESELECT=(
 		# broken by the presence of flit_core
@@ -49,6 +54,9 @@ python_test() {
 		# messages, sic!)
 		'tests/test_main.py::test_output[via-sdist-isolation]'
 		'tests/test_main.py::test_output[wheel-direct-isolation]'
+		# broken when built in not normal tty on coloring
+		tests/test_main.py::test_colors
+		'tests/test_main.py::test_output_env_subprocess_error[color]'
 	)
 
 	epytest -m "not network" -p no:flaky \

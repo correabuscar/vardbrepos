@@ -1,4 +1,4 @@
-# Copyright 2021-2023 Gentoo Authors
+# Copyright 2021-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ inherit desktop llvm optfeature qt6-build
 DESCRIPTION="Qt Tools Collection"
 
 if [[ ${QT6_BUILD_TYPE} == release ]]; then
-	KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~loong ~x86"
+	KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
 fi
 
 IUSE="
@@ -52,12 +52,18 @@ DEPEND="
 	)
 "
 
+llvm_check_deps() {
+	has_version -d "sys-devel/clang:${LLVM_SLOT}"
+}
+
 pkg_setup() {
 	use clang && llvm_pkg_setup
 }
 
 src_configure() {
 	local mycmakeargs=(
+		# prevent the clang test as it can abort due to bug #916098
+		$(cmake_use_find_package clang WrapLibClang)
 		$(cmake_use_find_package qml Qt6Qml)
 		$(cmake_use_find_package widgets Qt6Widgets)
 		$(qt_feature assistant)

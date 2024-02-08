@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # genkernel-9999        -> latest Git branch "master"
@@ -94,7 +94,7 @@ if [[ ${PV} == 9999* ]] ; then
 else
 	SRC_URI="https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${P}.tar.xz
 		${COMMON_URI}"
-	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~mips ~ppc ppc64 ~riscv ~s390 sparc x86"
+	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 fi
 
 DESCRIPTION="Gentoo automatic kernel building scripts"
@@ -113,19 +113,19 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 # things.
 DEPEND=""
 RDEPEND="${PYTHON_DEPS}
-	app-arch/cpio
+	app-alternatives/cpio
 	>=app-misc/pax-utils-1.2.2
 	app-portage/elt-patches
 	app-portage/portage-utils
 	dev-util/gperf
 	sys-apps/sandbox
-	sys-devel/autoconf
-	sys-devel/autoconf-archive
-	sys-devel/automake
-	sys-devel/bc
-	sys-devel/bison
-	sys-devel/flex
-	sys-devel/libtool
+	dev-build/autoconf
+	dev-build/autoconf-archive
+	dev-build/automake
+	app-alternatives/bc
+	app-alternatives/yacc
+	app-alternatives/lex
+	dev-build/libtool
 	virtual/pkgconfig
 	elibc_glibc? ( sys-libs/glibc[static-libs(+)] )
 	firmware? ( sys-kernel/linux-firmware )"

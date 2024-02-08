@@ -1,5 +1,38 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+
+# Leonardo Hernández Hernández <leohdz172@proton.me> (2024-01-15)
+# net-libs/grpc not keyworded here
+app-admin/syslog-ng grpc
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-01-13)
+# Unmask only where grub is keyworded
+sys-kernel/installkernel -grub
+
+# Sam James <sam@gentoo.org> (2024-01-02)
+# dev-libs/capstone not keyworded here
+dev-lang/php capstone
+
+# David Seifert <soap@gentoo.org> (2023-12-30)
+# sys-auth/sssd not keyworded here anymore
+app-admin/sudo sssd
+sys-auth/pambase sssd
+
+# Mart Raudsepp <leio@gentoo.org> (2023-12-25)
+# sys-apps/xdg-desktop-portal not keyworded here yet
+x11-base/xwayland libei
+
+# James Le Cuirot (2023-12-12)
+# USE=bpf depends on sys-devel/clang which is not keyworded on ia64
+media-libs/libv4l bpf
+
+# Leonardo Hernández Hernández <leohdz172@proton.me> (2023-11-15)
+# Vulkan is not available here
+media-video/ffmpeg glslang shaderc vulkan
+
+# Violet Purcell <vimproved@inventati.org> (2023-10-12)
+# dev-build/samurai is not keyworded here.
+app-alternatives/ninja samurai
 
 # Patrick McLean <chutzpah@gentoo.org> (2023-10-03)
 # sys-apps/s6-linux-init has not been tested on this arch
@@ -7,15 +40,11 @@ sys-apps/openrc s6
 
 # Sam James <sam@gentoo.org> (2023-09-24)
 # Qt not keyworded here.
-app-doc/doxygen gui
+app-text/doxygen gui
 
 # Sam James <sam@gentoo.org> (2023-09-22)
 # Qt 6 not keyworded here.
-dev-util/cmake gui
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2023-09-20)
-# Libei not keyworded here yet
-x11-base/xwayland libei
+dev-build/cmake gui
 
 # Rich Freeman <rich0@gentoo.org> (2023-09-13)
 # Tests require shellcheck which is not currently available
@@ -107,10 +136,6 @@ dev-python/scipy fortran
 # Test suite is very fragile and doesn't even run on amd64.
 # No real point in running it here right now, bug #804115.
 dev-cpp/eigen test
-
-# Arthur Zamarin <arthurzam@gentoo.org> (2021-10-24)
-# dev-ruby/furo isn't keyworded here
-dev-python/argon2-cffi doc
 
 # Sam James <sam@gentoo.org> (2021-10-24)
 # Avoid Pipewire for now because of new wireplumber dependency which lacks
@@ -218,7 +243,7 @@ app-text/texlive l10n_ja context
 # - net-libs/webkit-gtk: ruby build system
 app-editors/emacs xwidgets
 dev-util/geany-plugins markdown
-gnome-extra/evolution-data-server oauth
+gnome-extra/evolution-data-server oauth oauth-gtk3 oauth-gtk4
 # - gnome-extra/sushi: depends on webkit-gtk
 gnome-base/nautilus previewer
 # - net-libs/gnome-online-accounts: depends on webkit-gtk

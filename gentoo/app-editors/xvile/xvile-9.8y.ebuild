@@ -5,7 +5,7 @@ EAPI=8
 
 # Bump with app-editors/vile
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/thomasdickey.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/thomasdickey.asc
 inherit verify-sig
 
 MY_P="${PN/x/}-${PV}"
@@ -16,7 +16,7 @@ SRC_URI+=" verify-sig? ( https://invisible-island.net/archives/vile/current/${MY
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~riscv ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~ia64 ppc ~riscv sparc x86"
 IUSE="perl"
 
 RDEPEND="

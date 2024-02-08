@@ -44,6 +44,7 @@ inherit edo multiprocessing nuget
 # should be picked by the maintainer.
 
 # @ECLASS_VARIABLE: DOTNET_PKG_RDEPS
+# @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Populated with important dependencies on .NET ecosystem packages for running
 # .NET packages.
@@ -52,6 +53,7 @@ inherit edo multiprocessing nuget
 DOTNET_PKG_RDEPS=""
 
 # @ECLASS_VARIABLE: DOTNET_PKG_BDEPS
+# @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Populated with important dependencies on .NET ecosystem packages for building
 # .NET packages.
@@ -98,6 +100,7 @@ export UseSharedCompilation=false
 
 # @ECLASS_VARIABLE: DOTNET_PKG_RUNTIME
 # @DEFAULT_UNSET
+# @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Sets the runtime used to build a package.
 #
@@ -105,6 +108,7 @@ export UseSharedCompilation=false
 
 # @ECLASS_VARIABLE: DOTNET_PKG_EXECUTABLE
 # @DEFAULT_UNSET
+# @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Sets path of a "dotnet" executable.
 #
@@ -112,6 +116,7 @@ export UseSharedCompilation=false
 
 # @ECLASS_VARIABLE: DOTNET_PKG_CONFIGURATION
 # @DEFAULT_UNSET
+# @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Configuration value passed to "dotnet" in the compile phase.
 # Is either Debug or Release, depending on the "debug" USE flag.
@@ -120,6 +125,7 @@ export UseSharedCompilation=false
 
 # @ECLASS_VARIABLE: DOTNET_PKG_OUTPUT
 # @DEFAULT_UNSET
+# @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Path of the output directory, where the package artifacts are placed during
 # the building of packages with "dotnet-pkg-base_build" function.
@@ -222,28 +228,22 @@ dotnet-pkg-base_setup() {
 		dotnet_compat_impl_path="$(type -P "${dotnet_compat_impl}")"
 
 		if [[ -n ${dotnet_compat_impl_path} ]] ; then
-			DOTNET_PKG_EXECUTABLE=${dotnet_compat_impl}
-			DOTNET_PKG_EXECUTABLE_PATH="${dotnet_compat_impl_path}"
-
+			DOTNET_PKG_EXECUTABLE="${dotnet_compat_impl}"
 			break
 		fi
 	done
 
 	# Link "DOTNET_PKG_EXECUTABLE" to "dotnet" only for the package build.
-	local dotnet_spoof_path="${T}"/dotnet_spoof/${DOTNET_PKG_COMPAT}
+	local dotnet_spoof_path="${T}/dotnet_spoof/${DOTNET_PKG_COMPAT}"
 	mkdir -p "${dotnet_spoof_path}" || die
-	ln -s "${DOTNET_PKG_EXECUTABLE_PATH}" "${dotnet_spoof_path}"/dotnet || die
+	ln -s "${dotnet_compat_impl_path}" "${dotnet_spoof_path}/dotnet" || die
 	export PATH="${dotnet_spoof_path}:${PATH}"
 
-	einfo "Using dotnet SDK \"${DOTNET_PKG_EXECUTABLE}\" from \"${DOTNET_PKG_EXECUTABLE_PATH}\"."
+	einfo "Using dotnet SDK \"${DOTNET_PKG_EXECUTABLE}\" from \"${dotnet_compat_impl_path}\"."
 
 	# The picked "DOTNET_PKG_EXECUTABLE" should set "DOTNET_ROOT" internally
 	# and not rely upon this environment variable.
 	unset DOTNET_ROOT
-
-	# Unset .NET and NuGet directories.
-	unset DOTNET_DATA
-	unset NUGET_DATA
 
 	DOTNET_PKG_RUNTIME="$(dotnet-pkg-base_get-runtime)"
 	DOTNET_PKG_CONFIGURATION="$(dotnet-pkg-base_get-configuration)"
@@ -305,35 +305,37 @@ dotnet-pkg-base_info() {
 }
 
 # @FUNCTION: dotnet-pkg-base_foreach-solution
-# @USAGE: <function> [directory]
+# @USAGE: <directory> <args> ...
 # @DESCRIPTION:
 # Execute a function for each solution file (.sln) in a specified directory.
 # This function may yield no real results because solutions are discovered
 # automatically.
 #
-# Optional "directory" argument defaults to the current directory path.
-#
-# Used by "dotnet-pkg_src_configure" from the "dotnet-pkg" eclass.
+# Used by "dotnet-pkg_src_configure" and "dotnet-pkg_src_test" from
+# the "dotnet-pkg" eclass.
 dotnet-pkg-base_foreach-solution() {
 	debug-print-function "${FUNCNAME[0]}" "${@}"
+
+	local directory="${1}"
+	shift
 
 	local dotnet_solution
 	local dotnet_solution_name
 	while read -r dotnet_solution ; do
 		dotnet_solution_name="$(basename "${dotnet_solution}")"
 
-		ebegin "Running \"${1}\" for solution: \"${dotnet_solution_name}\""
-		"${1}" "${dotnet_solution}"
+		ebegin "Running \"${@}\" for solution: \"${dotnet_solution_name}\""
+		"${@}" "${dotnet_solution}"
 		eend $? "${FUNCNAME[0]}: failed for solution: \"${dotnet_solution}\"" || die
-	done < <(find "${2:-.}" -maxdepth 1 -type f -name "*.sln")
+	done < <(find "${directory}" -maxdepth 1 -type f -name "*.sln")
 }
 
 # @FUNCTION: dotnet-pkg-base_restore
-# @USAGE: [directory] [args] ...
+# @USAGE: [args] ...
 # @DESCRIPTION:
-# Restore the package using "dotnet restore" in a specified directory.
-#
-# Optional "directory" argument defaults to the current directory path.
+# Restore the package using "dotnet restore".
+# Restore is performed in current directory unless a different directory is
+# passed via "args".
 #
 # Additionally any number of "args" maybe be given, they are appended to
 # the "dotnet" command invocation.
@@ -342,14 +344,6 @@ dotnet-pkg-base_foreach-solution() {
 dotnet-pkg-base_restore() {
 	debug-print-function "${FUNCNAME[0]}" "${@}"
 
-	local directory
-	if [[ "${1}" ]] ; then
-		directory="${1}"
-		shift
-	else
-		directory="$(pwd)"
-	fi
-
 	local -a restore_args=(
 		--runtime "${DOTNET_PKG_RUNTIME}"
 		--source "${NUGET_PACKAGES}"
@@ -357,7 +351,7 @@ dotnet-pkg-base_restore() {
 		"${@}"
 	)
 
-	edotnet restore "${restore_args[@]}" "${directory}"
+	edotnet restore "${restore_args[@]}"
 }
 
 # @FUNCTION: dotnet-pkg-base_restore_tools
@@ -377,7 +371,7 @@ dotnet-pkg-base_restore_tools() {
 		--add-source "${NUGET_PACKAGES}"
 	)
 
-	if [[ "${1}" ]] ; then
+	if [[ -n "${1}" ]] ; then
 		tool_restore_args+=( --configfile "${1}" )
 		shift
 	fi
@@ -388,11 +382,11 @@ dotnet-pkg-base_restore_tools() {
 }
 
 # @FUNCTION: dotnet-pkg-base_build
-# @USAGE: [directory] [args] ...
+# @USAGE: [args] ...
 # @DESCRIPTION:
 # Build the package using "dotnet build" in a specified directory.
-#
-# Optional "directory" argument defaults to the current directory path.
+# Build is performed in current directory unless a different directory is
+# passed via "args".
 #
 # Additionally any number of "args" maybe be given, they are appended to
 # the "dotnet" command invocation.
@@ -401,14 +395,6 @@ dotnet-pkg-base_restore_tools() {
 dotnet-pkg-base_build() {
 	debug-print-function "${FUNCNAME[0]}" "${@}"
 
-	local directory
-	if [[ "${1}" ]] ; then
-		directory="${1}"
-		shift
-	else
-		directory="$(pwd)"
-	fi
-
 	local -a build_args=(
 		--configuration "${DOTNET_PKG_CONFIGURATION}"
 		--no-restore
@@ -416,7 +402,6 @@ dotnet-pkg-base_build() {
 		--output "${DOTNET_PKG_OUTPUT}"
 		--runtime "${DOTNET_PKG_RUNTIME}"
 		-maxCpuCount:$(makeopts_jobs)
-		"${@}"
 	)
 
 	if ! use debug ; then
@@ -426,7 +411,12 @@ dotnet-pkg-base_build() {
 		)
 	fi
 
-	edotnet build "${build_args[@]}" "${directory}"
+	# And append "args" at the end.
+	build_args+=(
+		"${@}"
+	)
+
+	edotnet build "${build_args[@]}"
 }
 
 # @FUNCTION: dotnet-pkg-base_test
@@ -444,7 +434,7 @@ dotnet-pkg-base_test() {
 	debug-print-function "${FUNCNAME[0]}" "${@}"
 
 	local directory
-	if [[ "${1}" ]] ; then
+	if [[ -n "${1}" ]] ; then
 		directory="${1}"
 		shift
 	else
@@ -539,7 +529,7 @@ dotnet-pkg-base_dolauncher() {
 
 	local executable_path executable_name
 
-	if [[ "${1}" ]] ; then
+	if [[ -n "${1}" ]] ; then
 		local executable_path="${1}"
 		shift
 	else
@@ -563,9 +553,9 @@ dotnet-pkg-base_dolauncher() {
 	# compatible with dotnet version ${DOTNET_PKG_COMPAT}.
 
 	for __dotnet_root in \\
-		${EPREFIX}/usr/$(get_libdir)/dotnet-sdk-${DOTNET_PKG_COMPAT} \\
-		${EPREFIX}/opt/dotnet-sdk-bin-${DOTNET_PKG_COMPAT} ; do
-		[ -d \${__dotnet_root} ] && break
+		"${EPREFIX}/usr/$(get_libdir)/dotnet-sdk-${DOTNET_PKG_COMPAT}" \\
+		"${EPREFIX}/opt/dotnet-sdk-bin-${DOTNET_PKG_COMPAT}" ; do
+		[ -d "\${__dotnet_root}" ] && break
 	done
 
 	DOTNET_ROOT="\${__dotnet_root}"

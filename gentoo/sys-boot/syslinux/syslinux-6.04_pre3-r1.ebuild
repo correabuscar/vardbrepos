@@ -13,9 +13,9 @@ SRC_URI="https://git.zytor.com/syslinux/syslinux.git/snapshot/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 #KEYWORDS="-* ~amd64 ~x86"
-IUSE="abi_x86_32 abi_x86_64 +bios +efi"
-REQUIRED_USE="|| ( bios efi )
-	efi? ( || ( abi_x86_32 abi_x86_64 ) )"
+IUSE="abi_x86_32 abi_x86_64 +bios +uefi"
+REQUIRED_USE="|| ( bios uefi )
+	uefi? ( || ( abi_x86_32 abi_x86_64 ) )"
 
 RESTRICT="test"
 
@@ -30,7 +30,7 @@ RDEPEND="
 	dev-perl/Digest-SHA1
 "
 DEPEND="${RDEPEND}
-	efi? ( sys-boot/gnu-efi[abi_x86_32(-)?,abi_x86_64(-)?] )
+	uefi? ( sys-boot/gnu-efi[abi_x86_32(-)?,abi_x86_64(-)?] )
 	virtual/os-headers
 "
 
@@ -42,14 +42,13 @@ QA_PRESTRIPPED="usr/share/syslinux/.*"
 QA_FLAGS_IGNORED=".*"
 
 pkg_setup() {
-	use efi && secureboot_pkg_setup
+	use uefi && secureboot_pkg_setup
 }
 
 src_prepare() {
 	local PATCHES=(
 		"${FILESDIR}/6.04_pre1"
 		"${FILESDIR}/6.04_pre3"
-		"${FILESDIR}/syslinux-6.04-binutils-2.41.patch"
 	)
 	default
 }
@@ -79,7 +78,7 @@ src_compile() {
 	if use bios; then
 		emake bios DATE="${DATE}" HEXDATE="${HEXDATE}"
 	fi
-	if use efi; then
+	if use uefi; then
 		if use abi_x86_32; then
 			efimake x86 efi32 DATE="${DATE}" HEXDATE="${HEXDATE}"
 		fi
@@ -91,7 +90,7 @@ src_compile() {
 
 src_install() {
 	local firmware=( $(usev bios) )
-	if use efi; then
+	if use uefi; then
 		use abi_x86_32 && firmware+=( efi32 )
 		use abi_x86_64 && firmware+=( efi64 )
 	fi
@@ -108,5 +107,5 @@ src_install() {
 	einstalldocs
 	dostrip -x /usr/share/syslinux
 
-	use efi && secureboot_auto_sign --in-place
+	use uefi && secureboot_auto_sign --in-place
 }

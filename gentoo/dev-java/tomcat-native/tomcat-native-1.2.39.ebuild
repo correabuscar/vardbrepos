@@ -16,7 +16,7 @@ SRC_URI="mirror://apache/tomcat/tomcat-connectors/native/${PV}/source/${P}-src.t
 	)"
 S=${WORKDIR}/${P}-src/native
 
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 LICENSE="Apache-2.0"
 SLOT="0"
 IUSE="static-libs"
@@ -30,7 +30,7 @@ RDEPEND="
 	>=virtual/jre-1.8:*
 "
 BDEPEND="verify-sig? ( sec-keys/openpgp-keys-apache-tomcat-connectors )"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}/usr/share/openpgp-keys/tomcat-connectors.apache.org.asc"
+VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/tomcat-connectors.apache.org.asc"
 
 JAVA_RESOURCE_DIRS="../resources"
 JAVA_SRC_DIR="../java"

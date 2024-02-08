@@ -1,6 +1,6 @@
-BDEPEND=doc? ( app-doc/doxygen[dot] ) >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5 test? ( x11-base/xorg-server[xvfb] x11-apps/xhost ) >=dev-vcs/git-1.8.2.1[curl]
+BDEPEND=doc? ( app-text/doxygen[dot] ) app-alternatives/ninja >=dev-build/cmake-3.20.5 test? ( x11-base/xorg-server[xvfb] x11-apps/xhost ) >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile configure install prepare test unpack
-DEPEND=sci-physics/clhep:= sci-physics/geant:=[c++17,opengl,geant3?] sci-physics/root:=[c++17,-vmc(-)] sci-physics/vmc:=[c++17] vgm? ( sci-physics/vgm:= ) test? ( sci-physics/geant:=[gdml] )
+DEPEND=sci-physics/clhep:= sci-physics/geant:=[opengl,geant3?] sci-physics/root:= sci-physics/vmc:= vgm? ( sci-physics/vgm:= ) test? ( sci-physics/geant:=[gdml] )
 DESCRIPTION=Virtual Monte Carlo Geant4 implementation
 EAPI=8
 HOMEPAGE=https://github.com/vmc-project/geant4_vmc
@@ -8,8 +8,8 @@ INHERIT=cmake virtualx git-r3
 IUSE=doc examples geant3 +g4root vgm test test
 LICENSE=GPL-3
 PROPERTIES=live
-RDEPEND=sci-physics/clhep:= sci-physics/geant:=[c++17,opengl,geant3?] sci-physics/root:=[c++17,-vmc(-)] sci-physics/vmc:=[c++17] vgm? ( sci-physics/vgm:= )
+RDEPEND=sci-physics/clhep:= sci-physics/geant:=[opengl,geant3?] sci-physics/root:= sci-physics/vmc:= vgm? ( sci-physics/vgm:= )
 RESTRICT=!examples? ( test ) !geant3? ( test ) !g4root? ( test ) !test? ( test ) !vgm? ( test ) !test? ( test )
 SLOT=4
-_eclasses_=cmake	fc2f89084f590ac95c004ea95b0d2f80	flag-o-matic	e5cc383ea8420f92fe3737be790021dc	git-r3	2358a7b20091609e24bd3a83b3ac5991	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	ninja-utils	39e7a84b06eff4efd9f2e0c3d1668b98	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc	virtualx	817571665ee28575da44ee08135089e5	xdg-utils	baea6080dd821f5562d715887954c9d3
-_md5_=f13699f1d2576ba584c1b7762606415c
+_eclasses_=cmake	c7c9a62d6232cac66d4ea32d575c3e7c	flag-o-matic	b2b07efa51009704f88173b2c7feab47	git-r3	86fa1f157b70b9d2ff340c4633b1cf4b	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	virtualx	817571665ee28575da44ee08135089e5	xdg-utils	baea6080dd821f5562d715887954c9d3
+_md5_=081fb0e8313545eeab4203ab38860a58

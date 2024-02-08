@@ -8,5 +8,5 @@ LICENSE=GPL-3
 PROPERTIES=live
 RESTRICT=test
 SLOT=0
-_eclasses_=git-r3	2358a7b20091609e24bd3a83b3ac5991
-_md5_=30ccf7c34429b2bcdbe131486c3e374a
+_eclasses_=git-r3	86fa1f157b70b9d2ff340c4633b1cf4b
+_md5_=7f2fcdf181ed9b4da557f335ed8c7792

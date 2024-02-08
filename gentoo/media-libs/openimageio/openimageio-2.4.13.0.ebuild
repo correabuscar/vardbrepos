@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,7 +17,7 @@ SRC_URI+=" test? (
 	https://github.com/OpenImageIO/oiio-images/archive/${TEST_OIIO_IMAGE_COMMIT}.tar.gz -> ${PN}-oiio-test-image-${TEST_OIIO_IMAGE_COMMIT}.tar.gz
 	https://github.com/AcademySoftwareFoundation/openexr-images/archive/${TEST_OEXR_IMAGE_COMMIT}.tar.gz -> ${PN}-oexr-test-image-${TEST_OEXR_IMAGE_COMMIT}.tar.gz
 )"
-S="${WORKDIR}/oiio-${PV}"
+S="${WORKDIR}/OpenImageIO-${PV}"
 
 LICENSE="BSD"
 SLOT="0/$(ver_cut 1-2)"
@@ -37,7 +37,7 @@ RESTRICT="!test? ( test )" # test"
 
 BDEPEND="
 	doc? (
-		app-doc/doxygen
+		app-text/doxygen
 		dev-texlive/texlive-bibtexextra
 		dev-texlive/texlive-fontsextra
 		dev-texlive/texlive-fontutils
@@ -104,6 +104,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	use dicom || rm -r "${S}/src/dicom.imageio/" || die
 	cmake_src_prepare
 	cmake_comment_add_subdirectory src/fonts
 
@@ -158,9 +159,7 @@ src_configure() {
 
 	if use qt5 || use qt6; then
 		mycmakeargs+=( -DENABLE_IV=ON -DUSE_OPENGL=ON -DUSE_QT=ON )
-		if use qt6; then
-			mycmakeargs+=( -DCMAKE_DISABLE_FIND_PACKAGE_Qt5=ON )
-		else
+		if ! use qt6; then
 			mycmakeargs+=( -DCMAKE_DISABLE_FIND_PACKAGE_Qt6=ON )
 		fi
 	else

@@ -1,4 +1,4 @@
-# Copyright 2004-2023 Gentoo Authors
+# Copyright 2004-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: java-pkg-simple.eclass
@@ -46,7 +46,8 @@ if has test ${JAVA_PKG_IUSE}; then
 				test_deps+=" amd64? ( dev-util/pkgdiff
 					dev-util/japi-compliance-checker )";;
 			testng)
-				test_deps+=" dev-java/testng:0";;
+				[[ ${PN} != testng ]] && \
+					test_deps+=" dev-java/testng:0";;
 		esac
 	done
 	[[ ${test_deps} ]] && DEPEND="test? ( ${test_deps} )"
@@ -366,12 +367,13 @@ java-pkg-simple_src_compile() {
 	# gather sources
 	# if target < 9, we need to compile module-info.java separately
 	# as this feature is not supported before Java 9
-	if [[ java-pkg_get-target -lt 9 ]]; then
+	local target="$(java-pkg_get-target)"
+	if [[ ${target#1.} -lt 9 ]]; then
 		find "${JAVA_SRC_DIR[@]}" -name \*.java ! -name module-info.java > ${sources}
-		moduleinfo=$(find "${JAVA_SRC_DIR[@]}" -name module-info.java)
 	else
 		find "${JAVA_SRC_DIR[@]}" -name \*.java > ${sources}
 	fi
+	moduleinfo=$(find "${JAVA_SRC_DIR[@]}" -name module-info.java)
 
 	# create the target directory
 	mkdir -p ${classes} || die "Could not create target directory"
@@ -381,7 +383,7 @@ java-pkg-simple_src_compile() {
 	java-pkg-simple_getclasspath
 	java-pkg-simple_prepend_resources ${classes} "${JAVA_RESOURCE_DIRS[@]}"
 
-	if [[ -n ${moduleinfo} ]] || [[ java-pkg_get-target -lt 9 ]]; then
+	if [[ -z ${moduleinfo} ]] || [[ ${target#1.} -lt 9 ]]; then
 		ejavac -d ${classes} -encoding ${JAVA_ENCODING}\
 			${classpath:+-classpath ${classpath}} ${JAVAC_ARGS} @${sources}
 	else
@@ -391,7 +393,7 @@ java-pkg-simple_src_compile() {
 	fi
 
 	# handle module-info.java separately as it needs at least JDK 9
-	if [[ -n ${moduleinfo} ]]; then
+	if [[ -n ${moduleinfo} ]] && [[ ${target#1.} -lt 9 ]]; then
 		if java-pkg_is-vm-version-ge "9" ; then
 			local tmp_source=${JAVA_PKG_WANT_SOURCE} tmp_target=${JAVA_PKG_WANT_TARGET}
 
@@ -411,11 +413,15 @@ java-pkg-simple_src_compile() {
 
 	# javadoc
 	if has doc ${JAVA_PKG_IUSE} && use doc; then
-		mkdir -p ${apidoc}
-		ejavadoc -d ${apidoc} \
-			-encoding ${JAVA_ENCODING} -docencoding UTF-8 -charset UTF-8 \
-			${classpath:+-classpath ${classpath}} ${JAVADOC_ARGS:- -quiet} \
-			@${sources} || die "javadoc failed"
+		if [[ ${JAVADOC_SRC_DIRS} ]]; then
+			einfo "JAVADOC_SRC_DIRS exists, you need to call ejavadoc separately"
+		else
+			mkdir -p ${apidoc}
+			ejavadoc -d ${apidoc} \
+				-encoding ${JAVA_ENCODING} -docencoding UTF-8 -charset UTF-8 \
+				${classpath:+-classpath ${classpath}} ${JAVADOC_ARGS:- -quiet} \
+				@${sources} || die "javadoc failed"
+			fi
 	fi
 
 	# package
@@ -484,8 +490,11 @@ java-pkg-simple_src_install() {
 # @FUNCTION: java-pkg-simple_src_test
 # @DESCRIPTION:
 # src_test for simple single java jar file.
-# It will perform test with frameworks that are defined in
-# ${JAVA_TESTING_FRAMEWORKS}.
+# It will compile test classes from test sources using ejavac and perform tests
+# with frameworks that are defined in ${JAVA_TESTING_FRAMEWORKS}.
+# test-classes compiled with alternative compilers like groovyc need to be placed
+# in the "generated-test" directory as content of this directory is preserved,
+# whereas content of target/test-classes is removed.
 java-pkg-simple_src_test() {
 	local test_sources=test_sources.lst classes=target/test-classes moduleinfo
 	local tests_to_run classpath
@@ -501,10 +510,16 @@ java-pkg-simple_src_test() {
 	fi
 
 	# https://bugs.gentoo.org/906311
+	# This will remove target/test-classes. Do not put any test-classes there manually.
 	rm -rf ${classes} || die
 
 	# create the target directory
 	mkdir -p ${classes} || die "Could not create target directory for testing"
+
+	# generated test classes should get compiled into "generated-test" directory
+	if [[ -d generated-test ]]; then
+		cp -r generated-test/* "${classes}" || die "cannot copy generated test classes"
+	fi
 
 	# get classpath
 	classpath="${classes}:${JAVA_JAR_FILENAME}"
@@ -514,16 +529,17 @@ java-pkg-simple_src_test() {
 	# gathering sources for testing
 	# if target < 9, we need to compile module-info.java separately
 	# as this feature is not supported before Java 9
-	if [[ java-pkg_get-target -lt 9 ]]; then
+	local target="$(java-pkg_get-target)"
+	if [[ ${target#1.} -lt 9 ]]; then
 		find "${JAVA_TEST_SRC_DIR[@]}" -name \*.java ! -name module-info.java > ${test_sources}
-		moduleinfo=$(find "${JAVA_TEST_SRC_DIR[@]}" -name module-info.java)
 	else
 		find "${JAVA_TEST_SRC_DIR[@]}" -name \*.java > ${test_sources}
 	fi
+	moduleinfo=$(find "${JAVA_TEST_SRC_DIR[@]}" -name module-info.java)
 
 	# compile
 	if [[ -s ${test_sources} ]]; then
-		if [[ -n ${moduleinfo} ]] || [[ java-pkg_get-target -lt 9 ]]; then
+		if [[ -z ${moduleinfo} ]] || [[ ${target#1.} -lt 9 ]]; then
 			ejavac -d ${classes} -encoding ${JAVA_ENCODING}\
 				${classpath:+-classpath ${classpath}} ${JAVAC_ARGS} @${test_sources}
 		else
@@ -534,7 +550,7 @@ java-pkg-simple_src_test() {
 	fi
 
 	# handle module-info.java separately as it needs at least JDK 9
-	if [[ -n ${moduleinfo} ]]; then
+	if [[ -n ${moduleinfo} ]] && [[ ${target#1.} -lt 9 ]]; then
 		if java-pkg_is-vm-version-ge "9" ; then
 			local tmp_source=${JAVA_PKG_WANT_SOURCE} tmp_target=${JAVA_PKG_WANT_TARGET}
 

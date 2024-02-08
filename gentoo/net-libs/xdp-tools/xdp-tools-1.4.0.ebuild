@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit flag-o-matic
+inherit flag-o-matic toolchain-funcs
 
 DESCRIPTION="The libxdp library and various tools for use with XDP"
 HOMEPAGE="https://github.com/xdp-project/xdp-tools"
@@ -33,8 +33,8 @@ QA_PREBUILT="usr/lib/bpf/*.o"
 MAKEOPTS+=" V=1"
 
 PATCHES=(
-	"${FILESDIR}"/1.3.1-no-Werror.patch
-	"${FILESDIR}"/${PV}-toolchain.patch
+	"${FILESDIR}"/1.4.0-no-Werror.patch
+	"${FILESDIR}"/1.4.0-toolchain.patch
 )
 
 src_configure() {

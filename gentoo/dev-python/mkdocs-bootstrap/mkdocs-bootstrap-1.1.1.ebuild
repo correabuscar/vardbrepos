@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..12} pypy3 )
 DISTUTILS_USE_PEP517=setuptools
 DOCS_BUILDER="mkdocs"
 
@@ -19,6 +19,6 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 RDEPEND="dev-python/mkdocs"

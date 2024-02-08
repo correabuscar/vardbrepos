@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,13 +14,13 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 ~ia64 ppc ~riscv ~sparc x86"
 IUSE="doc"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/netfilter.org.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/netfilter.org.asc
 
 RDEPEND=">=net-libs/libnfnetlink-1.0.0
 	>=net-libs/libmnl-1.0.3"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig
-	doc? ( app-doc/doxygen )
+	doc? ( app-text/doxygen )
 	verify-sig? ( sec-keys/openpgp-keys-netfilter )"
 
 CONFIG_CHECK="~NETFILTER_NETLINK_LOG"

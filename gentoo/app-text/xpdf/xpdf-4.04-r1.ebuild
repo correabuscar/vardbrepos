@@ -3,7 +3,7 @@
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/xpdf.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/xpdf.asc
 inherit cmake desktop verify-sig xdg
 
 DESCRIPTION="The PDF viewer and tools"
@@ -92,6 +92,11 @@ src_configure() {
 		-DWITH_LIBPNG=$(usex png)
 		-DXPDFWIDGET_PRINTING=$(usex cups)
 		-DSYSTEM_XPDFRC="${EPREFIX}/etc/xpdfrc"
+		# Bug 910166
+		# https://forum.xpdfreader.com/viewtopic.php?p=45052#p45052
+		# Likely fixed in 4.05
+		-DCMAKE_DISABLE_FIND_PACKAGE_Qt6Widgets=ON
+		-DCMAKE_DISABLE_FIND_PACKAGE_Qt4=ON
 	)
 	cmake_src_configure
 }

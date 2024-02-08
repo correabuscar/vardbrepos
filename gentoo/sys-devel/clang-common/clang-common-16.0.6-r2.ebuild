@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,8 +12,8 @@ LICENSE="Apache-2.0-with-LLVM-exceptions UoI-NCSA"
 SLOT="0"
 KEYWORDS="amd64 arm arm64 ~loong ppc ppc64 ~riscv sparc x86 ~amd64-linux ~ppc-macos ~x64-macos"
 IUSE="
-	default-compiler-rt default-libcxx default-lld llvm-libunwind
-	hardened stricter
+	default-compiler-rt default-libcxx default-lld
+	bootstrap-prefix hardened llvm-libunwind
 "
 
 PDEPEND="
@@ -146,28 +146,6 @@ src_install() {
 		EOF
 	fi
 
-	if use stricter; then
-		newins - gentoo-stricter.cfg <<-EOF
-			# This file increases the strictness of older clang versions
-			# to match the newest upstream version.
-
-			# clang-16 defaults
-			-Werror=implicit-function-declaration
-			-Werror=implicit-int
-			-Werror=incompatible-function-pointer-types
-
-			# constructs banned by C2x
-			-Werror=deprecated-non-prototype
-
-			# deprecated but large blast radius
-			#-Werror=strict-prototypes
-		EOF
-
-		cat >> "${ED}/etc/clang/gentoo-common.cfg" <<-EOF || die
-			@gentoo-stricter.cfg
-		EOF
-	fi
-
 	local tool
 	for tool in clang{,++,-cpp}; do
 		newins - "${tool}.cfg" <<-EOF
@@ -175,6 +153,29 @@ src_install() {
 			@gentoo-common.cfg
 		EOF
 	done
+
+	if use kernel_Darwin; then
+		cat >> "${ED}/etc/clang/gentoo-common.cfg" <<-EOF || die
+			# Gentoo Prefix on Darwin
+			-Wl,-search_paths_first
+			-Wl,-rpath,${EPREFIX}/usr/lib
+			-L ${EPREFIX}/usr/lib
+			-isystem ${EPREFIX}/usr/include
+			-isysroot ${EPREFIX}/MacOSX.sdk
+		EOF
+		if use bootstrap-prefix ; then
+			# bootstrap-prefix is only set during stage2 of bootstrapping
+			# Prefix, where EPREFIX is set to EPREFIX/tmp.
+			# Here we need to point it at the future lib dir of the stage3's
+			# EPREFIX.
+			cat >> "${ED}/etc/clang/gentoo-common.cfg" <<-EOF || die
+				-Wl,-rpath,${EPREFIX}/../usr/lib
+			EOF
+		fi
+		cat >> "${ED}/etc/clang/clang++.cfg" <<-EOF || die
+			-lc++abi
+		EOF
+	fi
 }
 
 pkg_preinst() {

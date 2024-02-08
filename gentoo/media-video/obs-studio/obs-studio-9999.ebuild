@@ -9,10 +9,10 @@ PYTHON_COMPAT=( python3_{9..12} )
 
 inherit cmake lua-single optfeature python-single-r1 xdg
 
-CEF_DIR="cef_binary_5060_linux64"
-OBS_BROWSER_COMMIT="291464d6988083411e7369fc53eba6d5ef07ff67"
-OBS_WEBSOCKET_COMMIT="6fd18a7ef1ecb149e8444154af1daab61d4241a9"
-QR_COMMIT="8518684c0f33d004fa93971be2c6a8eca3167d1e"
+CEF_DIR="cef_binary_5060_linux_x86_64"
+CEF_REVISION="_v3"
+OBS_BROWSER_COMMIT="211f851bb3f203483a1f7571dd40fa66d0dfceb8"
+OBS_WEBSOCKET_COMMIT="ede66a68cbc043a6fc7c8af683ae0924d4068941"
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
@@ -20,21 +20,16 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_SUBMODULES=(
 		plugins/obs-browser
 		plugins/obs-websocket
-		plugins/obs-websocket/deps/asio
-		plugins/obs-websocket/deps/json
-		plugins/obs-websocket/deps/qr
-		plugins/obs-websocket/deps/websocketpp
 	)
 else
 	SRC_URI="
 		https://github.com/obsproject/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz
 		https://github.com/obsproject/obs-browser/archive/${OBS_BROWSER_COMMIT}.tar.gz -> obs-browser-${OBS_BROWSER_COMMIT}.tar.gz
-		https://github.com/nayuki/QR-Code-generator/archive/${QR_COMMIT}.tar.gz -> qr-${QR_COMMIT}.tar.gz
 		https://github.com/obsproject/obs-websocket/archive/${OBS_WEBSOCKET_COMMIT}.tar.gz -> obs-websocket-${OBS_WEBSOCKET_COMMIT}.tar.gz
 	"
-	KEYWORDS="~amd64 ~ppc64 ~x86"
+	KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
 fi
-SRC_URI+=" browser? ( https://cdn-fastly.obsproject.com/downloads/${CEF_DIR}.tar.bz2 )"
+SRC_URI+=" browser? ( https://cdn-fastly.obsproject.com/downloads/${CEF_DIR}${CEF_REVISION}.tar.xz )"
 
 DESCRIPTION="Software for Recording and Streaming Live Video Content"
 HOMEPAGE="https://obsproject.com"
@@ -42,9 +37,10 @@ HOMEPAGE="https://obsproject.com"
 LICENSE="Boost-1.0 GPL-2+ MIT Unlicense"
 SLOT="0"
 IUSE="
-	+alsa browser decklink fdk jack lua nvenc pipewire pulseaudio
-	python qsv speex +ssl truetype v4l vlc wayland websocket
+	+alsa browser decklink fdk jack lua mpegts nvenc pipewire pulseaudio
+	python qsv speex +ssl test truetype v4l vlc wayland websocket
 "
+RESTRICT="!test? ( test )"
 REQUIRED_USE="
 	browser? ( || ( alsa pulseaudio ) )
 	lua? ( ${LUA_REQUIRED_USE} )
@@ -63,6 +59,7 @@ DEPEND="
 	dev-qt/qtsvg:6
 	media-libs/libglvnd
 	media-libs/libva
+	media-libs/rnnoise
 	media-libs/x264:=
 	media-video/ffmpeg:=[nvenc?,opus,x264]
 	net-misc/curl
@@ -108,12 +105,17 @@ DEPEND="
 	fdk? ( media-libs/fdk-aac:= )
 	jack? ( virtual/jack )
 	lua? ( ${LUA_DEPS} )
+	mpegts? (
+		net-libs/librist
+		net-libs/srt
+	)
 	pipewire? ( media-video/pipewire:= )
 	pulseaudio? ( media-libs/libpulse )
 	python? ( ${PYTHON_DEPS} )
 	qsv? ( media-libs/oneVPL )
 	speex? ( media-libs/speexdsp )
 	ssl? ( net-libs/mbedtls:= )
+	test? ( dev-util/cmocka )
 	truetype? (
 		media-libs/fontconfig
 		media-libs/freetype
@@ -131,6 +133,7 @@ DEPEND="
 		dev-cpp/asio
 		dev-cpp/nlohmann_json
 		dev-cpp/websocketpp
+		dev-libs/qr-code-generator
 	)
 "
 RDEPEND="${DEPEND}"
@@ -162,9 +165,6 @@ src_unpack() {
 
 		rm -d ${P}/plugins/obs-websocket || die
 		mv obs-websocket-${OBS_WEBSOCKET_COMMIT} ${P}/plugins/obs-websocket || die
-
-		rm -d ${P}/plugins/obs-websocket/deps/qr || die
-		mv QR-Code-generator-${QR_COMMIT} ${P}/plugins/obs-websocket/deps/qr || die
 	fi
 }
 
@@ -189,12 +189,14 @@ src_configure() {
 		-DENABLE_FREETYPE=$(usex truetype)
 		-DENABLE_JACK=$(usex jack)
 		-DENABLE_LIBFDK=$(usex fdk)
-		-DENABLE_NEW_MPEGTS_OUTPUT=OFF # Requires librist and libsrt.
+		-DENABLE_NEW_MPEGTS_OUTPUT=$(usex mpegts)
 		-DENABLE_PIPEWIRE=$(usex pipewire)
 		-DENABLE_PULSEAUDIO=$(usex pulseaudio)
 		-DENABLE_QSV11=$(usex qsv)
+		-DENABLE_RNNOISE=ON
 		-DENABLE_RTMPS=$(usex ssl ON OFF) # Needed for bug 880861
 		-DENABLE_SPEEXDSP=$(usex speex)
+		-DENABLE_UNIT_TESTS=$(usex test)
 		-DENABLE_V4L2=$(usex v4l)
 		-DENABLE_VLC=$(usex vlc)
 		-DENABLE_VST=ON

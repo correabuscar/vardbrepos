@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit distutils-r1 pypi
 
@@ -16,7 +16,7 @@ HOMEPAGE="
 
 SLOT="0"
 LICENSE="MIT"
-KEYWORDS="amd64 ~riscv x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm64 ~riscv x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="
 	>=dev-python/blessed-1.5[${PYTHON_USEDEP}]

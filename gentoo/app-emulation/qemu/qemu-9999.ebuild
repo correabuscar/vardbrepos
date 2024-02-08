@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -60,7 +60,7 @@ SLOT="0"
 
 IUSE="accessibility +aio alsa bpf bzip2 capstone +curl debug ${QEMU_DOC_USEFLAG}
 	+fdt fuse glusterfs +gnutls gtk infiniband iscsi io-uring
-	jack jemalloc +jpeg
+	jack jemalloc +jpeg keyutils
 	lzo multipath
 	ncurses nfs nls numa opengl +oss pam +pin-upstream-blobs pipewire
 	plugins +png pulseaudio python rbd sasl +seccomp sdl sdl-image selinux
@@ -159,7 +159,7 @@ ALL_DEPEND="
 	dev-libs/glib:2[static-libs(+)]
 	sys-libs/zlib[static-libs(+)]
 	python? ( ${PYTHON_DEPS} )
-	systemtap? ( dev-util/systemtap )
+	systemtap? ( dev-debug/systemtap )
 	xattr? ( sys-apps/attr[static-libs(+)] )
 "
 
@@ -195,6 +195,7 @@ SOFTMMU_TOOLS_DEPEND="
 	jemalloc? ( dev-libs/jemalloc )
 	jpeg? ( media-libs/libjpeg-turbo:=[static-libs(+)] )
 	kernel_linux? ( sys-libs/libcap-ng[static-libs(+)] )
+	keyutils? ( sys-apps/keyutils[static-libs(+)] )
 	lzo? ( dev-libs/lzo:2[static-libs(+)] )
 	multipath? ( sys-fs/multipath-tools )
 	ncurses? (
@@ -278,7 +279,7 @@ PPC_FIRMWARE_DEPEND="
 BDEPEND="
 	$(python_gen_impl_dep)
 	dev-lang/perl
-	>=dev-util/meson-0.63.0
+	>=dev-build/meson-0.63.0
 	dev-python/pip[${PYTHON_USEDEP}]
 	virtual/pkgconfig
 	doc? (
@@ -288,7 +289,7 @@ BDEPEND="
 	gtk? ( nls? ( sys-devel/gettext ) )
 	test? (
 		dev-libs/glib[utils]
-		sys-devel/bc
+		app-alternatives/bc
 	)
 "
 CDEPEND="
@@ -400,6 +401,8 @@ pkg_pretend() {
 			use vhost-net && CONFIG_CHECK+=" ~VHOST_NET"
 			ERROR_VHOST_NET="You must enable VHOST_NET to have vhost-net"
 			ERROR_VHOST_NET+=" support"
+			use test && CONFIG_CHECK+=" IP_MULTICAST"
+			ERROR_IP_MULTICAST="Test suite requires IP_MULTICAST"
 
 			if use amd64 || use x86 || use amd64-linux || use x86-linux; then
 				if grep -q AuthenticAMD /proc/cpuinfo; then
@@ -592,6 +595,7 @@ qemu_src_configure() {
 		$(conf_malloc jemalloc)
 		$(conf_notuser jpeg vnc-jpeg)
 		$(conf_notuser kernel_linux kvm)
+		$(conf_notuser keyutils libkeyutils)
 		$(conf_notuser lzo)
 		$(conf_notuser multipath mpath)
 		$(conf_notuser ncurses curses)

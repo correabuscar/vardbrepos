@@ -1,11 +1,11 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 DISTUTILS_OPTIONAL=1
 DISTUTILS_USE_PEP517=no
@@ -17,7 +17,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI="
 		https://gitlab.com/gromacs/gromacs.git
 		https://github.com/gromacs/gromacs.git
-		git://git.gromacs.org/gromacs.git"
+		"
 	[[ ${PV} = 9999 ]] && EGIT_BRANCH="master" || EGIT_BRANCH="release-${PV:0:4}"
 	inherit git-r3
 else
@@ -25,7 +25,7 @@ else
 		https://ftp.gromacs.org/gromacs/${PN}-${PV/_/-}.tar.gz
 		doc? ( https://ftp.gromacs.org/manual/manual-${PV/_/-}.pdf )
 		test? ( https://ftp.gromacs.org/regressiontests/regressiontests-${PV/_/-}.tar.gz )"
-	KEYWORDS="amd64 arm ~x86 ~amd64-linux ~x86-linux ~x64-macos"
+	KEYWORDS="amd64 ~arm ~x86 ~amd64-linux ~x86-linux ~x64-macos"
 fi
 
 ACCE_IUSE="cpu_flags_x86_sse2 cpu_flags_x86_sse4_1 cpu_flags_x86_fma4 cpu_flags_x86_avx cpu_flags_x86_avx2"
@@ -60,7 +60,7 @@ CDEPEND="
 BDEPEND="${CDEPEND}
 	virtual/pkgconfig
 	build-manual? (
-		app-doc/doxygen
+		app-text/doxygen
 		$(python_gen_cond_dep '
 			dev-python/sphinx[${PYTHON_USEDEP}]
 		')
@@ -106,7 +106,7 @@ src_unpack() {
 	else
 		git-r3_src_unpack
 		if use test; then
-			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
+			EGIT_REPO_URI="https://gitlab.com/gromacs/gromacs-regressiontests.git" \
 			EGIT_BRANCH="${EGIT_BRANCH}" \
 			EGIT_CHECKOUT_DIR="${WORKDIR}/regressiontests"\
 				git-r3_src_unpack
@@ -138,8 +138,8 @@ src_prepare() {
 	DOC_CONTENTS="Gromacs can use sci-chemistry/vmd to read additional file formats"
 	if use build-manual; then
 		# try to create policy for imagemagik
-		mkdir -p ${HOME}/.config/ImageMagick
-		cat >> ${HOME}/.config/ImageMagick/policy.xml <<- EOF
+		mkdir -p "${HOME}"/.config/ImageMagick
+		cat >> "${HOME}"/.config/ImageMagick/policy.xml <<- EOF
 		<?xml version="1.0" encoding="UTF-8"?>
 		<!DOCTYPE policymap [
 		<!ELEMENT policymap (policy)+>
@@ -341,7 +341,7 @@ src_install() {
 pkg_postinst() {
 	einfo
 	einfo  "Please read and cite gromacs related papers from list:"
-	einfo  "https://www.gromacs.org/Gromacs_papers"
+	einfo  "https://www.gromacs.org/articles.html"
 	einfo
 	readme.gentoo_print_elog
 }

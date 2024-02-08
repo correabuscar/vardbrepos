@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,7 +6,7 @@ EAPI=8
 # Dropped these because blank as of 3.02
 #PLOCALES="de es fi fr hu id pl"
 PLOCALES="de es fr pl"
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/sysvinit.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/sysvinit.asc
 inherit toolchain-funcs flag-o-matic plocale verify-sig
 
 DESCRIPTION="/sbin/init - parent of all processes"
@@ -21,7 +21,7 @@ S="${WORKDIR}/${P/_*}"
 LICENSE="GPL-2"
 SLOT="0"
 if [[ ${PV} != *beta* ]] ; then
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 fi
 IUSE="selinux ibm nls static"
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -52,7 +52,7 @@ SRC_URI="
 # https://raw.githubusercontent.com/felixonmars/archriscv-packages/master/java17-openjdk/java17-riscv64.patch
 
 LICENSE="GPL-2-with-classpath-exception"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~riscv ~x86"
+KEYWORDS="amd64 ~arm arm64 ppc64 ~riscv x86"
 
 IUSE="alsa big-endian cups debug doc examples headless-awt javafx +jbootstrap lto selinux source system-bootstrap systemtap"
 
@@ -69,7 +69,7 @@ COMMON_DEPEND="
 	media-libs/lcms:2=
 	sys-libs/zlib
 	media-libs/libjpeg-turbo:0=
-	systemtap? ( dev-util/systemtap )
+	systemtap? ( dev-debug/systemtap )
 "
 
 # Many libs are required to build, but not to run, make is possible to remove

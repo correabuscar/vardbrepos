@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,7 +14,7 @@ if [[ ${PV} == *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://gitlab.com/NTPsec/ntpsec.git"
 else
-	VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/ntpsec.asc
+	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/ntpsec.asc
 	inherit verify-sig
 	SRC_URI="
 		https://ftp.ntpsec.org/pub/releases/${P}.tar.gz
@@ -67,7 +67,7 @@ BDEPEND+="
 	>=app-text/asciidoc-8.6.8
 	dev-libs/libxslt
 	app-text/docbook-xsl-stylesheets
-	sys-devel/bison
+	app-alternatives/yacc
 "
 
 PATCHES=(

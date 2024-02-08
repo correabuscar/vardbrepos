@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -66,7 +66,7 @@ DEPEND="${RDEPEND}
 	dev-util/itstool
 	sys-devel/gettext
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen[dot] )
+	doc? ( app-text/doxygen[dot] )
 	jack? ( virtual/jack )"
 
 PATCHES=(
@@ -145,7 +145,7 @@ src_configure() {
 			echo '' || echo "--no-fpu-optimization")
 		$(usex doc "--docs" '')
 		$(usex nls '' "--no-nls")
-		$(usex phonehome "--phone-home" "--no-phone-home")
+		$(usex phonehome '' "--no-phone-home")
 		# not possible right now  --use-external-libs
 		# missing dependency: https://github.com/c4dm/qm-dsp
 	)

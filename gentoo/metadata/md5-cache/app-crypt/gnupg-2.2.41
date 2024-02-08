@@ -1,4 +1,4 @@
-BDEPEND=virtual/pkgconfig doc? ( sys-apps/texinfo ) nls? ( sys-devel/gettext ) verify-sig? ( sec-keys/openpgp-keys-gnupg ) virtual/pkgconfig verify-sig? ( app-crypt/gnupg >=app-portage/gemato-16 )
+BDEPEND=virtual/pkgconfig doc? ( sys-apps/texinfo ) nls? ( sys-devel/gettext ) verify-sig? ( sec-keys/openpgp-keys-gnupg ) virtual/pkgconfig verify-sig? ( app-crypt/gnupg >=app-portage/gemato-20 )
 DEFINED_PHASES=compile configure install prepare test unpack
 DEPEND=>=dev-libs/libassuan-2.5.0 >=dev-libs/libgcrypt-1.8.0:= >=dev-libs/libgpg-error-1.38 >=dev-libs/libksba-1.3.5 >=dev-libs/npth-1.2 >=net-misc/curl-7.10 sys-libs/zlib bzip2? ( app-arch/bzip2 ) ldap? ( net-nds/openldap:= ) readline? ( sys-libs/readline:= ) smartcard? ( usb? ( virtual/libusb:1 ) ) ssl? ( >=net-libs/gnutls-3.0:= ) tofu? ( >=dev-db/sqlite-3.7 )
 DESCRIPTION=The GNU Privacy Guard, a GPL OpenPGP implementation
@@ -12,5 +12,5 @@ RDEPEND=>=dev-libs/libassuan-2.5.0 >=dev-libs/libgcrypt-1.8.0:= >=dev-libs/libgp
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=mirror://gnupg/gnupg/gnupg-2.2.41.tar.bz2 verify-sig? ( mirror://gnupg/gnupg/gnupg-2.2.41.tar.bz2.sig )
-_eclasses_=flag-o-matic	e5cc383ea8420f92fe3737be790021dc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	out-of-source	15ce2b6ae214f3abe70892ce1e517abd	systemd	c8b03e8df84486aa991d4396686e8942	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc	verify-sig	06b4d23e3bacdf7164b1e7f9e059492a
-_md5_=a8c08fca5db031d53c121db7bc5105ec
+_eclasses_=flag-o-matic	b2b07efa51009704f88173b2c7feab47	multilib	c19072c3cd7ac5cb21de013f7e9832e0	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	out-of-source	15ce2b6ae214f3abe70892ce1e517abd	systemd	c8b03e8df84486aa991d4396686e8942	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	verify-sig	a79ba011daaf532d71a219182474d150
+_md5_=7f3264d418b2210f553ae07b699ff060

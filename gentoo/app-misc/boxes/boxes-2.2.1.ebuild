@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -11,7 +11,7 @@ SRC_URI="https://github.com/ascii-boxes/boxes/archive/refs/tags/v${PV}.tar.gz ->
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~ia64 ~mips ppc ppc64 sparc x86"
 IUSE="test"
 RESTRICT="!test? ( test )"
 
@@ -21,8 +21,8 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
-	sys-devel/bison
-	sys-devel/flex
+	app-alternatives/yacc
+	app-alternatives/lex
 	test? ( app-editors/vim-core )
 "
 

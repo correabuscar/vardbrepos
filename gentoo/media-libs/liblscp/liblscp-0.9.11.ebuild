@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,14 +14,14 @@ if [[ ${PV} == "9999" ]] ; then
 else
 	SRC_URI="https://www.rncbc.org/archive/${P}.tar.gz
 		https://download.linuxsampler.org/packages/${P}.tar.gz"
-	KEYWORDS="~amd64 ~ppc ~x86"
+	KEYWORDS="amd64 ~ppc x86"
 fi
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE="doc"
 
-BDEPEND="doc? ( app-doc/doxygen )"
+BDEPEND="doc? ( app-text/doxygen )"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.9.6-conditional.patch"

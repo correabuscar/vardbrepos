@@ -12,7 +12,7 @@ if [[ ${PV} == *9999 ]] ; then
 	EGIT_REPO_URI="https://github.com/vergoh/vnstat"
 	inherit git-r3
 else
-	VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/teemutoivola.asc
+	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/teemutoivola.asc
 	inherit verify-sig
 
 	SRC_URI="
@@ -24,7 +24,7 @@ else
 		)
 	"
 
-	KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
+	KEYWORDS="amd64 arm arm64 hppa ~mips ppc ppc64 ~riscv sparc x86"
 
 	BDEPEND="verify-sig? ( sec-keys/openpgp-keys-teemutoivola )"
 fi

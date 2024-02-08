@@ -5,8 +5,11 @@
 		<email>tupone@gentoo.org</email>
 		<name>Tupone Alfredo</name>
 	</maintainer>
+	<maintainer type="person">
+		<email>mgorny@gentoo.org</email>
+		<name>Michał Górny</name>
+	</maintainer>
 	<use>
-		<flag name="brotli">Enable brotli compression support</flag>
 		<flag name="compute">Build the Arrow Compute Modules</flag>
 		<flag name="dataset">Build the Arrow Dataset Modules</flag>
 		<flag name="json">Enables read/write json format</flag>

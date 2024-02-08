@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -23,11 +23,11 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 BDEPEND="
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen )
+	doc? ( app-text/doxygen )
 	test? (
 		${PYTHON_DEPS}
 		$(python_gen_any_dep '
-			dev-python/python-libevdev[${PYTHON_USEDEP}]
+			dev-python/libevdev[${PYTHON_USEDEP}]
 			dev-python/pyudev[${PYTHON_USEDEP}]
 			dev-python/pytest[${PYTHON_USEDEP}]
 		')
@@ -35,7 +35,7 @@ BDEPEND="
 "
 
 python_check_deps() {
-	python_has_version "dev-python/python-libevdev[${PYTHON_USEDEP}]" &&
+	python_has_version "dev-python/libevdev[${PYTHON_USEDEP}]" &&
 	python_has_version "dev-python/pyudev[${PYTHON_USEDEP}]" &&
 	python_has_version "dev-python/pytest[${PYTHON_USEDEP}]"
 }

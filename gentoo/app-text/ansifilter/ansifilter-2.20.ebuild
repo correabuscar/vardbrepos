@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/andresimon.asc
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/andresimon.asc
 inherit desktop toolchain-funcs qmake-utils verify-sig xdg-utils
 
 DESCRIPTION="Handles text files containing ANSI terminal escape codes"
@@ -16,7 +16,7 @@ SRC_URI="
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 hppa ~ia64 ~loong ppc ppc64 ~riscv ~s390 sparc x86 ~x64-macos"
+KEYWORDS="amd64 arm arm64 hppa ~ia64 ~loong ~m68k ppc ppc64 ~riscv ~s390 sparc x86 ~x64-macos"
 IUSE="gui"
 
 RDEPEND="
@@ -73,7 +73,7 @@ src_compile() {
 
 src_install() {
 	emake -f makefile \
-		DESTDIR="${D}" \
+		DESTDIR="${ED}" \
 		doc_dir="/usr/share/doc/${PF}" \
 		-j1 \
 		install $(usev gui install-gui)
