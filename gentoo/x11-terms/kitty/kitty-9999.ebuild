@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..12} )
-inherit edo go-env optfeature multiprocessing
+inherit edo flag-o-matic go-env optfeature multiprocessing
 inherit python-single-r1 toolchain-funcs xdg
 
 if [[ ${PV} == 9999 ]]; then
@@ -60,6 +60,9 @@ RDEPEND="
 "
 DEPEND="
 	${RDEPEND}
+	amd64? ( dev-libs/simde )
+	arm64? ( dev-libs/simde )
+	x86? ( dev-libs/simde )
 	X? (
 		x11-base/xorg-proto
 		x11-libs/libXi
@@ -131,6 +134,16 @@ src_compile() {
 	go-env_set_compile_environment
 	local -x GOFLAGS="-p=$(makeopts_jobs) -v -x"
 	use ppc64 && [[ $(tc-endian) == big ]] || GOFLAGS+=" -buildmode=pie"
+
+	# workaround link errors with Go + gcc + -g3 (bug #924436),
+	# retry now and then to see if can be dropped
+	tc-is-gcc &&
+		CGO_CFLAGS=$(
+			CFLAGS=${CGO_CFLAGS}
+			replace-flags -g3 -g
+			replace-flags -ggdb3 -ggdb
+			printf %s "${CFLAGS}"
+		)
 
 	local conf=(
 		--disable-link-time-optimization

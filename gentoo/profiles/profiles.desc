@@ -28,9 +28,9 @@ alpha		default/linux/alpha/23.0/split-usr				exp
 alpha		default/linux/alpha/23.0/split-usr/desktop			exp
 alpha		default/linux/alpha/23.0/split-usr/desktop/gnome		exp
 
-# SYMLINK_LIB=no profiles
-# Run app-portage/unsymlink-lib *before* switching the profile.
-# @MAINTAINER: mgorny@gentoo.org
+
+# AMD64 Profiles
+# @MAINTAINER: amd64@gentoo.org
 amd64		default/linux/amd64/17.1					stable
 amd64		default/linux/amd64/17.1/selinux				stable
 amd64		default/linux/amd64/17.1/hardened				stable
@@ -59,12 +59,55 @@ amd64		default/linux/amd64/17.1/systemd/selinux/merged-usr		exp
 amd64		default/linux/amd64/17.1/clang					exp
 amd64		default/linux/amd64/17.1/systemd/clang				exp
 amd64		default/linux/amd64/17.1/systemd/clang/merged-usr		exp
+amd64		default/linux/amd64/23.0					exp
+amd64		default/linux/amd64/23.0/systemd				exp
+amd64		default/linux/amd64/23.0/desktop				exp
+amd64		default/linux/amd64/23.0/desktop/systemd			exp
+amd64		default/linux/amd64/23.0/desktop/gnome				exp
+amd64		default/linux/amd64/23.0/desktop/gnome/systemd			exp
+amd64		default/linux/amd64/23.0/desktop/plasma				exp
+amd64		default/linux/amd64/23.0/desktop/plasma/systemd			exp
+amd64		default/linux/amd64/23.0/no-multilib				exp
+amd64		default/linux/amd64/23.0/no-multilib/systemd			exp
+amd64		default/linux/amd64/23.0/no-multilib/hardened			exp
+amd64		default/linux/amd64/23.0/no-multilib/hardened/systemd		exp
+amd64		default/linux/amd64/23.0/no-multilib/hardened/selinux		exp
+amd64		default/linux/amd64/23.0/no-multilib/hardened/selinux/systemd	exp
+amd64		default/linux/amd64/23.0/no-multilib/prefix			exp
+amd64		default/linux/amd64/23.0/no-multilib/prefix/kernel-2.6.32+	exp
+amd64		default/linux/amd64/23.0/no-multilib/prefix/kernel-2.6.16+	exp
+amd64		default/linux/amd64/23.0/no-multilib/prefix/kernel-3.2+		exp
+amd64		default/linux/amd64/23.0/llvm					exp
+amd64		default/linux/amd64/23.0/llvm/systemd				exp
+amd64		default/linux/amd64/23.0/hardened				exp
+amd64		default/linux/amd64/23.0/hardened/systemd			exp
+amd64		default/linux/amd64/23.0/hardened/selinux			exp
+amd64		default/linux/amd64/23.0/hardened/selinux/systemd		exp
+amd64		default/linux/amd64/23.0/split-usr				exp
+amd64		default/linux/amd64/23.0/split-usr/desktop			exp
+amd64		default/linux/amd64/23.0/split-usr/desktop/gnome		exp
+amd64		default/linux/amd64/23.0/split-usr/desktop/plasma		exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib			exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/selinux		exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/hardened		exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/hardened/selinux	exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/prefix		exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/prefix/kernel-2.6.32+	exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/prefix/kernel-2.6.16+	exp
+amd64		default/linux/amd64/23.0/split-usr/no-multilib/prefix/kernel-3.2+	exp
+amd64		default/linux/amd64/23.0/split-usr/llvm				exp
+amd64		default/linux/amd64/23.0/split-usr/hardened			exp
+amd64		default/linux/amd64/23.0/split-usr/hardened/selinux		exp
+
 
 # AMD64 Profiles
 # @MAINTAINER: amd64@gentoo.org
 amd64		default/linux/amd64/17.0/x32					dev
 amd64		default/linux/amd64/17.0/x32/systemd				exp
 amd64		default/linux/amd64/17.0/x32/systemd/merged-usr			exp
+amd64		default/linux/amd64/23.0/x32					exp
+amd64		default/linux/amd64/23.0/x32/systemd				exp
+amd64		default/linux/amd64/23.0/split-usr/x32				exp
 
 
 # ARM Profiles
@@ -247,6 +290,19 @@ hppa		default/linux/hppa/17.0/systemd					exp
 hppa		default/linux/hppa/17.0/systemd/merged-usr			exp
 hppa		default/linux/hppa/17.0/desktop					stable
 hppa		default/linux/hppa/17.0/developer				exp
+hppa		default/linux/hppa/23.0/hppa1.1					exp
+hppa		default/linux/hppa/23.0/hppa1.1/systemd				exp
+hppa		default/linux/hppa/23.0/hppa1.1/desktop				exp
+hppa		default/linux/hppa/23.0/hppa1.1/desktop/systemd			exp
+hppa		default/linux/hppa/23.0/hppa1.1/split-usr			exp
+hppa		default/linux/hppa/23.0/hppa1.1/split-usr/desktop		exp
+hppa		default/linux/hppa/23.0/hppa2.0					exp
+hppa		default/linux/hppa/23.0/hppa2.0/systemd				exp
+hppa		default/linux/hppa/23.0/hppa2.0/desktop				exp
+hppa		default/linux/hppa/23.0/hppa2.0/desktop/systemd			exp
+hppa		default/linux/hppa/23.0/hppa2.0/split-usr			exp
+hppa		default/linux/hppa/23.0/hppa2.0/split-usr/desktop		exp
+
 
 # IA64 Profiles
 # @MAINTAINER: ia64@gentoo.org
@@ -340,6 +396,42 @@ mips		default/linux/mips/17.0/mipsel/multilib/n32/systemd/merged-usr	exp
 mips		default/linux/mips/17.0/mipsel/multilib/n64			exp
 mips		default/linux/mips/17.0/mipsel/multilib/n64/systemd		exp
 mips		default/linux/mips/17.0/mipsel/multilib/n64/systemd/merged-usr	exp
+mips		default/linux/mips/23.0/mipsel/o32_sf				exp
+mips		default/linux/mips/23.0/mipsel/o32_sf/systemd			exp
+mips		default/linux/mips/23.0/mipsel/o32				exp
+mips		default/linux/mips/23.0/mipsel/o32/systemd			exp
+mips		default/linux/mips/23.0/mipsel/n32				exp
+mips		default/linux/mips/23.0/mipsel/n32/systemd			exp
+mips		default/linux/mips/23.0/mipsel/n64				exp
+mips		default/linux/mips/23.0/mipsel/n64/systemd			exp
+mips		default/linux/mips/23.0/mipsel/multilib/n32			exp
+mips		default/linux/mips/23.0/mipsel/multilib/n32/systemd		exp
+mips		default/linux/mips/23.0/mipsel/multilib/n64			exp
+mips		default/linux/mips/23.0/mipsel/multilib/n64/systemd		exp
+mips		default/linux/mips/23.0/o32_sf					exp
+mips		default/linux/mips/23.0/o32_sf/systemd				exp
+mips		default/linux/mips/23.0/o32					exp
+mips		default/linux/mips/23.0/o32/systemd				exp
+mips		default/linux/mips/23.0/n32					exp
+mips		default/linux/mips/23.0/n32/systemd				exp
+mips		default/linux/mips/23.0/n64					exp
+mips		default/linux/mips/23.0/n64/systemd				exp
+mips		default/linux/mips/23.0/multilib/n32				exp
+mips		default/linux/mips/23.0/multilib/n32/systemd			exp
+mips		default/linux/mips/23.0/multilib/n64				exp
+mips		default/linux/mips/23.0/multilib/n64/systemd			exp
+mips		default/linux/mips/23.0/split-usr/mipsel/o32_sf			exp
+mips		default/linux/mips/23.0/split-usr/mipsel/o32			exp
+mips		default/linux/mips/23.0/split-usr/mipsel/n32			exp
+mips		default/linux/mips/23.0/split-usr/mipsel/n64			exp
+mips		default/linux/mips/23.0/split-usr/mipsel/multilib/n32		exp
+mips		default/linux/mips/23.0/split-usr/mipsel/multilib/n64		exp
+mips		default/linux/mips/23.0/split-usr/o32_sf			exp
+mips		default/linux/mips/23.0/split-usr/o32				exp
+mips		default/linux/mips/23.0/split-usr/n32				exp
+mips		default/linux/mips/23.0/split-usr/n64				exp
+mips		default/linux/mips/23.0/split-usr/multilib/n32			exp
+mips		default/linux/mips/23.0/split-usr/multilib/n64			exp
 
 # Deprecated PPC64 Profiles
 # @MAINTAINER: ppc64@gentoo.org
@@ -583,6 +675,14 @@ amd64		default/linux/amd64/17.0/musl					dev
 amd64		default/linux/amd64/17.0/musl/clang				exp
 amd64		default/linux/amd64/17.0/musl/hardened				exp
 amd64		default/linux/amd64/17.0/musl/hardened/selinux			exp
+amd64		default/linux/amd64/23.0/musl					exp
+amd64		default/linux/amd64/23.0/musl/llvm				exp
+amd64		default/linux/amd64/23.0/musl/hardened				exp
+amd64		default/linux/amd64/23.0/musl/hardened/selinux			exp
+amd64		default/linux/amd64/23.0/split-usr/musl				exp
+amd64		default/linux/amd64/23.0/split-usr/musl/llvm			exp
+amd64		default/linux/amd64/23.0/split-usr/musl/hardened		exp
+amd64		default/linux/amd64/23.0/split-usr/musl/hardened/selinux	exp
 arm		default/linux/arm/17.0/musl/armv6j				dev
 arm		default/linux/arm/17.0/musl/armv6j/hardened			exp
 arm		default/linux/arm/17.0/musl/armv6j/hardened/selinux		exp
@@ -620,6 +720,14 @@ mips		default/linux/mips/17.0/o32/musl				exp
 mips		default/linux/mips/17.0/n64/musl				exp
 mips		default/linux/mips/17.0/mipsel/o32/musl				exp
 mips		default/linux/mips/17.0/mipsel/n64/musl				exp
+mips		default/linux/mips/23.0/mipsel/o32/musl				exp
+mips		default/linux/mips/23.0/mipsel/n64/musl				exp
+mips		default/linux/mips/23.0/o32/musl				exp
+mips		default/linux/mips/23.0/n64/musl				exp
+mips		default/linux/mips/23.0/split-usr/mipsel/o32/musl		exp
+mips		default/linux/mips/23.0/split-usr/mipsel/n64/musl		exp
+mips		default/linux/mips/23.0/split-usr/o32/musl			exp
+mips		default/linux/mips/23.0/split-usr/n64/musl			exp
 riscv		default/linux/riscv/20.0/rv64gc/lp64d/musl			dev
 riscv		default/linux/riscv/20.0/rv64gc/lp64/musl			dev
 riscv		default/linux/riscv/23.0/rv64/lp64d/musl			exp
