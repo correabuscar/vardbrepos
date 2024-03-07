@@ -246,6 +246,7 @@ app-arch/libdeflate:gzip - Support the gzip format
 app-arch/libdeflate:test - Build the test programs (requires sys-libs/zlib)
 app-arch/libdeflate:utils - Build the libdeflate-gzip program
 app-arch/libdeflate:zlib - Support the zlib format
+app-arch/lrzip-next:year2038 - Enables support for timestamps after the year 2038
 app-arch/p7zip:natspec - Use dev-libs/libnatspec to correctly decode non-ascii file names archived in Windows.
 app-arch/p7zip:rar - Enable support for non-free rar decoder
 app-arch/rar:all-sfx - Install all SFX (Self-Extracting) files rather than just the native format (allows creation of Windows EXEs on Linux ELF systems)
@@ -330,8 +331,10 @@ app-containers/docker-credential-helpers:pass - Build pass helper for the pass u
 app-containers/incus:fuidshift - Install the fuidshift binary - currently conflicts with app-containers/lxd
 app-containers/lxc:io-uring - Enable io_uring support, and use io_uring instead of epoll
 app-containers/lxc:tools - Build and install additional command line tools
+app-containers/nerdctl:rootless - Enables dependencies for running in rootless mode.
 app-containers/podman:btrfs - Enables dependencies for the "btrfs" graph driver, including necessary kernel flags.
 app-containers/podman:cgroup-hybrid - Use legacy (hybrid) cgroups instead of modern (unified) cgroups
+app-containers/podman:cron - Runs `podman auto-update` daily. See podman-auto-update(1)
 app-containers/podman:fuse - Enables fuse dependencies (fuse-overlayfs is especially useful for rootless mode).
 app-containers/podman:init - Enables catatonit dependency required for podman run --init.
 app-containers/podman:rootless - Enables dependencies for running in rootless mode.
@@ -685,6 +688,7 @@ app-emulation/wine-proton:osmesa - Enable off-screen rendering (OpenGL in bitmap
 app-emulation/wine-proton:perl - Install helpers that require perl (winedump/winemaker)
 app-emulation/wine-proton:sdl - Enable gamepad support using media-libs/libsdl2
 app-emulation/wine-proton:vkd3d - Enable DirectX 12 support using app-emulation/vkd3d
+app-emulation/wine-proton:wow64 - Enable running 32bit applications without 32bit ELF multilib by mapping to 64bit calls (experimental, may have slightly worse OpenGL performance or other issues compared to USE=abi_x86_32, also lacks 16bit support) -- still need dev-util/mingw64-toolchain with abi_x86_32 which itself does not need multilib
 app-emulation/wine-staging:capi - Enable ISDN support using net-libs/libcapi
 app-emulation/wine-staging:crossdev-mingw - Use sys-devel/crossdev for the toolchain rather than dev-util/mingw64-toolchain (requires manual setting up)
 app-emulation/wine-staging:dos - Pull in games-emulation/dosbox to run DOS applications
@@ -697,7 +701,7 @@ app-emulation/wine-staging:pcap - Support packet capture software (e.g. wireshar
 app-emulation/wine-staging:perl - Install helpers that require perl (winedump/winemaker)
 app-emulation/wine-staging:samba - Pull in net-fs/samba with winbind for NTLM auth support
 app-emulation/wine-staging:sdl - Enable gamepad support using media-libs/libsdl2
-app-emulation/wine-staging:wow64 - Enable running 32bit applications without 32bit ELF multilib by mapping to 64bit calls (experimental, may have worse OpenGL performance or other issues compared to USE=abi_x86_32) -- still requires (just) dev-util/mingw64-toolchain with abi_x86_32
+app-emulation/wine-staging:wow64 - Enable running 32bit applications without 32bit ELF multilib by mapping to 64bit calls (experimental, may have slightly worse OpenGL performance or other issues compared to USE=abi_x86_32, also lacks 16bit support) -- still need dev-util/mingw64-toolchain with abi_x86_32 which itself does not need multilib
 app-emulation/wine-vanilla:capi - Enable ISDN support using net-libs/libcapi
 app-emulation/wine-vanilla:crossdev-mingw - Use sys-devel/crossdev for the toolchain rather than dev-util/mingw64-toolchain (requires manual setting up)
 app-emulation/wine-vanilla:dos - Pull in games-emulation/dosbox to run DOS applications
@@ -711,7 +715,7 @@ app-emulation/wine-vanilla:perl - Install helpers that require perl (winedump/wi
 app-emulation/wine-vanilla:samba - Pull in net-fs/samba with winbind for NTLM auth support
 app-emulation/wine-vanilla:sdl - Enable gamepad support using media-libs/libsdl2
 app-emulation/wine-vanilla:vkd3d - Enable DirectX 12 support using app-emulation/vkd3d
-app-emulation/wine-vanilla:wow64 - Enable running 32bit applications without 32bit ELF multilib by mapping to 64bit calls (experimental, may have worse OpenGL performance or other issues compared to USE=abi_x86_32) -- still requires (just) dev-util/mingw64-toolchain with abi_x86_32
+app-emulation/wine-vanilla:wow64 - Enable running 32bit applications without 32bit ELF multilib by mapping to 64bit calls (experimental, may have slightly worse OpenGL performance or other issues compared to USE=abi_x86_32, also lacks 16bit support) -- still need dev-util/mingw64-toolchain with abi_x86_32 which itself does not need multilib
 app-emulation/winetricks:rar - Pull in app-arch/unrar for extraction of rar-compressed game files
 app-emulation/x48:readline - Enables support for libreadline
 app-emulation/xe-guest-utilities:xenstore - Use xenstore binaries bundled by Citrix instead of building app-emulation/xen-tools
@@ -1315,6 +1319,7 @@ dev-ada/spawn:static-pic - Build static library with pic code
 dev-ada/templates-parser:shared - Build shared library
 dev-ada/xmlada:shared - Build shared library
 dev-ada/xmlada:static-pic - Build static library with pic code
+dev-build/bazelisk:bazel-symlink - Install bazel symlink that points to bazelisk
 dev-build/cmake:dap - Build debugger for CMake with Debug Adapter Protocol support via dev-cpp/cppdap
 dev-build/muon:archive - Enable extracting wraps using app-arch/libarchive.
 dev-build/muon:libpkgconf - Enable looking up packages via dev-util/pkgconf.
@@ -1798,7 +1803,6 @@ dev-lang/gnat-gpl:ssp - Build packages with stack smashing protector on by defau
 dev-lang/gnat-gpl:systemtap - enable systemtap static probe points
 dev-lang/gnat-gpl:vtv - Build support for virtual table verification (a C++ hardening feature)
 dev-lang/gnucobol:json - Enable support for JSON template formatting via dev-libs/json-c
-dev-lang/go:system-bootstrap - Bootstrap using installed go compiler
 dev-lang/idris2:chez - build using dev-scheme/chez
 dev-lang/idris2:racket - build using dev-scheme/racket
 dev-lang/idris2:test-full - pull in depedndencies to run all tests
@@ -2296,7 +2300,6 @@ dev-ml/ocamlnet:zip - Enables netzip support to read/write gzip data using objec
 dev-ml/stdlib-shims:ocamlopt - Whether the OCaml native code compiler is used. Must be set globally and match dev-lang/ocaml.
 dev-ml/tiny_httpd:camlzip - Interface to camlzip for tiny_httpd
 dev-ml/uutf:utftrip - Builds and install the utftrip executable: Among other things, reads unicode on stdin and rewrites it on stdout.
-dev-ml/zarith:mpir - Use MPIR library instead of GMP.
 dev-perl/App-Nopaste:browser - Spawn browser with pasted page
 dev-perl/App-Nopaste:clipboard - copying of URLs with -x/--copy
 dev-perl/App-Nopaste:gitlab - Ensure git is installed for reading/passing GitLab authentication
@@ -2743,6 +2746,7 @@ dev-qt/qtwebengine:jumbo-build - Combine source files to speed up build process.
 dev-qt/qtwebengine:pdfium - Build the QtPdf module based on chromium's PDFium library
 dev-qt/qtwebengine:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtwebengine:system-icu - Use the system-wide dev-libs/icu instead of bundled.
+dev-qt/qtwebengine:webdriver - Build tool for automated testing (ChromeDriver equivalent)
 dev-qt/qtwebengine:widgets - Enable QtWidgets support
 dev-qt/qtwebsockets:qml - Build QML bindings
 dev-qt/qtwidgets:gtk - Build the GTK platform theme plugin
@@ -2945,6 +2949,7 @@ dev-util/perf:numa - Enable NUMA support
 dev-util/perf:perl - Add support for Perl as a scripting language for perf tools.
 dev-util/perf:systemtap - Add support to define SDT event in perf tools.
 dev-util/perf:unwind - Use sys-libs/libunwind for frame unwinding support.
+dev-util/pkgconf:native-symlinks - Install generic symlinks like pkgconf and pkg-config. If this flag is disabled, only CHOST-prefixed pkg-config executables will be available to end users and ebuilds.
 dev-util/plan9port:freefonts - Don't install BigelowHolmes fonts
 dev-util/poke:nbd - Enable poking at networked block devices via sys-libs/libnbd.
 dev-util/poke:pvm-profiling - Enable profiling in the PVM
@@ -3602,6 +3607,7 @@ kde-apps/kwave:qtmedia - Enable playback via Qt5Multimedia
 kde-apps/libkcddb:kf6compat - Disable components colliding with KF6, depend on KF6 components instead
 kde-apps/libkcompactdisc:kf6compat - Disable components colliding with KF6, depend on KF6 components instead
 kde-apps/libkdepim:designer - Build plugins for dev-qt/designer
+kde-apps/libkgapi:kf6compat - Disable components colliding with KF6, depend on KF6 components instead
 kde-apps/libkleo:fancyviewer - Use kde-apps/kpimtextedit for an improved audit log viewer
 kde-apps/libksane:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
 kde-apps/mailcommon:designer - Build plugins for dev-qt/designer
@@ -3621,6 +3627,7 @@ kde-apps/okular:phonon - Enable sound support via media-libs/phonon
 kde-apps/okular:plucker - Enable Plucker E-Book for Palm OS devices support
 kde-apps/okular:qml - Install Okular Qml components
 kde-apps/okular:share - Enable support for a share menu using kde-frameworks/purpose
+kde-apps/parley:webengine - Build browser integration for the editor, requires dev-qt/qtwebengine
 kde-apps/pimcommon:designer - Build plugins for dev-qt/designer
 kde-apps/spectacle:share - Enable support for a share menu using kde-frameworks/purpose
 kde-apps/step:qalculate - Enable the libqalculate library for unit conversion
@@ -3669,6 +3676,7 @@ kde-frameworks/sonnet:qml - Enable QML/QtQuick support via dev-qt/qtdeclarative
 kde-misc/kdeconnect:X - Enable remote input mousepad plugin using x11-libs/libfakekey
 kde-misc/kdeconnect:pulseaudio - Enable system volume control plugin using media-libs/libpulse
 kde-misc/kdeconnect:telephony - Enable telephony plugin using kde-frameworks/modemmanager-qt
+kde-misc/kio-gdrive:kf6compat - Disable components colliding with KF6, depend on KF6 components instead
 kde-misc/kio-gdrive:share - Enable support for a share menu using kde-frameworks/purpose
 kde-misc/tellico:bibtex - Add support for bibtex importing using btparse from dev-perl/Text-BibTeX
 kde-misc/tellico:discid - Add support for reading disc IDs from audio CDs
@@ -3708,14 +3716,17 @@ kde-plasma/plasma-meta:grub - Pull in Breeze theme for sys-boot/grub
 kde-plasma/plasma-meta:gtk - Enable Breeze widget style and system settings module for GTK+
 kde-plasma/plasma-meta:kwallet - Enable support for KWallet auto-unlocking via kde-plasma/kwallet-pam
 kde-plasma/plasma-meta:legacy-systray - Add support for legacy applications using kde-plasma/xembed-sni-proxy
+kde-plasma/plasma-meta:oxygen-theme - Pull in Oxygen icons, sound theme and visual style for KDE Plasma
 kde-plasma/plasma-meta:plymouth - Pull in Breeze theme for sys-boot/plymouth
 kde-plasma/plasma-meta:pulseaudio - Install Plasma applet for PulseAudio volume management
 kde-plasma/plasma-meta:sddm - Pull in the x11-misc/sddm display manager and system settings module
 kde-plasma/plasma-meta:sdk - Pull in kde-plasma/plasma-sdk for Plasma development
 kde-plasma/plasma-meta:smart - Pull in kde-plasma/plasma-disks for disk health monitoring
 kde-plasma/plasma-meta:thunderbolt - Pull in kde-plasma/plasma-thunderbolt control center module
+kde-plasma/plasma-meta:unsupported - Allow packages that are known to ruin runtime experience ** DO NOT FILE BUGS WITH THIS ENABLED **
 kde-plasma/plasma-meta:wacom - Pull in kde-plasma/wacomtablet control center module
 kde-plasma/plasma-meta:wallpapers - Install wallpapers for the Plasma Workspace
+kde-plasma/plasma-meta:xwayland - Enable Wayland windows screensharing to XWayland applications via gui-apps/xwaylandvideobridge
 kde-plasma/plasma-nm:openconnect - Build support for the OpenConnect VPN client
 kde-plasma/plasma-nm:teamd - Enable Teamd control support
 kde-plasma/plasma-welcome:discover - Pull in resources management GUI; a centralised GHNS alternative and optional sys-apps/fwupd frontend
@@ -4270,6 +4281,7 @@ media-libs/imlib2:webp - WEBP image loader support
 media-libs/imlib2:zlib - Zlib loader support
 media-libs/intel-mediasdk:tools - Build analyse and inspect tools
 media-libs/jasper:heif - Enable experimental support for HEIF/HEIC, unsupported by upstream
+media-libs/ksanecore:kf6compat - Disable components colliding with KF6, depend on KF6 components instead
 media-libs/leptonica:utils - Install command-line utilities
 media-libs/lib3mf:system-act - Use system-provided dev-go/act as code generator instead of package provided binaries. This flag will be removed after some time used for testing!
 media-libs/libafterimage:shaping - Use MIT shaped X windows extention.
@@ -5711,11 +5723,8 @@ net-fs/netatalk:tracker - Add support for spotlight like tracker
 net-fs/nfs-utils:junction - Enable NFS junction support in nfsref
 net-fs/nfs-utils:ldap - Add ldap support
 net-fs/nfs-utils:libmount - Link mount.nfs with libmount
-net-fs/nfs-utils:nfsdcld - Enable nfsdcld NFSv4 clientid tracking daemon and tools
-net-fs/nfs-utils:nfsidmap - Enable support for newer nfsidmap helper
 net-fs/nfs-utils:nfsv3 - Enable support for NFSv2 and NFSv3
-net-fs/nfs-utils:nfsv4 - Enable support for NFSv4
-net-fs/nfs-utils:nfsv41 - Enable support for NFSv4.1
+net-fs/nfs-utils:nfsv4 - Enable support for NFSv4 (includes NFSv4.1 and NFSv4.2)
 net-fs/nfs-utils:uuid - Support UUID lookups in rpc.mountd
 net-fs/openafs:apidoc - Build API documentation using app-text/doxygen. May take a *long* time to build.
 net-fs/openafs:bitmap-later - Enable fast startup of file server by not reading bitmap till needed.
@@ -5976,6 +5985,7 @@ net-irc/weechat:scripts - Build infrastructure for scripting
 net-irc/weechat:trigger - Enable trigger plugin
 net-irc/weechat:typing - Enable typing plugin
 net-irc/weechat:xfer - Enable xfer plugin support
+net-irc/znc:argon2 - Store password hashes using Argon2id instead of SHA-256
 net-irc/znc:zlib - Enable mod_deflate-like gzip support for znc's web interface using sys-libs/zlib.
 net-libs/aqbanking:ebics - Enable support for Electronic Banking Internet Communication Standard (EBICS)
 net-libs/axtls:cgi-lua - Enables lua backed cgi for axhttpd server
@@ -6083,7 +6093,6 @@ net-libs/loudmouth:openssl - Enable dev-libs/openssl support instead of gnutls (
 net-libs/mbedtls:cmac - Enable block cipher-based message authentication code algorithm
 net-libs/mbedtls:havege - Enable the HAVEGE random generator. Warning: the HAVEGE random generator is not suitable for virtualized environments
 net-libs/mbedtls:programs - Build Mbed TLS programs
-net-libs/miniupnpc:ipv6 - Run tests requiring IPv6-enabled kernel.
 net-libs/neon:libproxy - Add support for net-libs/libproxy
 net-libs/neon:pkcs11 - Add support for PKCS#11 using dev-libs/pakchois
 net-libs/nghttp2:hpack-tools - Install HPACK (header compression) helper tools
@@ -7256,7 +7265,6 @@ sci-libs/caffe2:openmp - Use OpenMP for parallel code
 sci-libs/caffe2:qnnpack - Use QNNPACK
 sci-libs/caffe2:tensorpipe - Use tensorpipe
 sci-libs/caffe2:xnnpack - Use XNNPACK
-sci-libs/cantera:cti - Install conversion tools (ck2cti, ck2yaml, ctml_writer) from Chemkin to Cantera format
 sci-libs/cantera:hdf5 - Add HDF5 container files support
 sci-libs/cantera:python - Install Python bindings and conversion tools from Chemkin to Cantera format
 sci-libs/cddlib:tools - Add a few executables and tests for cddlib
@@ -7726,7 +7734,6 @@ sys-apps/duc:leveldb - Use dev-libs/leveldb as the backend
 sys-apps/duc:ncurses - Build support for the ncurses client
 sys-apps/duc:sqlite - Use dev-db/sqlite:3 as the backend
 sys-apps/duc:tokyocabinet - Use dev-db/tokyocabinet as the backend
-sys-apps/earlyoom:docs - Generate man page
 sys-apps/elfix:ptpax - Enable PT_PAX_FLAGS support.
 sys-apps/elfix:xtpax - Enable XATTR_PAX_FLAGS support.
 sys-apps/etckeeper:cron - Install cron script
@@ -8564,6 +8571,7 @@ virtual/mpi:nullmpi - Allow sys-cluster/nullmpi a minimal incomplete MPI impleme
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
 virtual/mysql:embedded - Build embedded server (libmysqld)
 virtual/mysql:server - Build server (mysqld)
+virtual/pkgconfig:native-symlinks - Install generic symlinks like pkgconf and pkg-config. If this flag is disabled, only CHOST-prefixed pkg-config executables will be available to end users and ebuilds.
 virtual/podofo-build:boost - Add support for boost
 virtual/podofo-build:tools - Build and install commandline tools
 virtual/rust:rustfmt - Install rustfmt, Rust code formatter
