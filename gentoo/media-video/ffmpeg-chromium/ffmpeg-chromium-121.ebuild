@@ -10,13 +10,13 @@ DESCRIPTION="FFmpeg built specifically for codec support in Chromium-based brows
 HOMEPAGE="https://ffmpeg.org/"
 SRC_URI="https://dev.gentoo.org/~chewi/distfiles/${P}.tar.xz"
 
-SLOT="${PV}"
 LICENSE="
 	!gpl? ( LGPL-2.1 )
 	gpl? ( GPL-2 )
 "
+SLOT="${PV}"
 
-KEYWORDS="~amd64 ~arm ~arm64"
+KEYWORDS="amd64 ~arm ~arm64"
 
 # Options to use as use_enable in the foo[:bar] form.
 # This will feed configure with $(use_enable foo bar)

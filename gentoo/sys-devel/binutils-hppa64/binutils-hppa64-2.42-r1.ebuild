@@ -121,7 +121,7 @@ src_prepare() {
 
 			# This is applied conditionally for now just out of caution.
 			# It should be okay on non-prefix systems though. See bug #892549.
-			if is_cross || use prefix; then
+			if [[ ${PN} != binutils-hppa64 ]] && { is_cross || use prefix; } ; then
 				eapply "${FILESDIR}"/binutils-2.40-linker-search-path.patch \
 					   "${FILESDIR}"/binutils-2.41-linker-prefix.patch
 			fi
@@ -133,17 +133,6 @@ src_prepare() {
 		-e 's:@bfdlibdir@:@libdir@:g' \
 		-e 's:@bfdincludedir@:@includedir@:g' \
 		{bfd,opcodes}/Makefile.in || die
-
-	# Fix locale issues if possible, bug #122216
-	if [[ -e ${FILESDIR}/binutils-configure-LANG.patch ]] ; then
-		einfo "Fixing misc issues in configure files"
-		for f in $(find "${S}" -name configure -exec grep -l 'autoconf version 2.13' {} +) ; do
-			ebegin "  Updating ${f/${S}\/}"
-			patch "${f}" "${FILESDIR}"/binutils-configure-LANG.patch >& "${T}"/configure-patch.log \
-				|| eerror "Please file a bug about this"
-			eend $?
-		done
-	fi
 
 	# Apply things from PATCHES and user dirs
 	default

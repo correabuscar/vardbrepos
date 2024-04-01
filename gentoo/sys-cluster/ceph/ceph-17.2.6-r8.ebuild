@@ -167,7 +167,7 @@ RDEPEND="
 		diskprediction? (
 			>=dev-python/scipy-1.4.0[${PYTHON_USEDEP}]
 		)
-		sci-libs/scikit-learn[${PYTHON_USEDEP}]
+		dev-python/scikit-learn[${PYTHON_USEDEP}]
 		dev-python/six[${PYTHON_USEDEP}]
 	)
 	selinux? ( sec-policy/selinux-ceph )
@@ -381,6 +381,9 @@ ceph_src_configure() {
 
 	# hopefully this will not be necessary in the next release
 	use parquet && export ARROW_XSIMD_URL="file:///${DISTDIR}/ceph-xsimd-${PV}.tar.gz"
+
+	# https://bugs.gentoo.org/927066
+	filter-lto
 
 	cmake_src_configure
 

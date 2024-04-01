@@ -17,10 +17,19 @@
 
 #--- END OF EXAMPLES ---
 
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-03-17)
+# virt-firmware is keyworded here
+sys-kernel/installkernel -efistub
+
+# Ionen Wolkens <ionen@gentoo.org> (2024-03-08)
+# media-libs/libdovi is keyworded here
+media-libs/libplacebo -libdovi
+
 # Sam James <sam@gentoo.org> (2024-02-24)
 # Only works on amd64 (and x32).
 dev-debug/gdb -cet
 sys-devel/binutils -cet
+sys-devel/clang-common -cet
 sys-devel/gcc -cet
 sys-libs/binutils-libs -cet
 sys-libs/glibc -cet
@@ -70,16 +79,6 @@ media-video/obs-studio -qsv -websocket
 # Takuya Wakazono <pastalian46@gmail.com> (2023-11-21)
 # app-crypt/rpm-sequoia is keyworded here.
 app-arch/rpm -sequoia
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2023-11-20)
-# Qt6 is still experimental in freecad, currently the configure phase
-# gets itself stuck by importing both qt5 and qt6 cmake files.
-# Since there is no python3.12 support for shiboken2/pyside2, we have
-# to mask that flag as well.
-#
-# We have to mask this here as well as in base/package.use.mask
-# because qt6 is globally unmasked on amd64
-media-gfx/freecad qt6 python_single_target_python3_12
 
 # Florian Schmaus <flow@gentoo.org> (2023-11-10)
 # Only available for amd64.
@@ -158,7 +157,7 @@ sys-libs/libomp -llvm_targets_AMDGPU
 net-misc/curl -rustls -curl_ssl_rustls
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2022-12-06)
-# Quick Sync Video (through intel-mediasdk or oneVPL) is
+# Quick Sync Video (through intel-mediasdk or libvpl) is
 # only keyworded on amd64
 media-video/ffmpeg -qsv
 media-libs/gst-plugins-bad -qsv
@@ -406,10 +405,6 @@ dev-db/mariadb -jdbc
 # PGO is fixed on amd64
 >=www-client/firefox-48 -pgo
 
-# James Le Cuirot <chewi@gentoo.org> (2016-07-26)
-# Only available on some architectures.
-dev-java/icedtea -shenandoah
-
 # Mike Gilbert <floppym@gentoo.org> (2016-06-23)
 # This flag only has meaning on amd64
 sys-boot/grub:2 -grub_platforms_xen-32
@@ -420,7 +415,7 @@ sys-boot/grub:2 -grub_platforms_xen-32
 
 # Mike Gilbert <floppym@gentoo.org> (2015-09-05)
 # sd-boot is not supported on all archs.
-sys-apps/systemd -boot -gnuefi -ukify
+sys-apps/systemd -boot -ukify
 sys-apps/systemd-utils -boot -ukify
 sys-kernel/installkernel -systemd-boot -ukify -uki
 

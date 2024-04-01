@@ -18,15 +18,16 @@ if [[ ${QT6_BUILD_TYPE} == release ]]; then
 fi
 
 IUSE="
-	+alsa bindist custom-cflags designer geolocation +jumbo-build
-	kerberos opengl pdfium pulseaudio qml screencast +system-icu
-	vaapi vulkan webdriver +widgets
+	accessibility +alsa bindist custom-cflags designer geolocation
+	+jumbo-build kerberos opengl pdfium pulseaudio qml screencast
+	+system-icu vaapi vulkan webdriver +widgets
 "
 REQUIRED_USE="
 	designer? ( qml widgets )
 "
 
 # dlopen: krb5, libva, pciutils, udev
+# gcc: for -latomic
 RDEPEND="
 	app-arch/snappy:=
 	dev-libs/expat
@@ -35,7 +36,7 @@ RDEPEND="
 	dev-libs/libxslt
 	dev-libs/nspr
 	dev-libs/nss
-	~dev-qt/qtbase-${PV}:6[gui,opengl=,vulkan?,widgets?]
+	~dev-qt/qtbase-${PV}:6[accessibility=,gui,opengl=,vulkan?,widgets?]
 	~dev-qt/qtwebchannel-${PV}:6[qml?]
 	media-libs/fontconfig
 	media-libs/freetype
@@ -49,6 +50,7 @@ RDEPEND="
 	media-libs/tiff:=
 	sys-apps/dbus
 	sys-apps/pciutils
+	sys-devel/gcc:*
 	sys-libs/zlib:=[minizip]
 	virtual/libudev
 	x11-libs/libX11
@@ -111,6 +113,7 @@ PATCHES=( "${WORKDIR}"/patches/${PN} )
 PATCHES+=(
 	# add extras as needed here, may merge in set if carries across versions
 	"${FILESDIR}"/${PN}-6.7.0-clang18.patch
+	"${FILESDIR}"/${PN}-6.7.0-x11-header.patch
 )
 
 python_check_deps() {
@@ -271,6 +274,10 @@ src_test() {
 		tst_qquickwebengineview
 		tst_qwebengineglobalsettings
 		tst_qwebengineview
+		# fails with offscreen rendering, may be worth retrying if the issue
+		# persist given these are rather major tests (or consider virtx)
+		tst_qmltests
+		tst_qwebenginepage
 		# certs verfication seems flaky and gives expiration warnings
 		tst_qwebengineclientcertificatestore
 		# test is misperformed when qtbase is built USE=-test?
@@ -296,6 +303,10 @@ src_install() {
 
 	[[ -e ${D}${QT6_LIBDIR}/libQt6WebEngineCore.so ]] || #601472
 		die "${CATEGORY}/${PF} failed to build anything. Please report to https://bugs.gentoo.org/"
+
+	if use test && use webdriver; then
+		rm -- "${D}${QT6_BINDIR}"/testbrowser || die
+	fi
 }
 
 pkg_postinst() {

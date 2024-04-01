@@ -6,7 +6,7 @@ EAPI=7
 PATCH_VER=5
 PATCH_DEV=dilfridge
 
-inherit libtool toolchain-funcs multilib-minimal
+inherit flag-o-matic libtool toolchain-funcs multilib-minimal
 
 MY_PN="binutils"
 MY_P="${MY_PN}-${PV}"
@@ -24,7 +24,7 @@ LICENSE="|| ( GPL-3 LGPL-3 )"
 SLOT="0/${PV%_p?}.0"
 
 IUSE="64-bit-bfd cet multitarget nls static-libs test"
-KEYWORDS="~alpha amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~arm64-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~arm64-macos ~x64-macos ~x64-solaris"
 RESTRICT="!test? ( test )"
 
 BDEPEND="
@@ -75,6 +75,8 @@ pkgversion() {
 }
 
 multilib_src_configure() {
+	filter-lto
+
 	local myconf=(
 		# portage's econf() does not detect presence of --d-d-t
 		# because it greps only top-level ./configure. But not

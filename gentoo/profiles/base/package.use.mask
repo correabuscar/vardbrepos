@@ -6,23 +6,54 @@
 # This file is only for generic masks. For arch-specific masks (i.e.
 # mask everywhere, unmask on arch/*) use arch/base.
 
+# Michał Górny <mgorny@gentoo.org> (2024-03-26)
+# sys-auth/pam_ssh is being last rited, bug #892031.
+sys-auth/pambase pam_ssh
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-03-22)
+# Building with qt6 requires (masked) kde-frameworks:6
+app-admin/calamares qt6
+
+# Viorel Munteanu <ceamac@gentoo.org> (2024-03-19)
+# The live version needs a new BDEPEND for doc
+=app-emulation/virtualbox-9999 doc
+
+# Sam James <sam@gentoo.org> (2024-03-18)
+# Needs masked KF6 for Wayland at least.
+app-crypt/pinentry qt6
+
+# Michał Górny <mgorny@gentoo.org> (2024-03-17)
+# Suffers from unaligned accesses, upstream's working on it.
+# https://github.com/psycopg/psycopg/issues/734
+<=dev-python/psycopg-3.1.18 native-extensions
+
+# Volkmar W. Pogatzki <gentoo@pogatzki.net> (2024-03-10)
+# These packages have RESTRICT="test" and depend on dev-java/ant-junit
+# which is going away. Remove this mask when ebuilds are updated.
+dev-java/ant-ivy test
+dev-java/rhino test
+www-servers/tomcat test
+
+# Guilherme Amadio <amadio@gentoo.org> (2024-03-09)
+# Requires manually installing dependencies, see bug #791802
+# Please use MYCMAKEARGS instead.
+sci-physics/root R
+
+# Sam James <sam@gentoo.org> (2024-03-07)
+# The bluetooth feature is unstable for now (causes timeouts if no dbus adapter
+# is available).
+# https://mail.kde.org/pipermail/distributions/2024-March/001481.html
+>=kde-misc/kdeconnect-24.02.0 bluetooth
+
 # Sam James <sam@gentoo.org> (2024-02-24)
 # Only works on amd64 (and x32).
 dev-debug/gdb cet
 sys-devel/binutils cet
 sys-devel/binutils-hppa64 cet
+sys-devel/clang-common cet
 sys-devel/gcc cet
 sys-libs/binutils-libs cet
 sys-libs/glibc cet
-
-# Joonas Niilola <juippis@gentoo.org> (2024-02-20)
-# Upstream massively reworked av1 support breaking our custom
-# system-av1 patches.
-# Looks like the bundled libvpx is heavily patched (including av1
-#  support) - I'm not confident that currently enabling custom-patched
-# system-libvpx gives the same experience as using the bundled one.
-# Need to revisit in 125.0.
->=www-client/firefox-123.0 system-av1 system-libvpx
 
 # Matthew Turnbull <sparky@bluefang-logic.com> (2024-01-24)
 # Cinnamon wayland support is experimental and incomplete.
@@ -62,13 +93,6 @@ sys-devel/sparse llvm
 # Takuya Wakazono <pastalian46@gmail.com> (2023-11-21)
 # app-crypt/rpm-sequoia is not keyworded on most architectures.
 app-arch/rpm sequoia
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2023-11-20)
-# Qt6 is still experimental in freecad, currently the configure phase
-# gets itself stuck by importing both qt5 and qt6 cmake files.
-# Since there is no python3.12 support for shiboken2/pyside2, we have
-# to mask that flag as well.
-media-gfx/freecad qt6 python_single_target_python3_12
 
 # Florian Schmaus <flow@gentoo.org> (2023-11-10)
 # Only available for amd64.
@@ -197,24 +221,11 @@ dev-lang/ruby jit
 # Depends on x11-libs/libdmx, which is masked for removal
 x11-apps/xdpyinfo dmx
 
-# Volkmar W. Pogatzki <gentoo@pogatzki.net> (2023-04-09)
-# dev-java/jython is last-rited due to vulnerabilities.
-# See bug #825486.
-dev-java/bsf python
-dev-java/ant-apache-bsf python
-
 # Georgy Yakovlev <gyakovlev@gentoo.org> (2023-04-05)
 # Currently broken on 11
 # https://bugs.gentoo.org/833097
 # https://bugs.gentoo.org/833098
 dev-java/openjdk:11 lto
-
-# Sam James <sam@gentoo.org> (2023-03-15)
-# Signing key is expired on Savannah. The same key is renewed elsewhere
-# and the signature is valid, but it's easier to disable verify-sig here
-# for now as it's not a new release.  Recent Gemato got stricter with this
-# which is how it appears now. See bug #900895.
-~net-misc/wget-1.21.3 verify-sig
 
 # Michał Górny <mgorny@gentoo.org> (2023-02-20)
 # dev-python/colorspacious is masked for removal.
@@ -263,7 +274,7 @@ x11-wm/stumpwm doc
 # Bernd Waibel <waebbl-gentoo@posteo.net> (2022-11-25)
 # USE=tbb is broken in 7.7.0
 # https://tracker.dev.opencascade.org/view.php?id=33152
-~sci-libs/opencascade-7.7.0 tbb
+<sci-libs/opencascade-7.7.1 tbb
 
 # Guillermo Joandet <gjoandet@gmail.com> (2022-11-22)
 # app-text/pandoc is not keyworded on most architectures
@@ -324,7 +335,6 @@ app-antivirus/clamav jit
 
 # John Helmert III <ajak@gentoo.org> (2022-08-14)
 # slurm is last rited
-app-metrics/collectd collectd_plugins_slurm
 sys-cluster/openmpi openmpi_rm_slurm
 
 # Joonas Niilola <juippis@gentoo.org> (2022-08-02)
@@ -640,7 +650,6 @@ sci-chemistry/gromacs python
 # Michał Górny <mgorny@gentoo.org> (2019-12-16)
 # Requires old x11-libs/fox:1.6 slot.
 dev-games/openscenegraph fox
-dev-libs/hidapi fox
 sci-mathematics/gsl-shell fox
 
 # Michał Górny <mgorny@gentoo.org> (2019-12-04)
@@ -648,7 +657,6 @@ sci-mathematics/gsl-shell fox
 # supporting Python 2.7.  This can be resolved long term via either
 # using any-r1 API to build docs or cond-deps.
 dev-python/matplotlib doc
-dev-python/pandas doc
 dev-python/statsmodels doc
 
 # Haelwenn (lanodan) Monnier <contact@hacktivis.me> (2019-12-01)
@@ -696,10 +704,6 @@ mail-client/claws-mail litehtml
 # terms. Masked to prevent accidental installation of these files,
 # bug #318841#c20.
 sys-kernel/linux-firmware unknown-license
-
-# Virgil Dupras <vdupras@gentoo.org> (2019-04-29)
-# Docs are temporarily broken. See bug #680014
-dev-python/pandas doc
 
 # Ulrich Müller <ulm@gentoo.org> (2019-04-25)
 # Pulls in media-fonts/kochi-substitute as dependency, which allows
@@ -814,7 +818,6 @@ net-irc/hexchat theme-manager
 # Ulrich Müller <ulm@gentoo.org> (2016-10-15)
 # The --with-cairo option is considered as experimental by upstream
 # and causes problems with updating the X window, bug #592238
-app-editors/emacs:25 cairo
 app-editors/emacs:26 cairo
 
 # Matthew Brewer <tomboy64@sina.cn> (2016-06-02)
@@ -830,12 +833,6 @@ sys-devel/gcc vtv
 # Upstream supports using Clang's address sanitizer, but apparently
 # invokes it wrong.
 dev-lang/moarvm asan
-
-# James Le Cuirot <chewi@gentoo.org> (2016-04-10)
-# Slower and less reliable than HotSpot and we don't support Java on
-# any non-HotSpot platforms. Don't unmask these unless you know what
-# you're doing. This has upstream's approval.
-dev-java/icedtea cacao jamvm
 
 # Rick Farina <zerochaos@gentoo.org> (2015-10-06)
 # forward porting this patch is non-trivial, mask for now
@@ -870,10 +867,6 @@ media-libs/cogl gstreamer
 # Randomly breaks consumers at runtime. Do not report
 # gentoo bugs.
 media-libs/libsdl2 custom-cflags
-
-# Kacper Kowalik <xarthisius@gentoo.org> (2013-05-19)
-# Fails to build, haven't had time to debug
-app-text/doxygen sqlite
 
 # Bernard Cafarelli <voyageur@gentoo.org> (2013-04-04)
 # Broken for now (segmentation fault on play)
