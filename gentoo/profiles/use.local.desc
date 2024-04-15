@@ -228,6 +228,9 @@ app-antivirus/clamtk:kde - Install the Dolphin plugin.
 app-antivirus/clamtk:nautilus - Install the Nautilus plugin.
 app-antivirus/clamtk:nemo - Install the Nemo plugin.
 app-antivirus/clamtk:thunar - Install the Thunar plugin.
+app-arch/7zip:jwasm - Use dev-lang/jwasm to include optimized code (doesn't support AES)
+app-arch/7zip:rar - Enable support for non-free rar decoder
+app-arch/7zip:uasm - Use dev-lang/uasm to include optimized code
 app-arch/cabextract:extras - Install experimental extra tools: wince_info and wince_rename for examining and processing Windows CE installation cabinet header files; cabinfo for examining the structure of a cab file.
 app-arch/createrepo_c:legacy - Build with support for legacy weakdeps and hashes (not recommended!)
 app-arch/dpkg:libmd - Use app-crypt/libmd library for message digest functions
@@ -1097,7 +1100,6 @@ app-portage/conf-update:colordiff - Use colors when displaying diffs (app-misc/c
 app-portage/eix:debug - Build with upstream's CXXFLAGS/LDFLAGS for debugging support; not recommended for normal use.
 app-portage/eix:doc - Create description of the eix cache file additionally in html format
 app-portage/eix:sqlite - Compile in support for portage's sqlite backend; to actually use it you need additional configuration of portage and eix
-app-portage/g-sorcery:bson - Support BSON file format for package DB
 app-portage/gemato:gpg - Install dependencies needed for OpenPGP signature verification support
 app-portage/gemato:pretty-log - Pull dev-python/rich to enable pretty logs
 app-portage/gemato:tools - Install additional utilities (benchmarks, hash testing tools, fast Manifest generators) to /usr/share/gemato.
@@ -2063,6 +2065,7 @@ dev-libs/libisoburn:frontend-optional - Use dev-tcltk/bwidget which is not stric
 dev-libs/libisoburn:launch-frontend - Enable the tcl gui for xorriso
 dev-libs/libisoburn:launch-frontend-setuid - Enable the tcl gui for xorriso under setuid
 dev-libs/libisofs:verbose-debug - Enable verbose debug messages
+dev-libs/libjcat:ed25519 - Enable ED25519 verification support via dev-libs/nettle and net-libs/gnutls
 dev-libs/libjcat:gpg - Enable GPG verification support via app-crypt/gpgme
 dev-libs/libjcat:pkcs7 - Enable PKCS7 verification support via net-libs/gnutls
 dev-libs/libjwt:openssl - Use openssl libs for crypto functions
@@ -2599,6 +2602,7 @@ dev-qt/qdoc:qml - Enable QML/JS parsing support
 dev-qt/qt-creator:clang - Build clang-based plugins for C/C++ development (code model, formatting, static analysis)
 dev-qt/qt-creator:designer - Enable designer for QtWidgets-based UIs
 dev-qt/qt-creator:help - Enable the integrated dev-qt/qt-docs viewer (also needed for examples)
+dev-qt/qt-creator:plugin-dev - Install the 'Devel' component needed to build external Qt Creator plugins
 dev-qt/qt-creator:qmldesigner - Build QmlDesigner and related plugins (Insight, StudioWelcome)
 dev-qt/qt-creator:serialterminal - Build the serial terminal plugin
 dev-qt/qt-creator:tracing - Build plugins requiring tracing capabilities (CtfVisualizer, PerfProfiler, QmlProfiler)
@@ -3162,7 +3166,6 @@ games-engines/odamex:portmidi - Enable PortMidi support
 games-engines/odamex:server - Build server target
 games-engines/openmw:devtools - Install development tools like bsatool, esmtool and opencs.
 games-engines/openmw:osg-fork - Use OpenSceneGraph forked by OpenMW instead of upstream OSG.
-games-engines/renpy:development - Install IDE for game developers and an empty game template
 games-engines/scummvm:fluidsynth - compile with support for fluidsynth
 games-engines/scummvm:fribidi - Support for right-to-left languages via dev-libs/fribidi
 games-engines/scummvm:mpeg2 - enable mpeg2 codec for cutscenes
@@ -3337,6 +3340,7 @@ games-strategy/wargus:bne - Support extracting data from the Battle.net Edition
 games-strategy/warzone2100:discord - Enable Discord presence/join integration
 games-strategy/wesnoth:server - Enable compilation of server
 games-util/gslist:web - Enable the web interface
+games-util/heroic-bin:gamescope - Run Heroic Launcher inside gamescope
 games-util/lgogdownloader:gui - Enable GUI login support for passing reCAPTCHA
 games-util/slade:fluidsynth - Enable MIDI software synthesis using media-sound/fluidsynth
 games-util/wit:fuse - Enable image mount support via fuse
@@ -3447,6 +3451,9 @@ gui-libs/gtk:cloudproviders - Enable GtkPlacesSidebar to access cloud services
 gui-libs/gtk:colord - Use x11-misc/colord for color management in printing
 gui-libs/gtk:sysprof - Enable profiling data capture support using dev-util/sysprof-capture
 gui-libs/gtksourceview:sysprof - Enable profiling data capture support using dev-util/sysprof-capture
+gui-libs/libdecor:dbus - Enable dbus to query current cursor theme
+gui-libs/libdecor:examples - Build and install examples
+gui-libs/libdecor:gtk - Build GTK plugin
 gui-libs/libhandy:glade - Install module and catalog for dev-util/glade
 gui-libs/neatvnc:examples - Build and install examples
 gui-libs/neatvnc:gbm - Enable support for the Generic Buffer Manager (gbm)
@@ -3966,6 +3973,7 @@ mate-extra/caja-extensions:wallpaper - Add an extension to support setting an im
 mate-extra/mate-polkit:accountsservice - Support extraction of data from AccountsService
 mate-extra/mate-power-manager:applet - Enable building of the MATE applet.
 mate-extra/mate-system-monitor:wnck - Enable experimental support using x11-libs/libwnck.
+mate-extra/mate-tweak:dropdown - Support the x11-terms/tilda dropdown terminal emulator
 mate-extra/mate-utils:applet - Enable the mate dictionary applet
 media-fonts/corefonts:tahoma - Also install the Tahoma font. Due to the lack of a free bold variant, this may render badly. See bug 184790.
 media-fonts/culmus:ancient - Install ancient semitic scripts
@@ -4268,17 +4276,11 @@ media-libs/imlib2:apidoc - Provide doxygen generated API docs
 media-libs/imlib2:bzip2 - Bzip2 loader support
 media-libs/imlib2:eps - Eps image loader support
 media-libs/imlib2:filters - Build filter functions (blur, sharpen, etc)
-media-libs/imlib2:gif - Gif image loader support
 media-libs/imlib2:heif - Heif and Avif image loader support
-media-libs/imlib2:jpeg - Jpeg image loader support
-media-libs/imlib2:jpegxl - Jxl image loader support
 media-libs/imlib2:mp3 - ID3 loader support
 media-libs/imlib2:packing - Enable structure packing. This will reduce memory footprint at the cost of unaligned memory access
-media-libs/imlib2:png - PNG image loader support
 media-libs/imlib2:shm - Use MIT shared memory support for X image transfer
 media-libs/imlib2:text - Build text (TrueType font) functions
-media-libs/imlib2:tiff - TIFF image loader support
-media-libs/imlib2:webp - WEBP image loader support
 media-libs/imlib2:zlib - Zlib loader support
 media-libs/intel-mediasdk:tools - Build analyse and inspect tools
 media-libs/jasper:heif - Enable experimental support for HEIF/HEIC, unsupported by upstream
@@ -4403,6 +4405,7 @@ media-libs/noise-suppression-for-voice:vst - Enable the VST plugin
 media-libs/noise-suppression-for-voice:vst3 - Enable the VST3 plugin
 media-libs/oidn:apps - Build the standalone denoise, self test, and benchmark binaries.
 media-libs/oidn:hip - Build OIDN with AMD HIP support.
+media-libs/oidn:openimageio - Enable OpenImageIO Support
 media-libs/oneVPL-cpu:experimental - Enable experimental API
 media-libs/oneVPL-cpu:openh264 - Use media-libs/openh264 instead of media-libs/x264
 media-libs/openal:pipewire - Enable support for the media-video/pipewire audio backend
@@ -4460,6 +4463,9 @@ media-libs/opusfile:fixed-point - Enable fixed-point arithmetic operations
 media-libs/opusfile:float - Enable floating point arithmetic operations
 media-libs/opusfile:http - Enable http connections
 media-libs/osl:gui - Build the osltoy binary (with Qt5)
+media-libs/osl:libcxx - Build against sys-libs/libcxx when using clang
+media-libs/osl:nofma - Do not use Fuse-Multiply-Add operations
+media-libs/osl:optix - Add support for NVIDIA's OptiX Raytracing Engine
 media-libs/osl:partio - Use media-libs/partio
 media-libs/osl:qt6 - Build the osltoy binary (with Qt6)
 media-libs/phonon:designer - Install plugin for dev-qt/designer
@@ -4913,6 +4919,7 @@ media-sound/vimpc:boost - Use boost instead of C++11 libraries
 media-sound/vorbis-tools:kate - Adds support for Ogg Kate subtitles via libkate.
 media-sound/vorbis-tools:ogg123 - Build ogg123 player, needs libao and curl
 media-sound/wildmidi:player - Install the wildmidi player
+media-sound/wildmidi:sndio - Enable support for the media-sound/sndio backend
 media-sound/xmms2:airplay - Support for airplay format
 media-sound/xmms2:fluidsynth - Enable fluidsynth support (MIDI)
 media-sound/xmms2:gme - Support for various game audio formats using media-libs/game-music-emu
@@ -5387,7 +5394,7 @@ net-analyzer/nagios-plugins:nagios-game - Install games-util/qstat required for 
 net-analyzer/nagios-plugins:nagios-ping - Install net-analyzer/fping required for fancy ping monitoring. Disabling the flag does not remove any plugin file.
 net-analyzer/nagios-plugins:snmp - Install dev-perl/Net-SNMP required for monitoring SNMP values. Disabling the flag does not remove any plugin file.
 net-analyzer/nagios-plugins:ssh - Install net-misc/openssh required for monitoring SSH servers. Disabling the flag does not remove any plugin file.
-net-analyzer/nagios-plugins-linux-madrisan:curl - Build check_docker which requires net-misc/curl
+net-analyzer/nagios-plugins-linux-madrisan:curl - Build check_container which requires net-misc/curl
 net-analyzer/nagios-plugins-linux-madrisan:varlink - Build check_podman which requires dev-libs/libvarlink
 net-analyzer/net-snmp:elf - Enable the use of elf utils to check uptime on some systems
 net-analyzer/net-snmp:kmem - Enable usage of /dev/kmem
@@ -5516,6 +5523,7 @@ net-analyzer/wireshark:dftest - Install dftest, to display filter byte-code, for
 net-analyzer/wireshark:dpauxmon - Install dpauxmon, an external capture interface (extcap) that captures DisplayPort AUX channel data from linux kernel drivers
 net-analyzer/wireshark:dumpcap - Install dumpcap, to dump network traffic from inside wireshark
 net-analyzer/wireshark:editcap - Install editcap, to edit and/or translate the format of capture files
+net-analyzer/wireshark:http3 - Install net-libs/nghttp3 for enhanced HTTP3 analysis
 net-analyzer/wireshark:ilbc - Build with iLBC support in RTP Player using media-libs/libilbc
 net-analyzer/wireshark:libxml2 - Use dev-libs/libxml2 for handling XML configuration in dissectors
 net-analyzer/wireshark:maxminddb - Use dev-libs/libmaxminddb for IP address geolocation
@@ -6385,9 +6393,6 @@ net-misc/curl:sslv3 - Support for the old/insecure SSLv3 protocol
 net-misc/curl:telnet - Enable Telnet protocol support
 net-misc/curl:tftp - Enable TFTP support
 net-misc/curl:websockets - Enable websockets support
-net-misc/dahdi:flash - Support (short) flash on FXS
-net-misc/dahdi:oslec - Enable OSLEC (software) echo canceller (require ECHO in kernel)
-net-misc/dahdi-tools:ppp - Enables PPP/DAHDIRAS support
 net-misc/dhcp:client - Install the dhclient program
 net-misc/dhcp:server - Install the dhcpd and dhcrelay programs
 net-misc/dhcpcd:embedded - Embed the definitions of dhcp options in the dhcpcd executable
@@ -6742,6 +6747,7 @@ net-p2p/amule:remote - Enable remote controlling of the client
 net-p2p/amule:stats - Enable statistic reporting
 net-p2p/bitcoin-core:berkdb - Support legacy wallets in Berkeley DB format
 net-p2p/bitcoin-core:bitcoin-cli - Build and install bitcoin-cli command line interface
+net-p2p/bitcoin-core:cli - Build and install bitcoin-cli command line interface
 net-p2p/bitcoin-core:daemon - Build and install bitcoind daemon
 net-p2p/bitcoin-core:external-signer - Include support for external wallet signer programs
 net-p2p/bitcoin-core:gui - Build and install Bitcoin-Qt GUI
@@ -7409,11 +7415,11 @@ sci-libs/mathgl:octave - Add bindings for sci-mathematics/octave
 sci-libs/matio:sparse - Extend formats for sparse matrix (not matlab)
 sci-libs/metis:double-precision - Use double- rather than single-precision floating-point representation
 sci-libs/metis:int64 - Use 64- rather than 32-bit integer representation (needed for > 2^31 vertices)
-sci-libs/mpir:cpudetection - Enables runtime cpudetection (useful for bindist, compatibility on other CPUs)
 sci-libs/mumps:metis - Enable matrix ordering with METIS (sci-libs/metis, sci-libs/parmetis)
 sci-libs/mumps:scotch - Enable matrix ordering with sci-libs/scotch
+sci-libs/netcdf:blosc - Allow using blosc compression via dev-libs/c-blosc
 sci-libs/netcdf:dap - Support for remote data access with the built-in OPeNDAP client
-sci-libs/netcdf:hdf - Add support for the Hierarchical Data Format v.4 sci-libs/hdf
+sci-libs/netcdf:hdf - Build with HDF4 read capability(sci-libs/hdf, sci-libs/hdf5 and sys-libs/zlib required).
 sci-libs/nlopt:octave - Add plugin for sci-mathematics/octave
 sci-libs/o2scl:armadillo - Build matrix manipulation with sci-libs/armadillo
 sci-libs/o2scl:eigen - Build matrix manipulation with dev-cpp/eigen
@@ -7426,6 +7432,7 @@ sci-libs/openblas:relapack - Build the ReLAPACK extension to OpenBLAS
 sci-libs/opencascade:eigen - Enable support for eigenvalues through the header-only dev-cpp/eigen package.
 sci-libs/opencascade:freeimage - Enable support for image i/o via media-libs/freeimage
 sci-libs/opencascade:freetype - Enable media-libs/freetype support
+sci-libs/opencascade:inspector - Build Inspector tool
 sci-libs/opencascade:jemalloc - Enable jemalloc allocator support via dev-libs/jemalloc
 sci-libs/opencascade:json - Enable JSON support through dev-libs/rapidjson
 sci-libs/opencascade:optimize - Don't clear allocated memory. Use optimized memory manager unlesstbb USE flag is set.
@@ -8290,6 +8297,7 @@ sys-firmware/seabios:binary - Use official upstream pre-built binaries
 sys-firmware/seabios:seavgabios - Include SeaVGABIOS binaries (replacement for vgabios)
 sys-firmware/sgabios:binary - Use pre-built binaries
 sys-firmware/sigrok-firmware-fx2lafw:binary - Use official upstream pre-built binaries
+sys-firmware/sof-firmware:tools - Tools to interact with sof firmwares (upstream expects them to be present, but allow to skip them for systems not able to install needed dependencies)
 sys-firmware/vgabios:binary - Use official upstream pre-built binaries (only default and cirrus images)
 sys-fs/android-file-transfer-linux:fuse - Add FUSE mount helper
 sys-fs/android-file-transfer-linux:zune - Enable support for Microsoft Zune
@@ -9031,7 +9039,6 @@ x11-themes/arc-theme:transparency - Enable transparency
 x11-themes/arc-theme:xfce - Install theme for xfce-base/xfwm4
 x11-themes/comix-xcursors:lefthanded - Install lefthanded version of theme in addition to default one.
 x11-themes/comix-xcursors:opaque - Install non-transparent version of theme in addition to default one.
-x11-themes/fluent-icon-theme:black - Install the black version of symbolic icons (for white color-scheme panels)
 x11-themes/fluent-icon-theme:hardlink - Hardlink duplicate icons to greatly reduce installation size
 x11-themes/fluent-icon-theme:round - Install the round version of symbolic icons
 x11-themes/gentoo-artwork:grub - Install extra sys-boot/grub themes

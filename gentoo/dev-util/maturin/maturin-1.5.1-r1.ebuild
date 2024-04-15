@@ -419,7 +419,7 @@ CRATES_TEST="
 "
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( pypy3 python3_{10..12} )
-inherit cargo distutils-r1 shell-completion toolchain-funcs
+inherit cargo distutils-r1 flag-o-matic shell-completion toolchain-funcs
 
 DESCRIPTION="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 HOMEPAGE="https://www.maturin.rs/"
@@ -437,9 +437,12 @@ LICENSE+="
 	Unicode-DFS-2016
 " # crates
 SLOT="0"
-KEYWORDS="amd64 arm arm64 ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc x86"
+KEYWORDS="amd64 arm arm64 ~loong ~ppc ppc64 ~riscv ~s390 ~sparc x86"
 IUSE="doc +ssl test"
 RESTRICT="!test? ( test )"
+
+# TODO: cleanup after CRATES_TEST's pyo3 is >=0.20.3 (bug #922236)
+RESTRICT+=" ppc? ( test )"
 
 RDEPEND="$(python_gen_cond_dep 'dev-python/tomli[${PYTHON_USEDEP}]' 3.10)"
 DEPEND="ssl? ( dev-libs/openssl:= )"
@@ -460,6 +463,8 @@ QA_FLAGS_IGNORED="usr/bin/${PN}"
 
 src_prepare() {
 	distutils-r1_src_prepare
+
+	[[ ${CRATES_TEST} == *pyo3@0.20.[0-2]* ]] || die "drop ppc test restrict"
 
 	# we build the Rust executable (just once) via cargo_src_compile
 	sed -i -e '/setuptools_rust/d' -e '/rust_extensions/d' setup.py || die
@@ -487,6 +492,10 @@ src_prepare() {
 
 src_configure() {
 	export OPENSSL_NO_VENDOR=1
+
+	# https://github.com/rust-lang/stacker/issues/79
+	use s390 && ! is-flagq '-march=*' &&
+		append-cflags $(test-flags-CC -march=z10)
 
 	local myfeatures=(
 		# like release.yml + native-tls for better platform support than rustls
