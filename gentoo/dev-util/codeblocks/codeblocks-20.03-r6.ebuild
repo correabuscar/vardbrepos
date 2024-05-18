@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -9,15 +9,16 @@ inherit autotools flag-o-matic wxwidgets xdg
 
 DESCRIPTION="The open source, cross platform, free C, C++ and Fortran IDE"
 HOMEPAGE="https://codeblocks.org/"
-LICENSE="GPL-3"
-SLOT="0"
-KEYWORDS="amd64 ~ppc x86"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.xz
+SRC_URI="https://downloads.sourceforge.net/${PN}/${P}.tar.xz
 	https://dev.gentoo.org/~leio/distfiles/${P}-fortran.tar.xz
 	https://dev.gentoo.org/~leio/distfiles/${P}-fortran-update-v1.7.tar.xz
 	https://dev.gentoo.org/~leio/distfiles/${P}-fortran-update-v1.8.tar.xz
 	https://dev.gentoo.org/~leio/distfiles/${P}-codecompletion-symbolbrowser-update.tar.xz
 "
+
+LICENSE="GPL-3"
+SLOT="0"
+KEYWORDS="amd64 ~ppc x86"
 
 # USE="fortran" enables FortranProject plugin (updated to v1.8 2021-05-29 [r230])
 # that is delivered with Code::Blocks 20.03 source code.

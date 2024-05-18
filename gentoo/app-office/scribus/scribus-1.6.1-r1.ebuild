@@ -3,13 +3,13 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..12} )
+PYTHON_COMPAT=( python3_{10..12} )
 PYTHON_REQ_USE="tk?"
 inherit cmake desktop flag-o-matic optfeature python-single-r1 xdg
 
 DESCRIPTION="Desktop publishing (DTP) and layout program"
 HOMEPAGE="https://www.scribus.net/"
-SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${PV}/${P}.tar.xz"
+SRC_URI="https://downloads.sourceforge.net/project/${PN}/${PN}/${PV}/${P}.tar.xz"
 S="${WORKDIR}/${P}"
 
 LICENSE="GPL-2"
@@ -75,13 +75,13 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.5.8-cmake.patch # bug 886251
 	"${FILESDIR}"/${PN}-1.5.3-fpic.patch
 	"${FILESDIR}"/${PN}-1.6.1-findhyphen.patch
-	"${FILESDIR}"/${PN}-1.7.0-remove-hello-world-test.patch
 	"${FILESDIR}"/${PN}-1.7.0-fix-icon-version.patch
 	"${FILESDIR}"/${PN}-1.6.1-poppler-24.03.patch
 )
 
 src_prepare() {
 	cmake_src_prepare
+	cmake_run_in scribus cmake_comment_add_subdirectory ui/qml
 
 	# for safety remove files that we patched out
 	rm -r scribus/third_party/hyphen || die

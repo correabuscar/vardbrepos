@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=standalone
-PYTHON_TESTED=( pypy3 python3_{10..12} )
+PYTHON_TESTED=( pypy3 python3_{10..13} )
 PYTHON_COMPAT=( "${PYTHON_TESTED[@]}" )
 
 inherit distutils-r1
@@ -27,11 +27,11 @@ KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv 
 # (note that some are indirect deps)
 RDEPEND="
 	>=dev-python/fastjsonschema-2.18.0[${PYTHON_USEDEP}]
-	dev-python/lark[${PYTHON_USEDEP}]
-	dev-python/packaging[${PYTHON_USEDEP}]
+	>=dev-python/lark-1.1.3[${PYTHON_USEDEP}]
+	>=dev-python/packaging-22.0[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '
-		dev-python/tomli[${PYTHON_USEDEP}]
-	' 3.9 3.10)
+		>=dev-python/tomli-2.0.1[${PYTHON_USEDEP}]
+	' 3.10)
 "
 BDEPEND="
 	${RDEPEND}

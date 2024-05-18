@@ -20,7 +20,7 @@ HOMEPAGE="
 	https://sourceware.org/binutils/
 "
 SRC_URI="
-	mirror://sourceforge/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v${MINGW_PV}.tar.bz2
+	https://downloads.sourceforge.net/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v${MINGW_PV}.tar.bz2
 	mirror://gnu/binutils/binutils-${BINUTILS_PV}.tar.xz
 "
 if [[ ${GCC_PV} == *-* ]]; then
@@ -210,6 +210,12 @@ src_compile() {
 				CHOST=${CTARGET}
 				filter-flags '-fuse-ld=*'
 				filter-flags '-mfunction-return=thunk*' #878849
+
+				# support for stack-protector is still new and experimental
+				# for mingw and issues can also be harder to debug + fix for
+				# upstreams using it, if feeling concerned about security
+				# would advise to either not use wine or at least contain it
+				use custom-cflags || filter-flags '-fstack-protector*' #931512
 
 				# some bashrc-mv users tend to do CFLAGS="${LDFLAGS}" and then
 				# strip-unsupported-flags miss these during compile-only tests

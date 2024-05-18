@@ -22,6 +22,8 @@ case ${EAPI} in
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
 
+inherit edo
+
 if [[ -z ${_TEXLIVE_COMMON_ECLASS} ]]; then
 _TEXLIVE_COMMON_ECLASS=1
 
@@ -199,9 +201,9 @@ etexmf-update() {
 efmtutil-sys() {
 	if has_version 'app-text/texlive-core' ; then
 		if [[ -z ${ROOT} && -x "${EPREFIX}"/usr/bin/fmtutil-sys ]] ; then
-			einfo "Rebuilding formats"
-			"${EPREFIX}"/usr/bin/fmtutil-sys --all &> /dev/null ||
-				die -n "fmtutil-sys returned non-zero exit status ${?}"
+			edob -m "Rebuilding TexLive formats" \
+				 -l fmtutils-sys-all \
+				 "${EPREFIX}"/usr/bin/fmtutil-sys --all
 		else
 			ewarn "Cannot run fmtutil-sys for some reason."
 			ewarn "Your formats might be inconsistent with your installed ${PN} version"
@@ -270,9 +272,11 @@ texlive-common_update_tlpdb() {
 	touch "${new_tlpdb}" || die
 
 	if [[ -d "${tlpobj}" ]]; then
+		# The "sed -s '$G' below concatenates all tlpobj files separated
+		# by a newline.
 		find "${tlpobj}" -maxdepth 1 -type f -name "*.tlpobj" -print0 |
 			sort -z |
-			xargs -0 --no-run-if-empty cat >> "${new_tlpdb}"
+			xargs -0 --no-run-if-empty sed -s '$G' >> "${new_tlpdb}"
 		assert "generating tlpdb failed"
 	fi
 

@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 inherit edo flag-o-matic go-env optfeature multiprocessing
 inherit python-single-r1 toolchain-funcs xdg
 
@@ -18,6 +18,8 @@ else
 		verify-sig? ( https://github.com/kovidgoyal/kitty/releases/download/v${PV}/${P}.tar.xz.sig )
 	"
 	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/kovidgoyal.gpg
+	# x86 currently still works but note that upstream has dropped support and
+	# may ignore issues: https://github.com/kovidgoyal/kitty/commit/29cb128fd
 	KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
 fi
 

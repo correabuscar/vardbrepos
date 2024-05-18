@@ -693,6 +693,8 @@ src_prepare() {
 			export RUST_TARGET="x86_64-unknown-linux-musl"
 		elif use x86 ; then
 			export RUST_TARGET="i686-unknown-linux-musl"
+		elif use arm64 ; then
+			export RUST_TARGET="aarch64-unknown-linux-musl"
 		else
 			die "Unknown musl chost, please post your rustc -vV along with emerge --info on Gentoo's bug #915651"
 		fi
@@ -1061,7 +1063,13 @@ src_configure() {
 	# With Firefox-115esr elf-hack=relr isn't available (only in rapid).
 	# Solution: Disable build system's elf-hack completely, and add "-z,pack-relative-relocs"
 	#  manually with gcc.
-	mozconfig_add_options_ac 'elf-hack disabled' --disable-elf-hack
+	#
+	# elf-hack configure option isn't available on ppc64/riscv, #916259, #929244, #930046.
+	if use ppc64 || use riscv ; then
+		:;
+	else
+		mozconfig_add_options_ac 'elf-hack disabled' --disable-elf-hack
+	fi
 
 	if use amd64 || use x86 ; then
 		! use clang && append-ldflags "-z,pack-relative-relocs"

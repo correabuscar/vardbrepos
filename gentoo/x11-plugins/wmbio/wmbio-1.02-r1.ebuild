@@ -7,12 +7,12 @@ inherit toolchain-funcs
 
 DESCRIPTION="Window Maker applet that shows your biorhythm"
 HOMEPAGE="https://wmbio.sourceforge.net/"
-SRC_URI="mirror://sourceforge/wmbio/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/wmbio/${P}.tar.gz"
 S="${WORKDIR}/${P}/src"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ppc ppc64 ~sparc x86"
+KEYWORDS="~amd64 ppc ppc64 sparc x86"
 
 RDEPEND="x11-libs/libX11
 	x11-libs/libXext

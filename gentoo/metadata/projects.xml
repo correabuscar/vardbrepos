@@ -56,7 +56,6 @@
     <name>ARM Development</name>
     <url>https://wiki.gentoo.org/wiki/Project:ARM</url>
     <description>The ARM Development Project is devoted to keeping Gentoo in good shape on the ARM architecture.</description>
-    <subproject ref="arm64@gentoo.org" inherit-members="1"/>
     <member>
       <email>ago@gentoo.org</email>
       <name>Agostino Sarubbo</name>
@@ -858,7 +857,7 @@
     <member>
       <email>dilfridge@gentoo.org</email>
       <name>Andreas K. Hüttel</name>
-      <role>Board Member</role>
+      <role>Board Member, SPI Deputy Liaison</role>
     </member>
     <member>
       <email>jmbsvicetto@gentoo.org</email>
@@ -878,7 +877,7 @@
     <member is-lead="1">
       <email>robbat2@gentoo.org</email>
       <name>Robin Johnson</name>
-      <role>Board Member, Officer:President, Officer:Treasurer, Officer:Assistant Infra Liaison</role>
+      <role>Board Member, Officer:President, Officer:Treasurer, Officer:Assistant Infra Liaison, SPI Liaison</role>
     </member>
     <member>
       <email>soap@gentoo.org</email>
@@ -1095,7 +1094,7 @@
     <email>genkernel@gentoo.org</email>
     <name>Genkernel</name>
     <url>https://wiki.gentoo.org/wiki/Project:Genkernel</url>
-    <description>The Genkernel project handles the maintenance and development of &lt;span style="white-space: nowrap;" class="plainlinks" title="External link to https://packages.gentoo.org for the sys-kernel/genkernel package."&gt;[https://packages.gentoo.org/packages/sys-kernel/genkernel &lt;span style="font-family: monospace; font-size: 95%; color: MidnightBlue;"&gt;sys-kernel/genkernel&lt;/span&gt;]&lt;span style="color: grey; margin-left: 0.1em; font-size: 70% !important;" class="fa fa-hdd-o fa-fw"&gt;&lt;/span&gt;&lt;/span&gt;.</description>
+    <description>The Genkernel project handles the maintenance and development of &lt;span style="white-space: nowrap;" class="plainlinks" title="External link to https://packages.gentoo.org for the sys-kernel/genkernel package."&gt;[https://packages.gentoo.org/packages/sys-kernel/genkernel &lt;span style="font-family: monospace; font-size: 95%; color: MidnightBlue;"&gt;sys-kernel/genkernel&lt;/span&gt;]&lt;span style="color: grey; margin-left: 0.1em; font-size: 70%;" class="fa fa-hdd-o fa-fw"&gt;&lt;/span&gt;&lt;/span&gt;.</description>
     <member is-lead="1">
       <email>robbat2@gentoo.org</email>
       <name>Robin Johnson</name>
@@ -1113,6 +1112,7 @@
     <member>
       <email>dilfridge@gentoo.org</email>
       <name>Andreas K. Hüttel</name>
+      <role>Psychohistorian</role>
     </member>
     <member>
       <email>mgorny@gentoo.org</email>
@@ -1128,11 +1128,6 @@
     <name>Gentoostats</name>
     <url>https://wiki.gentoo.org/wiki/Project:Gentoostats</url>
     <description>Gentoostats project maintains and develops the "gentoostats" statistics collection software for Gentoo machines</description>
-    <member>
-      <email>dilfridge@gentoo.org</email>
-      <name>Andreas K. Hüttel</name>
-      <role>Moral support</role>
-    </member>
     <member is-lead="1">
       <email>gokturk@gentoo.org</email>
       <name>Göktürk Yüksek</name>
@@ -1264,11 +1259,6 @@
       <email>concord@gentoo.org</email>
       <name>Kenton Groombridge</name>
       <role>SELinux</role>
-    </member>
-    <member>
-      <email>klondike@gentoo.org</email>
-      <name>Francisco Blas Izquierdo Riera</name>
-      <role>Documentation, PR</role>
     </member>
     <member>
       <email>perfinion@gentoo.org</email>
@@ -1456,6 +1446,7 @@
     <member>
       <email>dilfridge@gentoo.org</email>
       <name>Andreas K. Hüttel</name>
+      <role>Dinosaur</role>
     </member>
     <member>
       <email>kensington@gentoo.org</email>
@@ -1540,12 +1531,6 @@
       <email>chiitoo@gentoo.org</email>
       <name>Jimi Huotari</name>
     </member>
-  </project>
-  <project>
-    <email>layman@gentoo.org</email>
-    <name>Layman Overlay Manager</name>
-    <url>https://wiki.gentoo.org/wiki/Project:Layman</url>
-    <description>Layman is a tool to manage overlays installed on a system. It can add, sync, and delete overlays</description>
   </project>
   <project>
     <email>gentoo-yeeloong@gentoo.org</email>
@@ -1894,6 +1879,10 @@
     <description>The Overlays project is responsible for the administration of the overlays and the overlays.gentoo.org / repos.gentoo.org websites.</description>
     <subproject ref="repo-qa-checks@gentoo.org"/>
     <member>
+      <email>flow@gentoo.org</email>
+      <name>Florian Schmaus</name>
+    </member>
+    <member>
       <email>gokturk@gentoo.org</email>
       <name>Göktürk Yüksek</name>
       <role>Git</role>
@@ -2069,7 +2058,6 @@
     <name>Portage Tools Team</name>
     <url>https://wiki.gentoo.org/wiki/Project:Portage-Tools</url>
     <description>The Portage Tools Team develops and maintains a number of tools that use Portage's APIs or perform actions relating to the maintenance of the Portage tree ecosystem.</description>
-    <subproject ref="layman@gentoo.org"/>
     <member>
       <email>idl0r@gentoo.org</email>
       <name>Christian Ruppert</name>
@@ -2306,7 +2294,7 @@
     <member>
       <email>jstein@gentoo.org</email>
       <name>Jonas Stein</name>
-      <role>Workshops</role>
+      <role>Workshops, XMPP</role>
     </member>
     <member is-lead="1">
       <email>maffblaster@gentoo.org</email>
@@ -2377,7 +2365,7 @@
     <email>qt@gentoo.org</email>
     <name>Qt Project</name>
     <url>https://wiki.gentoo.org/wiki/Project:Qt</url>
-    <description>The Qt project handles the Qt ebuilds available in Gentoo's portage and the qt overlay. It also maintains various Qt packages and libraries that don't have dedicated maintainers.</description>
+    <description>The Qt project handles the Qt ebuilds available in Gentoo's repository and the qt overlay.</description>
     <member>
       <email>chiitoo@gentoo.org</email>
       <name>Jimi Huotari</name>
@@ -2389,10 +2377,6 @@
     <member>
       <email>kensington@gentoo.org</email>
       <name>Michael Palimaka</name>
-    </member>
-    <member>
-      <email>pesa@gentoo.org</email>
-      <name>Davide Pesavento</name>
     </member>
   </project>
   <project>
@@ -2988,7 +2972,7 @@
     <email>tex@gentoo.org</email>
     <name>TeX Project</name>
     <url>https://wiki.gentoo.org/wiki/Project:TeX</url>
-    <description>The Gentoo TeX project maintains ebuilds for TeXLive and TeX related packages. This includes &lt;span style="white-space: nowrap;" class="plainlinks" title="External link to https://packages.gentoo.org for the app-text/texlive package."&gt;[https://packages.gentoo.org/packages/app-text/texlive &lt;span style="font-family: monospace; font-size: 95%; color: MidnightBlue;"&gt;app-text/texlive&lt;/span&gt;]&lt;span style="color: grey; margin-left: 0.1em; font-size: 70% !important;" class="fa fa-hdd-o fa-fw"&gt;&lt;/span&gt;&lt;/span&gt;, the [https://packages.gentoo.org/categories/dev-texlive dev-texlive] category, most of [https://packages.gentoo.org/categories/dev-tex dev-tex] and a few others.</description>
+    <description>The Gentoo TeX project maintains ebuilds for TeXLive and TeX related packages. This includes &lt;span style="white-space: nowrap;" class="plainlinks" title="External link to https://packages.gentoo.org for the app-text/texlive package."&gt;[https://packages.gentoo.org/packages/app-text/texlive &lt;span style="font-family: monospace; font-size: 95%; color: MidnightBlue;"&gt;app-text/texlive&lt;/span&gt;]&lt;span style="color: grey; margin-left: 0.1em; font-size: 70%;" class="fa fa-hdd-o fa-fw"&gt;&lt;/span&gt;&lt;/span&gt;, the [https://packages.gentoo.org/categories/dev-texlive dev-texlive] category, most of [https://packages.gentoo.org/categories/dev-tex dev-tex] and a few others.</description>
     <member is-lead="1">
       <email>aballier@gentoo.org</email>
       <name>Alexis Ballier</name>
