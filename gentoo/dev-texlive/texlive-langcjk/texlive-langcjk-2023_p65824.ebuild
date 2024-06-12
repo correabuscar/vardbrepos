@@ -1,7 +1,7 @@
 # Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="8"
+EAPI=8
 
 TEXLIVE_MODULE_CONTENTS="
 	collection-langcjk.r65824
@@ -54,9 +54,9 @@ inherit texlive-module
 
 DESCRIPTION="TeXLive Chinese/Japanese/Korean (base)"
 
-LICENSE="BSD FDL-1.1 GPL-1 GPL-2 GPL-2+ GPL-3 LPPL-1.3 LPPL-1.3c MIT TeX TeX-other-free public-domain"
+LICENSE="BSD FDL-1.1+ GPL-1+ GPL-2 GPL-2+ GPL-3 LPPL-1.3 LPPL-1.3c MIT TeX TeX-other-free public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~ppc ~riscv ~x86"
+KEYWORDS="~amd64 ~arm64 ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
 COMMON_DEPEND="
 	>=app-text/texlive-core-2023[cjk]
 	>=dev-texlive/texlive-basic-2023

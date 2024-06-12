@@ -21,7 +21,7 @@ if [[ ${PV} = *9999* ]]; then
 else
 	SRC_URI="https://libvirt.org/sources/${P}.tar.xz
 		verify-sig? ( https://libvirt.org/sources/${P}.tar.xz.asc )"
-	KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~x86"
+	KEYWORDS="amd64 ~arm arm64 ppc64 x86"
 fi
 
 DESCRIPTION="C toolkit to manipulate virtual machines"
@@ -136,6 +136,11 @@ DEPEND="
 	${BDEPEND}
 	${RDEPEND}
 	${PYTHON_DEPS}
+	test? (
+		$(python_gen_any_dep '
+			dev-python/pytest[${PYTHON_USEDEP}]
+		')
+	)
 "
 # The 'circular' dependency on dev-python/libvirt-python is because of
 # virt-qemu-qmp-proxy.
@@ -149,6 +154,11 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-9.6.0-fix-paths-for-apparmor.patch
 	"${FILESDIR}"/${PN}-10.3.0-vsh-Don-t-init-history-in-cmdComplete.patch
 )
+
+python_check_deps() {
+	use test && python_has_version -d "dev-python/pytest[${PYTHON_USEDEP}]"
+	return 0
+}
 
 pkg_setup() {
 	# Check kernel configuration:
