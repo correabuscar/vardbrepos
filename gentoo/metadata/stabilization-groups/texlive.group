@@ -1,5 +1,7 @@
 app-text/dvipsk
+app-text/epspdf
 app-text/lcdf-typetools
+app-text/pdfjam
 app-text/ps2eps
 app-text/ps2pkm
 app-text/psutils
@@ -17,6 +19,7 @@ dev-tex/latex-beamer
 dev-tex/latexdiff
 dev-tex/latexmk
 dev-tex/minted
+dev-tex/pdfannotextractor
 dev-tex/pgf
 dev-tex/tex4ht
 dev-texlive/texlive-basic

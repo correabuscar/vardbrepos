@@ -521,7 +521,6 @@ app-emacs/sly:xref - Install xref.lisp cross-referencing tool
 app-emacs/vm:bbdb - Include support for app-emacs/bbdb
 app-emacs/wanderlust:bbdb - Include support for app-emacs/bbdb
 app-emacs/wikipedia-mode:outline-magic - Enable support for outline-mode extensions (app-emacs/outline-magic)
-app-emulation/86Box:dinput - Enable legacy Dinput mode instead of Xinput for older controllers.
 app-emulation/86Box:experimental - Enable hardware from devbranch, which may be unstable or unusable.
 app-emulation/86Box:fluidsynth - Enable MIDI support through media-sound/fluidsynth.
 app-emulation/86Box:munt - Enable MIDI MT-32 support through media-libs/munt-mt32emu.
@@ -1114,6 +1113,7 @@ app-portage/portage-utils:qmanifest - Build qmanifest applet, this adds addition
 app-portage/portage-utils:qtegrity - Build qtegrity applet, this adds additional dependencies for OpenSSL
 app-portage/tatt:templates - Install template scripts to be used with tatt
 app-shells/atuin:client - Enable the autin client
+app-shells/atuin:daemon - Enable the autin background daemon on the client
 app-shells/atuin:server - Enable the autin server
 app-shells/atuin:sync - Enable the server-sync feature in the autin client
 app-shells/autojump:ipython - Add support for dev-python/ipython
@@ -1220,6 +1220,7 @@ app-text/pandoc-cli:lua - Support custom modifications and conversions with the 
 app-text/pandoc-cli:nightly - Add '-nightly-COMPILEDATE' to the output of '--version'.
 app-text/pandoc-cli:server - Include support for running pandoc as an HTTP server.
 app-text/pdfgrep:unac - Removing accents and ligatures before search
+app-text/pdfjam:extra - Install unsupported wrapper scripts, for example pdf90, pdfnup, pdfjoin
 app-text/pdfpc:gstreamer - Compile support for movie playback (media-libs/gstreamer)
 app-text/pdfpc:soup - Compile support for REST server (net-libs/libsoup)
 app-text/pdfpc:webkit - Enable viewing Markdown notes (net-libs/webkit-gtk)
@@ -1762,6 +1763,7 @@ dev-java/qdox:ant-task - Build the ant-task
 dev-java/rxtx:lfd - Installs and uses LockFileServer daemon (lfd)
 dev-java/saxon:ant-task - BUILD and register the ant-task
 dev-java/sbt:binary - Install from (Gentoo-compiled) binary instead of building from sources. Set this when you run out of memory during build.
+dev-lang/R:libdeflate - Use app-arch/libdeflate rather than sys-libs/zlib for lazy-loaded R objects.
 dev-lang/algol68g:mpfr - Add support for multiprecision floating point rouding
 dev-lang/ammonite-repl-bin:scala2-13 - Install Ammonite for Scala 2.13
 dev-lang/ammonite-repl-bin:scala3-0 - Install Ammonite for Scala 3.0
@@ -3573,15 +3575,6 @@ kde-apps/kio-extras:nfs - Enable NFS support using net-libs/libtirpc
 kde-apps/kio-extras:phonon - Enable file audio preview plugin using media-libs/phonon
 kde-apps/kio-extras:sftp - Enable SFTP protocol support using net-libs/libssh
 kde-apps/kio-extras:taglib - Enable audio thumbnails via media-libs/taglib
-kde-apps/kio-extras-kf5:X - Enable support for XCursor thumbnails via x11-libs/libX11
-kde-apps/kio-extras-kf5:activities - Enable activities KIO worker and fileitem plugin
-kde-apps/kio-extras-kf5:ios - Enable AFC (Apple File Conduit) KIO worker for iOS devices support
-kde-apps/kio-extras-kf5:kf6compat - Disable components colliding with KF6, depend on KF6 components instead
-kde-apps/kio-extras-kf5:man - Enable manpages KIO worker
-kde-apps/kio-extras-kf5:nfs - Enable NFS support using net-libs/libtirpc
-kde-apps/kio-extras-kf5:phonon - Enable file audio preview plugin using media-libs/phonon
-kde-apps/kio-extras-kf5:sftp - Enable SFTP protocol support using net-libs/libssh
-kde-apps/kio-extras-kf5:taglib - Enable audio thumbnails via media-libs/taglib
 kde-apps/kleopatra:pim - Enable WKS publishing support using kde-apps/kmail
 kde-apps/kmag:keyboardfocus - Enable keyboard focus tracking
 kde-apps/konqueror:activities - Enable kactivities support
@@ -7372,6 +7365,7 @@ sci-libs/gdal:fits - Enable support for NASA's sci-libs/cfitsio library
 sci-libs/gdal:geos - Add support for geometry engine (sci-libs/geos)
 sci-libs/gdal:gml - Enable support for dev-libs/xerces-c C++ API
 sci-libs/gdal:ogdi - Enable support for the open geographic datastore interface (sci-libs/ogdi)
+sci-libs/gdal:parquet - Enables read/write parquet data format (dev-libs/apache-arrow)
 sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
 sci-libs/ginkgo:cuda - Add support for cuda assimp (dev-util/nvidia-cuda-toolkit)
