@@ -13,7 +13,7 @@ HOMEPAGE="https://invent.kde.org/plasma/kde-gtk-config"
 
 LICENSE="GPL-3"
 SLOT="6"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="~amd64 ~arm64 ~riscv"
 IUSE=""
 
 DEPEND="
@@ -35,14 +35,6 @@ RDEPEND="${DEPEND}
 	x11-misc/xsettingsd
 "
 BDEPEND="dev-lang/sassc"
-
-src_configure() {
-	local mycmakeargs=(
-		-DDATA_INSTALL_DIR="${EPREFIX}/usr/share"
-	)
-
-	ecm_src_configure
-}
 
 pkg_postinst() {
 	ecm_pkg_postinst

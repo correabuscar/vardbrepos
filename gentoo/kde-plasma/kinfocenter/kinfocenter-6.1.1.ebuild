@@ -15,7 +15,7 @@ SRC_URI+=" https://www.gentoo.org/assets/img/logo/gentoo-3d-small.png -> glogo-s
 
 LICENSE="GPL-2" # TODO: CHECK
 SLOT="6"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="~amd64 ~arm64 ~riscv"
 IUSE="gles2-only usb"
 
 DEPEND="
@@ -45,6 +45,11 @@ RDEPEND="${DEPEND}
 	>=kde-plasma/systemsettings-${PVCUT}:6
 "
 BDEPEND=">=kde-frameworks/kcmutils-${KFMIN}:6"
+
+CMAKE_SKIP_TESTS=(
+	# bug 816591
+	smbmountmodeltest
+)
 
 src_configure() {
 	local mycmakeargs=(
