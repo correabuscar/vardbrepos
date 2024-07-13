@@ -544,6 +544,7 @@ app-emulation/dosemu:fluidsynth - use media-sound/fluidsynth for MIDI emulation
 app-emulation/dxvk:crossdev-mingw - Use sys-devel/crossdev for the toolchain rather than dev-util/mingw64-toolchain (requires manual setting up)
 app-emulation/dxvk:d3d10 - Enable support for DirectX 10 (d3d10.dll)
 app-emulation/dxvk:d3d11 - Enable support for DirectX 11 (d3d11.dll)
+app-emulation/dxvk:d3d8 - Enable support for DirectX 8 (d3d8.dll)
 app-emulation/dxvk:d3d9 - Enable support for DirectX 9 (d3d9.dll)
 app-emulation/dxvk:dxgi - Enable support for the DirectX Graphics Infrastructure (dxgi.dll)
 app-emulation/faudio:dumpvoices - FAudio dumps buffer data to individual files with RIFF/XWMA headers, usable with players like ffplay/testxwma.
@@ -1869,6 +1870,7 @@ dev-lang/php:jit - Enable PCRE JIT support
 dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension using dev-libs/cyrus-sasl
 dev-lang/php:lmdb - Enable support for dev-db/lmdb db backend
 dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et al.
+dev-lang/php:opcache-jit - Enable Just In Time (JIT) compilation within the opcache extension
 dev-lang/php:pcntl - Enable the Process Control extension
 dev-lang/php:pdo - Enable the PHP Data Objects extension
 dev-lang/php:phar - Enables the phar extension to provide phar archive support
@@ -2218,6 +2220,11 @@ dev-libs/poco:util - Several utility classes (like logger, timer, config file pa
 dev-libs/poco:zip - Add support for the zip & gz archive formats
 dev-libs/ppl:cdd - Build the ppl_lcdd program for vertex/facet enumeration accepting the same input format as the programs shipped with sci-libs/cddlib and sci-libs/lrslib
 dev-libs/ppl:lpsol - Build the ppl_lpsol linear program solver that uses sci-mathematics/glpk for its input routines
+dev-libs/protobuf:conformance - Build conformance tests
+dev-libs/protobuf:libprotoc - Build libprotoc
+dev-libs/protobuf:libupb - Build libupb
+dev-libs/protobuf:protobuf - Build protobuf libraries and protoc compiler
+dev-libs/protobuf:protoc - Build libprotoc and protoc compiler
 dev-libs/qcoro:network - Build dev-qt/qtbase network support
 dev-libs/qcoro:qml - Enable QML/QtQuick support via dev-qt/qtdeclarative
 dev-libs/qcoro:websockets - Build dev-qt/qtwebsockets support
@@ -2363,11 +2370,6 @@ dev-perl/Text-CSV:xs - Install dev-perl/Text-CSV_XS for accelerated decoding
 dev-perl/WWW-Form-UrlEncoded:xs - Install C-Based dependieces for faster performance
 dev-perl/perl-headers:debug - Add source locations in generated .ph files to assist with debugging when errors occur
 dev-perl/perl-headers:sizeof-warning - Include logic to warn when a .ph file tries to use a sizeof() that is unknown
-dev-php/PEAR-HTTP_Request2:curl - Force dev-lang/php to be compiled with curl extension
-dev-php/PEAR-HTTP_Request2:fileinfo - Force dev-lang/php to be compiled with fileinfo extension
-dev-php/PEAR-HTTP_Request2:ssl - Force dev-lang/php to be compiled with ssl extension
-dev-php/PEAR-HTTP_Request2:zlib - Force dev-lang/php to be compiled with zlib extension
-dev-php/PEAR-PHP_Beautifier:cli - Require dev-lang/php to be built with the "cli" SAPI and install the php_beautifier script.
 dev-php/maxmind-db-reader:extension - Build the C extension that uses dev-libs/libmaxminddb
 dev-php/pecl-apcu:lock-pthreadmutex - Enable pthread mutex locking
 dev-php/pecl-apcu:lock-pthreadrw - Enable pthread read/write locking
@@ -2485,6 +2487,7 @@ dev-python/mkdocs-material:social - Install the dependencies of the "social" plu
 dev-python/msgpack:native-extensions - Compiles native "C" extensions (speedups, instead of using python fallback code).
 dev-python/multidict:native-extensions - Compile native C extensions (speedups, instead of using Python fallback code).
 dev-python/mypy:native-extensions - Compiles native C extensions (speedups, instead of using Python fallback code).
+dev-python/netcdf4:blosc - Allow using blosc compression via dev-libs/c-blosc
 dev-python/pandas:full-support - Pull all packages to give pandas full support
 dev-python/paramiko:server - Enable server feature
 dev-python/peewee:native-extensions - Compiles native C extension for more complete SQLite3 support.
@@ -4380,9 +4383,6 @@ media-libs/libva-intel-driver:hybrid - Enable support for hybrid vaapi hardware 
 media-libs/libva-intel-media-driver:redistributable - Install redistributable media kernel binaries (no source code) files (primarily needed for video encoding support)
 media-libs/libvisio:tools - Build conversion tools
 media-libs/libvmaf:embed-models - Compile default vmaf models into the library (needs app-editors/vim-core)
-media-libs/libvpl:drm - Build with DRM support
-media-libs/libvpl:experimental - Build dispatcher with experimental APIs
-media-libs/libvpl:tools - Build decode/encode/analyse/inspect tools
 media-libs/libvpl-tools:drm - Build with DRM support
 media-libs/libvpx:highbitdepth - Enable 10 and 12 bit support for VP9.
 media-libs/libvpx:postproc - Enable additional post processing filters
@@ -4421,7 +4421,6 @@ media-libs/noise-suppression-for-voice:vst3 - Enable the VST3 plugin
 media-libs/oidn:apps - Build the standalone denoise, self test, and benchmark binaries.
 media-libs/oidn:hip - Build OIDN with AMD HIP support.
 media-libs/oidn:openimageio - Enable OpenImageIO Support
-media-libs/oneVPL-cpu:experimental - Enable experimental API
 media-libs/oneVPL-cpu:openh264 - Use media-libs/openh264 instead of media-libs/x264
 media-libs/openal:pipewire - Enable support for the media-video/pipewire audio backend
 media-libs/openal:sndio - Enable support for the media-sound/sndio backend
@@ -4731,8 +4730,6 @@ media-sound/gimmix:lyrics - Enable lyric fetching
 media-sound/guitarix:lv2 - Build lv2 plugins
 media-sound/guitarix:nsm - Build NSM (Non Session Manager) support
 media-sound/guitarix:standalone - Build standalone application
-media-sound/herrie:http - Enable http streaming
-media-sound/herrie:xspf - Enable support for reading and saving XSPF playlists
 media-sound/hydrogen:archive - Use libarchive instead of libtar
 media-sound/hydrogen:portmidi - Add portmidi support
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
@@ -4829,6 +4826,7 @@ media-sound/ncspot:cover - Support displaying the album cover
 media-sound/ncspot:mpris - Allow ncspot to be controlled via MPRIS API
 media-sound/ncspot:ncurses - Use cursive/ncurses-backend instead of crossterm or pancurses
 media-sound/ncspot:notify - Show what's playing via a notification
+media-sound/owntone:chromecast - build and install Chromecast support
 media-sound/patchage:jack-dbus - Use Jack via D-Bus instead of libjack
 media-sound/picard:discid - Enable reading the ID of the inserted CD
 media-sound/picard:fingerprints - Enable calculation and lookup of AcoustID fingerprints
@@ -5073,7 +5071,10 @@ media-video/ffmpeg:lcms - Enable ICC profile support via media-libs/lcms.
 media-video/ffmpeg:libaom - Enables media-libs/libaom based AV1 codec support.
 media-video/ffmpeg:libaribb24 - Enables ARIB text and caption decoding via media-libs/aribb24.
 media-video/ffmpeg:libdrm - Enables x11-libs/libdrm support for better screen grabbing and hardware accelerated codecs.
+media-video/ffmpeg:libdvdnav - Uses media-libs/libdvdnav to enable DVD demuxing
+media-video/ffmpeg:libdvdread - Uses media-libs/libdvdread to enable DVD demuxing
 media-video/ffmpeg:libilbc - Enables iLBC de/encoding via media-libs/libilbc.
+media-video/ffmpeg:liblc3 - Enables LC3 de/encoding via media-sound/liblc3.
 media-video/ffmpeg:libplacebo - Adds flexible GPU-accelerated processing filter based on media-libs/libplacebo.
 media-video/ffmpeg:librtmp - Enables Real Time Messaging Protocol using librtmp (media-video/rtmpdump) in addition to FFmpeg's native implementation.
 media-video/ffmpeg:libsoxr - Enables audio resampling through media-libs/soxr.
@@ -5090,7 +5091,9 @@ media-video/ffmpeg:openh264 - Enables H.264 encoding suppoprt via media-libs/ope
 media-video/ffmpeg:openssl - Enables dev-libs/openssl support. Adds support for encrypted network protocols (TLS/HTTPS).
 media-video/ffmpeg:pic - Force shared libraries to be built as PIC (this is slower)
 media-video/ffmpeg:postproc - Build and install libpostproc.
+media-video/ffmpeg:qrcode - Enables QR encode generation via media-gfx/qrencode
 media-video/ffmpeg:qsv - Enable Intel Quick Sync Video via media-libs/intel-mediasdk (ffmpeg versions older than, and including, 5.1) or media-libs/libvpl (ffmpeg version newer than 5.1).
+media-video/ffmpeg:quirc - Enables QR decoding via media-libs/quirc
 media-video/ffmpeg:rav1e - Enables AV1 encoding support via media-video/rav1e.
 media-video/ffmpeg:rubberband - Adds time-stretching and pitch-shifting audio filter based on media-libs/rubberband.
 media-video/ffmpeg:shaderc - Use media-libs/shaderc to compile GLSL
@@ -5326,14 +5329,6 @@ net-analyzer/barnyard2:sguil - Enable sguil (The Analyst Console for Network Sec
 net-analyzer/bwm-ng:csv - Enable csv output
 net-analyzer/bwm-ng:html - Enable html output
 net-analyzer/cacti:doc - install html documentation
-net-analyzer/check_mk_agent:apache_status - Install check_mk-agent apache-status plugin.
-net-analyzer/check_mk_agent:inventory - Install check_mk-agent linux inventory plugin.
-net-analyzer/check_mk_agent:logwatch - Install check_mk-agent logwatch plugin.
-net-analyzer/check_mk_agent:mysql - Install check_mk-agent mysql plugin.
-net-analyzer/check_mk_agent:nfsexports - Install check_mk-agent nfsexports plugin.
-net-analyzer/check_mk_agent:postgres - Install check_mk-agent postgres plugin.
-net-analyzer/check_mk_agent:smart - Install check_mk-agent S.M.A.R.T plugin.
-net-analyzer/check_mk_agent:zypper - Install check_mk-agent zypper plugin.
 net-analyzer/echoping:http - enable support for http protocol.
 net-analyzer/echoping:icp - enable support for ICP (used to monitor proxies).
 net-analyzer/echoping:priority - enable socket priority support.
@@ -5914,6 +5909,7 @@ net-im/spectrum2:twitter - Enables the Twitter backend.
 net-im/spectrum2:whatsapp - Enables the WhatsApp backend, based on net-im/transwhat.
 net-im/telegram-desktop:enchant - Use the app-text/enchant spell-checking backend instead of app-text/hunspell
 net-im/telegram-desktop:fonts - Use builtin patched copy of open-sans fonts (overrides fontconfig)
+net-im/telegram-desktop:libdispatch - Use dev-libs/libdispatch to speed up concurrent code execution
 net-im/telegram-desktop:qt6 - Build with Qt6 support
 net-im/telegram-desktop:qt6-imageformats - Add support for HEIF, AVIF and JpegXL by bundling kde-frameworks/kimageformats
 net-im/tkabber:plugins - Enables installation the extra plugins
@@ -6107,6 +6103,7 @@ net-libs/libwebsockets:client - The client part of the library and libwebsockets
 net-libs/libwebsockets:extensions - Compile with extensions (permessage-deflate)
 net-libs/libwebsockets:generic-sessions - With the Generic Sessions plugin
 net-libs/libwebsockets:http-proxy - Support for rewriting HTTP proxying
+net-libs/libwebsockets:ipv6 - Compile without support for ipv6
 net-libs/libwebsockets:lejp - With the Lightweight JSON Parser
 net-libs/libwebsockets:libev - Support event loops via dev-libs/libev
 net-libs/libwebsockets:libevent - Support event loops via dev-libs/libevent
@@ -6281,48 +6278,6 @@ net-misc/asterisk-moh-opsound:siren7 - Install the sounds files for the siren7 c
 net-misc/asterisk-moh-opsound:sln16 - Install the sounds files for the sln16 codec.
 net-misc/asterisk-moh-opsound:ulaw - Install the sounds files for the ulaw codec.
 net-misc/asterisk-moh-opsound:wav - Install the sounds files for the wav codec.
-net-misc/bfgminer:adl - Enable support for controlling fans and overclocking on AMD cards with AMD Display Library
-net-misc/bfgminer:alchemist - Enable support for mining with AlcheMist
-net-misc/bfgminer:avalon - Enable support for mining with Avalon 1 ASIC modules
-net-misc/bfgminer:avalonmm - Enable support for mining with Avalon 2/3 ASIC modules
-net-misc/bfgminer:bfsb - Enable support for mining on BFSB host Raspberry Pi
-net-misc/bfgminer:bfx - Enable support for mining with BFx2 USB sticks
-net-misc/bfgminer:bifury - Enable support for mining with Bi*fury USB sticks
-net-misc/bfgminer:bigpic - Enable support for mining with Big Picture Mining USB sticks (Red/BlueFury, BF1, etc)
-net-misc/bfgminer:bitforce - Enable support for mining with ButterFly Labs BitFORCE ASICs and/or FPGAs
-net-misc/bfgminer:bitfury - Enable support for mining with 55nm Bitfury-based devices
-net-misc/bfgminer:bitmain - Enable support for mining with Bitmain Antminer S* series
-net-misc/bfgminer:cointerra - Enable support for mining with CoinTerra TerraMiner.
-net-misc/bfgminer:cpumining - Enable support for mining with CPUs
-net-misc/bfgminer:drillbit - Enable support for mining with Drillbit boards
-net-misc/bfgminer:dualminer - Enable support for mining with DualMiner USB sticks
-net-misc/bfgminer:gridseed - Enable support for mining with 5-chip GridSeed orbs
-net-misc/bfgminer:hashbuster - Enable support for mining with HashBuster nano boards
-net-misc/bfgminer:hashbuster2 - Enable support for mining with HashBuster micro boards
-net-misc/bfgminer:hashfast - Enable support for mining with HashFast devices
-net-misc/bfgminer:icarus - Enable support for mining with Icarus-compatible devices (including Block Erupter Sapphire ASICs)
-net-misc/bfgminer:jingtian - Enable support for mining on JingTian boards via SPI/GPIO
-net-misc/bfgminer:keccak - Enable support for mining with Keccak miners
-net-misc/bfgminer:klondike - Enable support for mining with Klondike USB miners
-net-misc/bfgminer:libusb - Use libusb
-net-misc/bfgminer:littlefury - Enable support for mining with LittleFury USB sticks
-net-misc/bfgminer:metabank - Enable support for mining on Metabank host Raspberry Pi
-net-misc/bfgminer:minion - Enable support for mining on minion chips via SPI (BlackArrow Prospero)
-net-misc/bfgminer:modminer - Enable support for mining with ModMiner FPGAs
-net-misc/bfgminer:nanofury - Enable support for mining with NanoFury USB sticks
-net-misc/bfgminer:opencl - Enable support for mining with OpenCL-capable devices (GPUs)
-net-misc/bfgminer:proxy - Enable support for virtual proxy device
-net-misc/bfgminer:proxy_getwork - Enable proxy support for getwork protocol (often used with Block Erupter Blades)
-net-misc/bfgminer:proxy_stratum - Enable proxy support for stratum protocol
-net-misc/bfgminer:rockminer - Enable support for mining with RockMiner devices
-net-misc/bfgminer:screen - Provide start-bfgminer.sh script to launch BFGMiner in app-misc/screen
-net-misc/bfgminer:scrypt - Enable support for scrypt mining algorithm
-net-misc/bfgminer:sha256d - Enable support for SHA256d mining algorithm
-net-misc/bfgminer:twinfury - Enable support for mining with Twinfury USB sticks
-net-misc/bfgminer:udev-broad-rules - Enable broader udev rules that may match non-mining devices
-net-misc/bfgminer:x6500 - Enable support for mining with X6500 FPGAs
-net-misc/bfgminer:zeusminer - Enable support for mining with ZeusMiner units
-net-misc/bfgminer:ztex - Enable support for mining with Ztex FPGAs
 net-misc/bird:client - Build the ncurses/readline full featured CLI
 net-misc/bird:libssh - Enables net-libs/libssh binding, mendatory for RPKI support
 net-misc/casync:fuse - Enable fuse support
@@ -7207,8 +7162,6 @@ sci-chemistry/vmd:tachyon - Add support for tachyon raytracer for HQ images
 sci-chemistry/votca:gromacs - Add support for gromacs file formats through sci-chemistry/gromacs
 sci-electronics/gerbv:unit-mm - Set default unit for coordinates in status bar to mm
 sci-electronics/ghdl:llvm - Build LLVM code generator
-sci-electronics/gspiceui:schematics - Use sci-electronics/geda for schematics editing
-sci-electronics/gspiceui:waveform - Use sci-electronics/gwave for waveform display
 sci-electronics/gtkwave:fasttree - Enables experimental Fast SST Tree widget code.
 sci-electronics/gtkwave:fatlines - Renders lines as double width in gtkwave.
 sci-electronics/gtkwave:judy - Enables Judy array support.
@@ -7267,6 +7220,7 @@ sci-geosciences/qgis:pdal - Enable support for PDAL for point clouds via sci-lib
 sci-geosciences/qgis:polar - Enable support for the polar coordinate system via x11-libs/qwtpolar
 sci-geosciences/qgis:qml - Enable support Qml-based plugins using dev-qt/qtdeclarative
 sci-geosciences/qgis:serial - Enable support for serial GPS using dev-qt/qtserialport
+sci-geosciences/qgis:webengine - Enable webengine support using dev-qt/qtwebengine
 sci-geosciences/viking:geoclue - Use app-misc/geoclue to determine current location
 sci-geosciences/viking:libexif - Use media-libs/libexif for EXIF support
 sci-geosciences/viking:oauth - Enable OAuth authentication for OSM
@@ -7443,8 +7397,6 @@ sci-libs/netcdf:blosc - Allow using blosc compression via dev-libs/c-blosc
 sci-libs/netcdf:dap - Support for remote data access with the built-in OPeNDAP client
 sci-libs/netcdf:hdf - Build with HDF4 read capability(sci-libs/hdf, sci-libs/hdf5 and sys-libs/zlib required).
 sci-libs/nlopt:octave - Add plugin for sci-mathematics/octave
-sci-libs/o2scl:armadillo - Build matrix manipulation with sci-libs/armadillo
-sci-libs/o2scl:eigen - Build matrix manipulation with dev-cpp/eigen
 sci-libs/octomap:dynamicEDT3D - Build and install dynamicEDT3D library: A library for incrementally updatable Euclidean distance transforms in 3D.
 sci-libs/onnx:disableStaticReg - Disable Static Registration
 sci-libs/openblas:dynamic - Build dynamic architecture detection at run time (for multi targets)
@@ -9035,7 +8987,6 @@ x11-themes/tela-icon-theme:dracula - Install dracula folder version
 x11-themes/tela-icon-theme:green - Install green folder version
 x11-themes/tela-icon-theme:grey - Install grey folder version
 x11-themes/tela-icon-theme:hardlink - Hardlink duplicate icons to greatly reduce installation size
-x11-themes/tela-icon-theme:kde - Install dynamic color version for KDE plasma (folder color follows the colorscheme)
 x11-themes/tela-icon-theme:manjaro - Install manjaro folder version
 x11-themes/tela-icon-theme:nord - Install nord folder version
 x11-themes/tela-icon-theme:orange - Install orange folder version
