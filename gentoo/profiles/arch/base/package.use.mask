@@ -1,6 +1,17 @@
 # Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+# matoro <matoro_gentoo@matoro.tk> (2024-07-14)
+# Abandoned upstream, does not take bug reports, unsupported in Gentoo.
+# Only remaining use is as a requirement for dev-lang/go on arm{,64}.
+# See #934149, #934151, #936022, #936021
+sys-devel/binutils default-gold gold
+sys-devel/binutils-hppa64 default-gold gold
+
+# Zen <dev@pyl.onl> (2024-07-01)
+# UGRD is not keyworded everywhere yet
+sys-kernel/installkernel ugrd
+
 # Andreas Sturmlechner <asturm@gentoo.org> (2024-06-23)
 # Pulls in kde-apps/kgpg which requires kde-apps/akonadi, which is as
 # part of the KDE PIM stack (big, requiring QtWebengine) only keyworded
@@ -286,7 +297,7 @@ app-emulation/aranym jit
 
 # Craig Andrews <candrews@gentoo.org> (2019-10-08)
 # net-libs/nghttp3 net-libs/ngtcp2[ssl] are not available on all arches
-net-misc/curl nghttp3
+net-misc/curl nghttp3 http3 quic
 
 # Luke Dashjr <luke-jr+gentoobugs@utopios.org> (2019-09-21)
 # Moved from arch/powerpc/ppc64 as it applies to most architectures.
