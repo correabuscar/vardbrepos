@@ -254,7 +254,8 @@ app-arch/libdeflate:gzip - Support the gzip format
 app-arch/libdeflate:test - Build the test programs (requires sys-libs/zlib)
 app-arch/libdeflate:utils - Build the libdeflate-gzip program
 app-arch/libdeflate:zlib - Support the zlib format
-app-arch/lrzip-next:year2038 - Enables support for timestamps after the year 2038
+app-arch/lrzip-next:largefile - Enables support for large files
+app-arch/lrzip-next:year2038 - Enables support for 64-bit 'time_t' (sets D_TIME_BITS=64; glibc only)
 app-arch/p7zip:natspec - Use dev-libs/libnatspec to correctly decode non-ascii file names archived in Windows.
 app-arch/p7zip:rar - Enable support for non-free rar decoder
 app-arch/rar:all-sfx - Install all SFX (Self-Extracting) files rather than just the native format (allows creation of Windows EXEs on Linux ELF systems)
@@ -876,7 +877,6 @@ app-misc/ebusd:mqtt - Enable support for connecting to MQTT.
 app-misc/fastfetch:chafa - Enables text/graphics renderer with media-gfx/chafa
 app-misc/fastfetch:ddcutil - Use app-misc/ddcutil to query monitor settings
 app-misc/fastfetch:drm - Enables support for X.org's x11-libs/libdrm
-app-misc/fastfetch:nvidia-gpu - Enables extra support for NVIDIA GPU
 app-misc/fastfetch:osmesa - Enables offscreen rendering support from media-libs/mesa
 app-misc/fastfetch:vulkan - Enables reading GPU via media-libs/vulkan-loader
 app-misc/fastfetch:xfce - Enables support for XFCE config
@@ -2236,6 +2236,8 @@ dev-libs/qhotkey:qt6 - Use Qt6 dependencies
 dev-libs/quazip:qt5 - Build with Qt5 support
 dev-libs/quazip:qt6 - Build with Qt6 support
 dev-libs/raft:zfs - ZFS support
+dev-libs/re2:benchmark - Build a benchmark binary, install it as re2-bench
+dev-libs/re2:test-full - Run additional, quite slow tests
 dev-libs/rocksdb:numa - Enable NUMA support
 dev-libs/rocksdb:tbb - Enable support for dev-cpp/tbb
 dev-libs/sentry-native:breakpad - Use dev-util/breakpad as the crash handler
@@ -2928,7 +2930,7 @@ dev-util/hip:video_cards_amdgpu - Build for AMD platform
 dev-util/hip:video_cards_nvidia - Build for Nvidia platform
 dev-util/intel-graphics-compiler:vc - Enable VectorCompiler for a better performance.
 dev-util/intel-graphics-system-controller:cli - Build CLI tools for flashing manually a firmware upgrade.
-dev-util/kcov:binutils - Use sys-libs/binutils-libs for --verify support
+dev-util/kcov:binutils - Use sys-libs/binutils-libs for `--verify` support
 dev-util/kdevelop:gdbui - Enable GUI for attaching GDB to a running process
 dev-util/kdevelop:hex - Enable hex editor plugin via app-editors/okteta
 dev-util/kdevelop:qmake - Enable support for QMake build system
@@ -3411,6 +3413,7 @@ gnome-base/nautilus:gstreamer - Enable the Audio/Video file properties page
 gnome-base/nautilus:previewer - Use gnome-extra/sushi to preview files from the file mananger
 gnome-base/nautilus:sendto - Enable the nautilus-sendto extension to send files to various locations/devices
 gnome-extra/cinnamon:desktop-portal - Enable sys-apps/xdg-desktop-portal backend implementation for Cinnamon
+gnome-extra/cinnamon:internal-polkit - Use Cinnamon's internal polkit agent instead of gnome-extra/polkit-gnome. This does not currently support multi-user fast switching.
 gnome-extra/cinnamon-control-center:gnome-online-accounts - Enable configuration panel for net-libs/gnome-online-accounts accounts
 gnome-extra/cinnamon-control-center:modemmanager - Enable support for mobile broadband devices using net-misc/modemmanager
 gnome-extra/cjs:sysprof - Enable profiling data capture support using dev-util/sysprof-capture
@@ -4081,6 +4084,7 @@ media-gfx/digikam:imagemagick - Enable support for additional image formats such
 media-gfx/digikam:lensfun - Enable support for media-libs/lensfun
 media-gfx/digikam:panorama - Build the panorama plugin which requires media-gfx/hugin
 media-gfx/digikam:semantic-desktop - Enable kde-frameworks/kfilemetadata support
+media-gfx/digikam:video - Enable integrated video player
 media-gfx/eog-plugins:map - Enable world map display using media-libs/libchamplain
 media-gfx/eom:imagemagick - Use media-gfx/imagemagick as an external backend for the thumbnailer
 media-gfx/exact-image:swig - Adds Swig support dev-lang/swig
@@ -4461,6 +4465,9 @@ media-libs/opensubdiv:python - Use dev-lang/python to process source and documen
 media-libs/opensubdiv:tbb - Enable multithreading with the Intel Threads Building Blocks through dev-cpp/tbb
 media-libs/opensubdiv:tutorials - Install the tutorials
 media-libs/opus:custom-modes - Enable non-Opus modes, e.g. 44.1 kHz and 2^n frames
+media-libs/opus:deep-plc - Enable Deep Packet Loss Concealment (PLC)
+media-libs/opus:dred - Enable Deep REDundancy (DRED)
+media-libs/opus:osce - Enable Opus Speech Coding Enhancement (OSCE)
 media-libs/opusfile:fixed-point - Enable fixed-point arithmetic operations
 media-libs/opusfile:float - Enable floating point arithmetic operations
 media-libs/opusfile:http - Enable http connections
@@ -4604,7 +4611,10 @@ media-radio/ax25-tools:X - Enable some X based configuration tools.
 media-radio/chirp:radioreference - pull in optional deps for query of radioreference
 media-radio/direwolf:hamlib - Enables support by the Hamlib amateur radio rig control library
 media-radio/fldigi:hamlib - Enables support by the Hamlib amateur radio rig control library to get/set frequency and mode of the ham radio in use
+media-radio/svxlink:qt5 - Build and install qtel application
+media-radio/svxlink:rtlsdr - Add support for rtlsdr hardware
 media-radio/tucnak:hamlib - Enables support by the Hamlib amateur radio rig control library to get/set frequency and mode of the ham radio
+media-radio/tucnak:rtlsdr - Add support for rtlsdr hardware
 media-radio/unixcw:ncurses - Enables building the curses based morse code tutor program 'cwcp'.
 media-radio/xastir:geotiff - Install geotiff support. Allows using USGS DRG topo maps or other types of geotiff mapes/images
 media-sound/abcde:aiff - Enable support for Audio Interchange File Format (AIFF) output encoding
@@ -4789,7 +4799,6 @@ media-sound/mpd:wildmidi - Enable MIDI support via wildmidi
 media-sound/mpfc:wav - Enable wav audio codec support
 media-sound/mpg123:int-quality - Use rounding instead of fast truncation for integer output, where possible
 media-sound/mpg123-base:int-quality - Use rounding instead of fast truncation for integer output, where possible
-media-sound/musescore:jumbo-build - Combine source files to speed up build process, requires more memory
 media-sound/musescore:omr - Enable PDF import (OMR - optical music recognition)
 media-sound/musescore:osc - Enable OSC remote control protocol
 media-sound/musescore:portmidi - Enable support for building against media-libs/portmidi
@@ -5664,10 +5673,9 @@ net-dns/nsd:packed - Enable packed structure alignment; uses less memory but has
 net-dns/nsd:radix-tree - Use a radix tree for main lookups instead of a red-black tree
 net-dns/nsd:ratelimit - Enables ratelimiting, based on query name, type and source
 net-dns/nsd:recvmmsg - Enable recvmmsg and sendmmsg compilation, faster but some kernel versions may have implementation problems for IPv6
-net-dns/nsd:root-server - Configure NSD as a root server (OBSOLETE: removed in >=4.9.x)
 net-dns/nsd:simdzone - Leverage SIMD instructions in modern CPUs to improve throughput
 net-dns/nsd:tfo - Enable TCP Fast Open
-net-dns/nsd:year2038 - Support timestamps after 2038 (glibc only!)
+net-dns/nsd:year2038 - Enables support for 64-bit 'time_t' (sets D_TIME_BITS=64; glibc only)
 net-dns/opendnssec:external-hsm - Enables support for storing DNSSEC keys through an arbitrary non-portage PKCS#11 interface, specified through an environment variable
 net-dns/opendnssec:opensc - Enables support for storing DNSSEC keys through a dev-libs/opensc PKCS#11 interface
 net-dns/opendnssec:signer - Enables signing capabilities for OpenDNSSEC
@@ -5905,6 +5913,7 @@ net-im/tkabber:plugins - Enables installation the extra plugins
 net-im/tokodon:mpv - Use media-libs/mpvqt instead of dev-qt/qtmultimedia for video playback (default)
 net-im/tokodon:webengine - Use dev-qt/qtwebengine for built-in authentication page (default is external browser)
 net-im/toxic:audio-notify - Enables native sound notifications
+net-im/toxic:experimental - Use experimental features in net-libs/tox
 net-im/toxic:games - Enables some small mini-games
 net-im/toxic:llvm - Enables support for LLVM Address Sanitizer
 net-im/toxic:notification - Enables desktop notifications with libnotify, with sound support.
@@ -5930,6 +5939,7 @@ net-irc/hexchat:theme-manager - Build the theme manager (mono)
 net-irc/inspircd:argon2 - Enable Argon2 hashes in modules
 net-irc/inspircd:gnutls - Enable TLS support
 net-irc/inspircd:ldap - Enable LDAP support
+net-irc/inspircd:log-json - Enable logging via JSON
 net-irc/inspircd:maxminddb - Add support for geolocation using libMaxMindDB
 net-irc/inspircd:mbedtls - Add support for TLS using the mbedTLS library
 net-irc/inspircd:mysql - Enable MySQL database backend
@@ -6147,6 +6157,7 @@ net-libs/shairplay:playfair - Add support for handling fairplay handshake (used 
 net-libs/tox:av - Adds support for audio and video.
 net-libs/tox:daemon - Enable the DHT Bootstrap Daemon.
 net-libs/tox:dht-node - Enables DHT Bootstrap Node.
+net-libs/tox:experimental - Enables the experimental api
 net-libs/tox:key-utils - Builds utilities to create custom keys and profiles
 net-libs/tox:log-debug - Log level: 4
 net-libs/tox:log-error - Log level: 1
@@ -7077,7 +7088,6 @@ net-wireless/wpa_supplicant:wep - Add support for Wired Equivalent Privacy (depr
 net-wireless/wpa_supplicant:wimax - Add support for Wimax EAP-PEER authentication algorithm
 net-wireless/wpa_supplicant:wps - Add support for Wi-Fi Protected Setup
 sci-astronomy/cpl:gasgano - Enable support for sci-astronomy/gasgano file organizer
-sci-astronomy/esomidas:libtirpc - Build against net-libs/libtirpc for RPC support
 sci-astronomy/kstars:password - Store passwords securely via dev-libs/qtkeychain
 sci-astronomy/kstars:wcs - Enable support for World Coordinate System library using wcslib
 sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
@@ -7527,7 +7537,6 @@ sci-mathematics/giac:glpk - Enable the use of sci-mathematics/glpk
 sci-mathematics/gmp-ecm:custom-tune - Improve performance of some operations by selecting machine-specific defaults
 sci-mathematics/gretl:R - Enable support for dev-lang/R
 sci-mathematics/gretl:extras - Build and install add-ons bundled with gretl
-sci-mathematics/gsl-shell:fox - Build a x11-libs/fox GUI
 sci-mathematics/lcalc:double - Use double precision (the upstream default)
 sci-mathematics/lcalc:double-double - Use sci-libs/qdfor double-double precision
 sci-mathematics/lcalc:pari - Use sci-mathematics/pari for elliptic curve L-functions
@@ -7673,10 +7682,15 @@ sci-physics/vgm:geant4 - Enable interaction with Geant4(sci-physics/geant:4)
 sci-physics/vgm:root - Enable interaction with ROOT (sci-physics/root)
 sci-physics/yoda:root - Adds support for sci-physics/root
 sci-visualization/fityk:nlopt - Enable optimization with sci-libs/nlopt
+sci-visualization/gnuplot:amos - Enable Amos routines for complex Airy and Bessel functions (dev-libs/openspecfun)
 sci-visualization/gnuplot:bitmap - Enable dot-matrix printers and pbm terminal
 sci-visualization/gnuplot:gd - Add support for media-libs/gd. Needed for GIF, JPEG, and PNG image output.
+sci-visualization/gnuplot:gpic - Include support for gpic terminal
 sci-visualization/gnuplot:libcerf - Enable special functions from sci-libs/libcerf
-sci-visualization/gnuplot:regis - Enable ReGIS terminal
+sci-visualization/gnuplot:metafont - Include support for metafont terminal
+sci-visualization/gnuplot:metapost - Include support for metapost terminal
+sci-visualization/gnuplot:regis - Include support for ReGIS terminal
+sci-visualization/gnuplot:tgif - Include support for tgif terminal
 sci-visualization/gr:agg - Enable the libagg anti-grain rendering engine
 sci-visualization/gwyddion:fits - Enable FITS image import via sci-libs/cfitsio
 sci-visualization/gwyddion:jansson - Enable JSON data manipulation via dev-libs/jansson
@@ -7865,6 +7879,7 @@ sys-apps/net-tools:hostname - build the hostname and dnsdomainname tools
 sys-apps/net-tools:plipconfig - build the plipconfig tool (for working with old PLIP hardware)
 sys-apps/net-tools:slattach - build the slattach tool (for working with old serial ports)
 sys-apps/nvme-cli:json - Support JSON output via dev-libs/json-c
+sys-apps/nvme-cli:pdc - Set default Persistent Discovery Controllers behavior
 sys-apps/openrazer:client - Build the OpenRazer daemon client
 sys-apps/openrazer:daemon - Build the OpenRazer daemon service
 sys-apps/openrc:bash - enable the use of bash in service scripts (experimental)
@@ -8597,8 +8612,6 @@ www-client/chromium:ffmpeg-chromium - (binpkg only) Use Chromium FFmpeg fork (me
 www-client/chromium:gtk4 - Build with GTK4 headers.
 www-client/chromium:hangouts - Enable support for Google Hangouts features such as screen sharing
 www-client/chromium:headless - Build Ozone only with headless backend, NOT RECOMMENDED for general use.
-www-client/chromium:libcxx - Use bundled libc++ instead of libstdc++ for building.
-www-client/chromium:lto - Build with Link Time Optimizations (via clang's ThinLTO)
 www-client/chromium:official - Enable Official build instead of Developer build.
 www-client/chromium:pax-kernel - Allow building on a PaX-enabled kernel
 www-client/chromium:pgo - Build with Profile Guided Optimizations (2-stage compilation)
